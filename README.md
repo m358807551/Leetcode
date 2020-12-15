@@ -33,3 +33,22 @@ class Solution(object):
         return rst
 ```
 
+#### [136. 只出现一次的数字](https://leetcode-cn.com/problems/single-number/)
+
+##### 解法
+
+```
+数组中所有数字做异或操作，最终得到一个数就是答案
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def singleNumber(self, nums):
+        rst = 0
+        for num in nums:
+            rst ^= num
+        return rst
+```
+
