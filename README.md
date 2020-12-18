@@ -208,3 +208,99 @@ class Solution(object):
         return False
 ```
 
+#### [140. 单词拆分 II](https://leetcode-cn.com/problems/word-break-ii/)
+
+##### 解法
+
+```
+用普通的回溯法，再结合题目139的单词拆分先判断true和false就行了。
+```
+
+##### 代码
+
+```python
+from functools import lru_cache
+
+
+class Solution(object):
+    def wordBreak(self, s, wordDict):
+        self.words = wordDict
+        self.rst = []
+        self.backtrace(s, [])
+        return self.rst
+
+    def backtrace(self, s, trace):
+        if not s:
+            self.rst.append(" ".join(trace))
+            return
+        for word in self.words:
+            if s.startswith(word) and self.is_valid(s[len(word):]):
+                trace.append(word)
+                self.backtrace(s[len(word):], trace)
+                trace.pop(-1)
+
+    @lru_cache(None)
+    def is_valid(self, s):
+        if not s:
+            return True
+        for word in self.words:
+            if s.startswith(word):
+                if self.is_valid(s[len(word):]):
+                    return True
+        return False
+```
+
+##### [141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
+
+##### 解法
+
+```
+用两个指针指向链表开头
+然后不断循环：一个指针向后走一步，另一个指针向后走两步
+如果：
+	走的快的指针走到了链表结尾: 那就是没有环
+	快慢指针相遇: 那就是有环
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def hasCycle(self, head):
+        fast = slow = head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            if fast is slow:
+                return True
+        return False
+```
+
+#### [142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
+
+##### 解法
+
+```
+快慢指针相遇后，新建一个指针指向链表头。
+然后循环：新指针向后走一步，慢指针向后走一步
+新指针和慢指针相遇的点，就是环的入口。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def detectCycle(self, head):
+        fast = slow = head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+            if fast is slow:
+                p = head
+                while p is not slow:
+                    p = p.next
+                    slow = slow.next
+                return p
+        return None
+```
+
