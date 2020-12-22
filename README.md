@@ -304,3 +304,98 @@ class Solution(object):
         return None
 ```
 
+#### [143. 重排链表](https://leetcode-cn.com/problems/reorder-list/)
+
+##### 解法
+
+```
+1. 把链表一分为二，第一段从开头到中间，第二段从中间到结尾，要保证第一段的长度>=第二段的长度。
+2. 把第二段链表逆置。
+3. 把两段链表交替连接起来。
+```
+
+##### 细节
+
+```
+快慢指针找链表的中点，作为第二段链表的开头head2。
+递归逆置链表是之前必须要掌握（背过）的。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def reorderList(self, head):
+        if not head:
+            return
+        # 寻找第二段链表头
+        fast = slow = head
+        while fast.next and fast.next.next:
+            fast = fast.next.next
+            slow = slow.next
+        head2 = slow.next
+        slow.next = None
+
+        # 第二段链表逆置
+        head2 = self.reverse(head2)
+
+        # 合并
+        self.combine(head, head2)
+
+    def reverse(self, head):
+        if (not head) or (not head.next):
+            return head
+        rst = self.reverse(head.next)
+        head.next.next = head
+        head.next = None
+        return rst
+
+    def combine(self, head1, head2):
+        if not head2:
+            return head1
+
+        t = self.combine(head1.next, head2.next)
+        head1.next = head2
+        head2.next = t
+        return head1
+```
+
+#### [144. 二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
+
+##### 解法
+
+```
+用栈做辅助。
+检查栈顶元素，是数字就`输出`，是节点就按一定顺序把该节点的左右孩子和节点值入栈。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def preorderTraversal(self, root):
+        rst = []
+        stack = [root]
+        while stack:
+            cur = stack.pop(-1)
+            if isinstance(cur, TreeNode):
+                stack.extend([cur.right, cur.left, cur.val])
+            elif isinstance(cur, int):
+                rst.append(cur)
+        return rst
+```
+
+##### 推广
+
+```
+改变代码 中 [cur.right, cur.left, cur.val] 的顺序，可以实现中序和后续遍历。
+
+本题前序是: [cur.right, cur.left, cur.val]  
+中序是:     [cur.right, cur.val, cur.left]
+后序是:     [cur.val, cur.right, cur.left]
+
+其实这个顺序就是 x序的逆序。
+如中序本来是 左根右 ->(逆序一下)-> 右根左 -> [cur.right, cur.val, cur.left]
+前序和后续同理。
+```
+
