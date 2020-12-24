@@ -16,7 +16,8 @@
 
 假如你随机选一点 start 出发，那么你肯定会选一个有好人的站点开始，因为开始的时候你没有钱，遇到坏人只能被砍死；
 
-现在你在start出发，走到了某个站点end，被end站点的坏人砍死了，说明你在 [start, end) 存的钱不够付 end点坏人的过路费，
+现在你在start出发，走到了某个站点end，被end站点的坏人砍死了，
+说明你在 [start, end) 存的钱不够付 end点坏人的过路费，
 又因为start站点是个好人，所以在 (start, end) 里任何一点出发，你存的钱会比现在还少，还是会被end站点的坏人砍死；
 
 于是你重新读档，聪明的选择从 end+1点出发，继续你悲壮的征程；
@@ -435,5 +436,80 @@ class Solution(object):
 其实这个顺序就是 x序的[逆]序。
 如中序本来是 左根右 ->(逆序一下)-> 右根左 -> [cur.right, cur.val, cur.left]
 前序和后续同理。
+```
+
+#### [146. LRU 缓存机制](https://leetcode-cn.com/problems/lru-cache/)
+
+##### 解法
+
+```
+需要一个双链表和一个字典。
+
+双链表的每个结点存四个数据：
+	1）key
+	2) val
+	3) pre  前一个节点
+	4) next 后一个节点
+双链表需要实现两个方法：1）删除指定节点 2）在某一节点后插入一个结点
+双链表构建时，头尾各有一个辅助节点
+
+字典内容是 key2node
+
+put和get操作结束前，只要key在字典中，就把该key对应的节点放在链表头
+```
+
+##### 代码
+
+```python
+class Node(object):
+    def __init__(self, key, value):
+        self.key = key
+        self.val = value
+        self.next = None
+        self.pre = None
+
+
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        self.th = Node(None, None)  # 辅助头
+        self.tt = Node(None, None)  # 辅助尾
+        self.th.next = self.tt
+        self.tt.pre = self.th
+        self.key2node = {}
+        self.n = capacity
+	
+  	def remove(self, node):
+        node.pre.next = node.next
+        node.next.pre = node.pre
+
+    def insert_after(self, before, node):
+        after = before.next
+        before.next = node
+        after.pre = node
+        node.next = after
+        node.pre = before
+        
+    def get(self, key):
+        if key in self.key2node:
+            node = self.key2node[key]
+            self.remove(node)
+            self.insert_after(self.th, node)
+            return node.val
+        return -1
+
+    def put(self, key, value):
+        if key in self.key2node:
+            node = self.key2node[key]
+            node.val = value
+            self.remove(node)
+            self.insert_after(self.th, node)
+        else:
+            if len(self.key2node) == self.n:
+                self.key2node.pop(self.tt.pre.key)
+                self.remove(self.tt.pre)
+            node = Node(key, value)
+            self.key2node[key] = node
+            self.insert_after(self.th, node)
 ```
 
