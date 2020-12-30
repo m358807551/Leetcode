@@ -587,3 +587,69 @@ class Solution(object):
         return th.next
 ```
 
+#### [148. 排序链表](https://leetcode-cn.com/problems/sort-list/)
+
+##### 解法
+
+就是实现归并排序。
+
+###### 1. 尾插法合并两个有序链表
+
+```python
+def combine_sorted(self, head1, head2):
+    th = tail = ListNode(None)
+    while head1 and head2:
+        if head1.val <= head2.val:
+            tail.next = head1
+            head1 = head1.next
+        else:
+            tail.next = head2
+            head2 = head2.next
+        tail = tail.next
+    tail.next = head1 or head2
+    return th.next
+```
+
+###### 2. 将一个链表等分成两个
+
+```python
+fast = slow = head
+while fast.next and fast.next.next:
+    fast = fast.next.next
+    slow = slow.next
+h2 = slow.next
+slow.next = None
+```
+
+###### 3. 最终
+
+```python
+class Solution(object):
+    def sortList(self, head):
+        if (not head) or (not head.next):
+            return head
+        fast = slow = head
+        while fast.next and fast.next.next:
+            fast = fast.next.next
+            slow = slow.next
+        h2 = slow.next
+        slow.next = None
+
+        h1 = self.sortList(head)
+        h2 = self.sortList(h2)
+        return self.combine_sorted(h1, h2)
+
+    def combine_sorted(self, head1, head2):
+        th = tail = ListNode(None)
+        while head1 and head2:
+            if head1.val <= head2.val:
+                tail.next = head1
+                head1 = head1.next
+            else:
+                tail.next = head2
+                head2 = head2.next
+            tail = tail.next
+        tail.next = head1 or head2
+        return th.next
+```
+
