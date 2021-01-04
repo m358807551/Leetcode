@@ -596,24 +596,25 @@ class Solution(object):
 ###### 1. 尾插法合并两个有序链表
 
 ```python
-def combine_sorted(self, head1, head2):
-    th = tail = ListNode(None)
-    while head1 and head2:
-        if head1.val <= head2.val:
-            tail.next = head1
-            head1 = head1.next
-        else:
-            tail.next = head2
-            head2 = head2.next
+th = tail = ListNode(0)
+while h1 and h2:
+    if h1.val < h2.val:
+        tail.next = h1
+        h1 = h1.next
         tail = tail.next
-    tail.next = head1 or head2
-    return th.next
+    else:
+        tail.next = h2
+        h2 = h2.next
+        tail = tail.next
+tail.next = h1 or h2
+
+return th.next
 ```
 
-###### 2. 将一个链表等分成两个
+###### 2. 找到链表中点，将链表1分为2
 
 ```python
-fast = slow = head
+h1 = fast = slow = head
 while fast.next and fast.next.next:
     fast = fast.next.next
     slow = slow.next
@@ -626,30 +627,35 @@ slow.next = None
 ```python
 class Solution(object):
     def sortList(self, head):
-        if (not head) or (not head.next):
+        # 只有0个或1个节点就不用排序
+        if (head is None) or (head.next is None):
             return head
-        fast = slow = head
+        
+        # 将链表1分为2
+        h1 = fast = slow = head
         while fast.next and fast.next.next:
             fast = fast.next.next
             slow = slow.next
         h2 = slow.next
         slow.next = None
-
-        h1 = self.sortList(head)
+				
+        # 将前后两段链表分别排序
+        h1 = self.sortList(h1)
         h2 = self.sortList(h2)
-        return self.combine_sorted(h1, h2)
-
-    def combine_sorted(self, head1, head2):
-        th = tail = ListNode(None)
-        while head1 and head2:
-            if head1.val <= head2.val:
-                tail.next = head1
-                head1 = head1.next
+				
+        # 合并两个有序链表
+        th = tail = ListNode(0)
+        while h1 and h2:
+            if h1.val < h2.val:
+                tail.next = h1
+                h1 = h1.next
+                tail = tail.next
             else:
-                tail.next = head2
-                head2 = head2.next
-            tail = tail.next
-        tail.next = head1 or head2
+                tail.next = h2
+                h2 = h2.next
+                tail = tail.next
+        tail.next = h1 or h2
+
         return th.next
 ```
 
