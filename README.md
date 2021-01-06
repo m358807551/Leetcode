@@ -659,13 +659,13 @@ class Solution(object):
         return th.next
 ```
 
-#### [9. 直线上最多的点数](https://leetcode-cn.com/problems/max-points-on-a-line/)
+#### [149. 直线上最多的点数](https://leetcode-cn.com/problems/max-points-on-a-line/)
 
 ##### 代码
 
 ```Python
 from collections import defaultdict
-from fractions import Fraction  # 分数表示
+from fractions import Fraction
 
 
 class Solution:
@@ -674,19 +674,63 @@ class Solution:
             return 0
         rst = 0
         for i in range(len(points)):
-            same = 0  # 有几个点跟point[i]重叠
-            rake2count = defaultdict(int)  # 经过该斜率有几个点
+            same = 0
+            rake2num = defaultdict(int)
             for j in range(i+1, len(points)):
                 if points[i] == points[j]:
                     same += 1
-                elif points[i][0] == points[j][0]:  # 是一条竖线
-                    rake2count[float('inf')] += 1
+                elif points[i][0] == points[j][0]:
+                    rake2num[None] += 1
                 else:
-                    # Python有分数库 Fraction
-                    x1, y1, x2, y2 = Fraction(points[i][0], 1), Fraction(points[i][1], 1), Fraction(points[j][0], 1), Fraction(points[j][1], 1)
-                    rake = (y1 - y2) / (x1 - x2)
-                    rake2count[rake] += 1
-            max_ = max(rake2count.values() if rake2count else [0]) + same + 1  # 经过 points[i] 的直线最多有几个点
+                    # 想不到吧？？Python有自带的分数库
+                    rake = Fraction(points[i][1] - points[j][1]) / Fraction(points[i][0] - points[j][0])
+                    rake2num[rake] += 1
+            max_ = same + 1
+            if rake2num:
+                max_ += max(rake2num.values())
             rst = max(rst, max_)
         return rst
 ```
+
+#### [150. 逆波兰表达式求值](https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/)
+
+##### 解法
+
+```
+遍历每一个元素：
+    1. 是数字就入栈
+    2. 是加减乘除就拿出两个栈顶元素，做相应运算后其结果入栈
+做完上述操作，栈中只会剩下一个元素，这就是答案
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def evalRPN(self, tokens):
+        stack = []
+        for token in tokens:
+            if token not in '+-*/':
+                stack.append(int(token))
+                continue
+
+            num2 = stack.pop(-1)
+            num1 = stack.pop(-1)
+            if token == '+':
+                stack.append(num1 + num2)
+            elif token == '-':
+                stack.append(num1 - num2)
+            elif token == '*':
+                stack.append(num1 * num2)
+            elif token == '/':
+                stack.append(int(num1 / num2))
+        return stack[0]
+```
+
+##### 注意 Python3 和 Python 的除法
+
+```
+python3: int(b / a)
+python: int(b / float(a))
+```
+
