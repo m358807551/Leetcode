@@ -1,5 +1,52 @@
 # Leetcode
-用最短的代码或最简单的思路做成的力扣题解。
+简明力扣题解：用最简单的思路或最简洁的代码。
+
+#### [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
+
+##### 解法
+
+```
+将所有的数两两比较，找到符合条件的两个数就返回下标。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def twoSum(self, nums, target):
+        for i in range(len(nums)):
+            for j in range(i+1, len(nums)):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
+```
+
+#### [2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
+
+##### 解法
+
+```
+递归求解
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        return self.res(l1, l2, 0)
+
+    def res(self, h1, h2, i):
+        if (h1 is h2 is None) and (i == 0):
+            return None
+        val = i
+        if h1:
+            val += h1.val
+        if h2:
+            val += h2.val
+        head = ListNode(val % 10)
+        head.next = self.res(h1.next if h1 else None, h2.next if h2 else None,  val // 10)
+        return head
+```
 
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
@@ -700,7 +747,7 @@ class Solution:
 遍历每一个元素：
     1. 是数字就入栈
     2. 是加减乘除就拿出两个栈顶元素，做相应运算后其结果入栈
-做完上述操作，栈中只会剩下一个元素，这就是答案
+做完上述操作，栈中只会剩下一个元素，就是答案
 ```
 
 ##### 代码
@@ -732,5 +779,51 @@ class Solution(object):
 ```
 python3: int(b / a)
 python: int(b / float(a))
+```
+
+#### [151. 翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
+
+##### 解法
+
+```
+1. 去除多余空格
+2. 将整个字符串逆序
+3. 将每个单词逆序
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def reverseWords(self, s):
+        # 去掉多余的空格
+        lis = []
+        for letter in s:
+            if letter == ' ':
+                if lis and lis[-1] != ' ':
+                    lis.append(letter)
+            else:
+                lis.append(letter)
+        if lis and lis[-1] == ' ':
+            lis.pop(-1)
+
+        # 先全体逆置一下
+        self.reverse(lis, 0, len(lis)-1)
+
+        # 再逐个单词逆置
+        start = end = 0
+        while end < len(lis):
+            while end < len(lis) and lis[end] != ' ':
+                end += 1
+            self.reverse(lis, start, end-1)
+            start = end = end + 1
+
+        return ''.join(lis)
+
+    def reverse(self, lis, left, right):
+        while left < right:
+            lis[left], lis[right] = lis[right], lis[left]
+            left += 1
+            right -= 1
 ```
 
