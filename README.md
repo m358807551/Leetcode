@@ -48,6 +48,32 @@ class Solution(object):
         return head
 ```
 
+#### [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
+
+##### 解法
+
+```
+遍历每个字符：
+	要是这个字符没在队列中，就在队列中加入这个字符。
+  要是这个字符在队列中，就在队列里把这个字符之前的部分都砍掉
+在这个过程中，队列的最大长度就是答案。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        rst = 0
+        queue = []
+        for letter in s:
+            while letter in queue:
+                queue.pop(0)
+            queue.append(letter)
+            rst = max(rst, len(queue))
+        return rst
+```
+
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
 ##### 解法
@@ -826,4 +852,28 @@ class Solution(object):
             left += 1
             right -= 1
 ```
+
+#### [152. 乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/)
+
+##### 解法
+
+```
+1. 如果数组里没有0:
+	1.1 如果负数的个数是偶数，那么所有数相乘最大
+	1.2 如果负数的个数是奇数，那么要么 前n-1个数相乘最大，要么后n-1个数相乘最大
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def maxProduct(self, nums):
+        reverse_nums = nums[::-1]
+        for i in range(1, len(nums)):
+            nums[i] = nums[i] * (nums[i-1] or 1)
+            reverse_nums[i] = reverse_nums[i] * (reverse_nums[i-1] or 1)
+        return max(nums + reverse_nums)
+```
+
+##### 参考 [ 多种思路求解](https://leetcode-cn.com/problems/maximum-product-subarray/solution/duo-chong-si-lu-qiu-jie-by-powcai-3/)
 
