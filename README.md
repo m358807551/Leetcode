@@ -868,12 +868,37 @@ class Solution(object):
 ```python
 class Solution(object):
     def maxProduct(self, nums):
-        reverse_nums = nums[::-1]
+        nums2 = nums[::-1]  # nums 的逆序
         for i in range(1, len(nums)):
-            nums[i] = nums[i] * (nums[i-1] or 1)
-            reverse_nums[i] = reverse_nums[i] * (reverse_nums[i-1] or 1)
-        return max(nums + reverse_nums)
+            nums[i] = (nums[i-1] or 1) * nums[i]
+            nums2[i] = (nums2[i-1] or 1) * nums2[i]
+        return max(nums + nums2)
 ```
 
 ##### 参考 [ 多种思路求解](https://leetcode-cn.com/problems/maximum-product-subarray/solution/duo-chong-si-lu-qiu-jie-by-powcai-3/)
+
+#### [153. 寻找旋转排序数组中的最小值](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/)
+
+##### 解法
+
+```
+给一个数组，一刀将它等分成左右两段。
+如果右段有序，就抛弃右段，否则就抛弃左段。
+当数组中只有一个数的时候停止。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def findMin(self, nums):
+        left, right = 0, len(nums)-1
+        while left < right:
+            mid = left + (right - left) // 2
+            if nums[mid] < nums[right]:
+                right = mid
+            else:
+                left = mid + 1
+        return nums[left]
+```
 
