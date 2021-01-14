@@ -74,6 +74,50 @@ class Solution(object):
         return rst
 ```
 
+#### [4. 寻找两个正序数组的中位数](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/)
+
+##### 解法
+
+###### 找有序数组的中位数
+
+```
+找到第(n+1)/2 个数 和第 (n+2)/2 个数，这俩数的平均值就是中位数;
+这样可以避免区分数组长度是奇数还是偶数。
+```
+
+###### 转化为求数组第k位的问题
+
+##### 代码
+
+```python
+class Solution(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        m, n = len(nums1), len(nums2)
+        v1 = self.find_k(nums1, 0, nums2, 0, (m+n+1)//2)
+        v2 = self.find_k(nums1, 0, nums2, 0, (m+n+2)//2)
+        return (v1 + v2) / 2.0
+        
+
+    def find_k(self, nums1, i, nums2, j, k):
+        m, n = len(nums1), len(nums2)
+        if i >= m:
+            return nums2[j+k-1]
+        elif j >= n:
+            return nums1[i+k-1]
+
+        if k == 1:
+            return min(nums1[i], nums2[j])
+
+        mid1 = nums1[i+k//2-1] if i+k//2-1 < m else float("inf")
+        mid2 = nums2[j+k//2-1] if j+k//2-1 < n else float("inf")
+        if mid1 < mid2:
+            return self.find_k(nums1, i+k//2, nums2, j, k-k//2)
+        else:
+            return self.find_k(nums1, i, nums2, j+k//2, k-k//2)
+```
+
+##### 参考：[综合百家题解，总结最清晰易懂的二分解法！](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/zong-he-bai-jia-ti-jie-zong-jie-zui-qing-xi-yi-don/)
+
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
 ##### 解法
@@ -901,4 +945,34 @@ class Solution(object):
                 left = mid + 1
         return nums[left]
 ```
+
+#### [154. 寻找旋转排序数组中的最小值 II](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/)
+
+##### 解法
+
+```
+还是把数组1分为2：
+  1. 右边严格有序就抛弃右边
+  2. 右边无序就抛弃左边
+  3. 否则就 right = right - 1
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def findMin(self, nums):
+        left, right = 0, len(nums)-1
+        while left < right:
+            mid = left + (right-left) // 2
+            if nums[mid] < nums[right]:
+                right = mid
+            elif nums[mid] > nums[right]:
+                left = mid + 1
+            else:
+                right -= 1
+        return nums[left]
+```
+
+##### 参考: [寻找旋转排序数组中的最小值 II（二分法，极简，图解](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/solution/154-find-minimum-in-rotated-sorted-array-ii-by-jyd/)
 
