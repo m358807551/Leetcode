@@ -976,3 +976,41 @@ class Solution(object):
 
 ##### 参考: [寻找旋转排序数组中的最小值 II（二分法，极简，图解](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/solution/154-find-minimum-in-rotated-sorted-array-ii-by-jyd/)
 
+#### [155. 最小栈](https://leetcode-cn.com/problems/min-stack/)
+
+##### 解法
+
+```
+需要一个正常栈和一个辅助栈。
+出栈时，两个栈都正常出栈操作。
+入栈时，正常栈正常入栈，辅助栈将要入栈的元素和辅助栈顶元素做比较，选小的入栈。
+根据以上规矩，辅助栈顶永远是最小的元素。
+```
+
+##### 代码
+
+```python
+class MinStack(object):
+
+    def __init__(self):
+        self.stack = []
+        self.min_stack = []
+
+    def push(self, x):
+        self.stack.append(x)
+        self.min_stack.append(min(
+            x,
+            self.min_stack[-1] if self.min_stack else float('inf'),
+        ))
+
+    def pop(self):
+        self.stack.pop(-1)
+        self.min_stack.pop(-1)
+
+    def top(self):
+        return self.stack[-1]
+
+    def getMin(self):
+        return self.min_stack[-1]
+```
+
