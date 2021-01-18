@@ -1014,3 +1014,55 @@ class MinStack(object):
         return self.min_stack[-1]
 ```
 
+#### [160. 相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
+
+##### 解法
+
+```
+两个指针分别指向两个链表头,
+然后一起向后移动，如果某个指针走到了末尾，就把这个指针重新指向另一个链表头，
+重复上述过程，直到两个指针重叠，则重叠的节点就是答案。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def getIntersectionNode(self, headA, headB):
+        p1, p2 = headA, headB
+        while p1 is not p2:
+            p1 = p1.next if p1 else headB
+            p2 = p2.next if p2 else headA
+        return p1
+```
+
+#### [162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
+
+##### 解法
+
+```
+由于题目假设nums[-1]=nums[n]=-∞。所以，我们从0开始往后遍历元素，如果某个元素大于其后面的元素，则该元素就是峰值元素。（但是它时O(n)，不符合题意）
+
+O(logN)一般考虑二分搜索。有如下规律：
+
+规律一：如果nums[i] > nums[i+1]，则在i之前一定存在峰值元素
+
+规律二：如果nums[i] < nums[i+1]，则在i+1之后一定存在峰值元素
+
+(以上内容摘抄自[陈允怀_YahtoChen](https://leetcode-cn.com/u/archibald_/)的评论)
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def findPeakElement(self, nums):
+        left, right = 0, len(nums)-1
+        while left < right:
+            mid = left + (right - left) // 2
+            if nums[mid] < nums[mid+1]:
+                left = mid + 1
+            else:
+                right = mid
+        return left
+```
