@@ -1041,7 +1041,8 @@ class Solution(object):
 ##### 解法
 
 ```
-由于题目假设nums[-1]=nums[n]=-∞。所以，我们从0开始往后遍历元素，如果某个元素大于其后面的元素，则该元素就是峰值元素。（但是它时O(n)，不符合题意）
+由于题目假设nums[-1]=nums[n]=-∞。
+所以，我们从0开始往后遍历元素，如果某个元素大于其后面的元素，则该元素就是峰值元素。（但是它时O(n)，不符合题意）
 
 O(logN)一般考虑二分搜索。有如下规律：
 
@@ -1065,4 +1066,39 @@ class Solution(object):
             else:
                 right = mid
         return left
+```
+
+#### [164. 最大间距](https://leetcode-cn.com/problems/maximum-gap/)
+
+##### 解法
+
+```
+这道题很简单鸭，是我想错了么。。。
+
+1. 把每个数看成二进制的字符串
+2. 看每个数的[个位]是不是1，是1就把这个数放在右边，否则就放左边
+3. 看每个数的[十位]...
+4. 看每个数的[百位]..
+5. 一直看32次，看完后这个数组就是有序的了。。。
+6. 时间复杂度是 32N 也就是N，空间复杂度也是N
+```
+
+##### 代码
+
+```python
+class Solution:
+    def maximumGap(self, nums):
+        if len(nums)<2:return 0
+        for i in range(32):
+            left, right = [], []
+            for num in nums:
+                if (1 << i) & num:
+                    right.append(num)
+                else:
+                    left.append(num)
+            nums = left + right
+        rst = 0
+        for i in range(1, len(nums)):
+            rst = max(rst, nums[i]-nums[i-1])
+        return rst
 ```
