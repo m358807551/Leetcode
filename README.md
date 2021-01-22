@@ -1133,3 +1133,40 @@ class Solution(object):
                 return -1
         return 0 
 ```
+
+#### [166. 分数到小数](https://leetcode-cn.com/problems/fraction-to-recurring-decimal/)
+
+##### 解法
+
+```
+在不断进行除法的过程中，被除数是一直在变化的，除数是固定的。
+当被除数是0时，说明能整除，直接返回结果即可。
+记录小数部分每个被除数及其对应的当时结果字符串的长度，
+当某个被除数出现次数大于1时，在结果字符串加入括号并返回。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def fractionToDecimal(self, numerator, denominator):
+        rst = '-' if numerator * denominator < 0 else ''
+        numerator, denominator = abs(numerator), abs(denominator)
+        d = {}
+        while numerator:
+            if numerator < denominator:  # 小数部分增加一位
+                if not d:  # 第一次遇见小数
+                    if rst in {'-', ''}:  # 整数部分恰好为0
+                        rst += "0."
+                    else:  # 整数部分不为0
+                        rst += "."
+                numerator *= 10
+                if numerator in d:  # 这个被除数遇见过
+                    i = d[numerator]
+                    rst = rst[:i] + "(" + rst[i:] + ")"
+                    break
+                d[numerator] = len(rst)  # 记录这个被除数对应的字符串的位置
+            rst += str(numerator // denominator)
+            numerator = numerator % denominator  # 更新被除数
+        return rst or "0"
+```
