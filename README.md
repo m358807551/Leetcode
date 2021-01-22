@@ -1170,3 +1170,31 @@ class Solution(object):
             numerator = numerator % denominator  # 更新被除数
         return rst or "0"
 ```
+
+#### [167. 两数之和 II - 输入有序数组](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/)
+
+##### 解法
+
+```
+开始时，左指针指向最左边那个数，右指针指向最右边那个数。
+要是两个指针对应的数加起来比目标值小，左指针右移一个单位；
+要是两个指针对应的数加起来比目标值大，右指针左移一个单位；
+要是两个指针对应的数加起来等于目标值，就返回结果。
+```
+
+##### 解法
+
+```python
+class Solution(object):
+    def twoSum(self, numbers, target):
+        left, right = 0, len(numbers) - 1
+        while True:
+            if numbers[left] + numbers[right] < target:
+                left += 1
+            elif numbers[left] + numbers[right] > target:
+                right -= 1
+            else:
+                break
+        return left+1, right+1
+            
+```
