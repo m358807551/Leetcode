@@ -1148,26 +1148,23 @@ class Solution(object):
 ##### 代码
 
 ```python
-class Solution(object):
+cclass Solution(object):
     def fractionToDecimal(self, numerator, denominator):
-        rst = '-' if numerator * denominator < 0 else ''
-        numerator, denominator = abs(numerator), abs(denominator)
         d = {}
+        rst = "-" if numerator * denominator < 0 else ""
+        numerator, denominator = abs(numerator), abs(denominator)
         while numerator:
-            if numerator < denominator:  # 小数部分增加一位
-                if not d:  # 第一次遇见小数
-                    if rst in {'-', ''}:  # 整数部分恰好为0
-                        rst += "0."
-                    else:  # 整数部分不为0
-                        rst += "."
+            if numerator < denominator:
                 numerator *= 10
-                if numerator in d:  # 这个被除数遇见过
+                if not d:  # 第一次到小数点后
+                    rst += "0." if rst in ["-", ""] else "."
+                if numerator in d:  # 该被除数在小数部分出现过
                     i = d[numerator]
                     rst = rst[:i] + "(" + rst[i:] + ")"
                     break
-                d[numerator] = len(rst)  # 记录这个被除数对应的字符串的位置
+                d[numerator] = len(rst)
             rst += str(numerator // denominator)
-            numerator = numerator % denominator  # 更新被除数
+            numerator = numerator % denominator
         return rst or "0"
 ```
 
@@ -1182,7 +1179,7 @@ class Solution(object):
 要是两个指针对应的数加起来等于目标值，就返回结果。
 ```
 
-##### 解法
+##### 代码
 
 ```python
 class Solution(object):
@@ -1197,4 +1194,25 @@ class Solution(object):
                 break
         return left+1, right+1
             
+```
+
+#### [168. Excel表列名称](https://leetcode-cn.com/problems/excel-sheet-column-title/)
+
+##### 解法
+
+```
+把 1->A，2->B 换成0->A，1->B来算，就好想多了。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def convertToTitle(self, n):
+        rst = ""
+        while n:
+            n -= 1
+            rst = chr(65 + n % 26) + rst
+            n //= 26
+        return rst
 ```
