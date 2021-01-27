@@ -1216,3 +1216,126 @@ class Solution(object):
             n //= 26
         return rst
 ```
+
+#### [169. 多数元素](https://leetcode-cn.com/problems/majority-element/)
+
+##### 解法
+
+```
+开始结果为空
+遍历每个数字：
+    结果为空：结果=此数字
+    此数字跟结果相同，加一条命；
+    此数字跟结果不同，减一条命；减到命为0了就把结果置空。
+最终结果就是答案。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def majorityElement(self, nums):
+        rst, life = None, 0
+        for num in nums:
+            if rst is None:
+                rst = num
+                life = 1
+            elif rst == num:
+                life += 1
+            else:
+                life -= 1
+                if life == 0:
+                    rst = None
+        return rst
+```
+
+#### [171. Excel表列序号](https://leetcode-cn.com/problems/excel-sheet-column-number/)
+
+##### 解法
+
+```
+相当于26进制。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def titleToNumber(self, s):
+        rst = 0
+        for letter in s:
+            rst *= 26
+            rst += ord(letter) -65 + 1
+        return rst
+```
+
+#### [172. 阶乘后的零](https://leetcode-cn.com/problems/factorial-trailing-zeroes/)
+
+##### 解法
+
+```
+要知道n!结尾有几个0，相当于要知道 n! 能分解成几个 2x5。
+因为 2 出现次数比5多，所以就要知道 n! 质因数分解结果里 有几个5。
+规律是: 
+    1. 每5个数字出现一个5，如 5, 10, 15
+    2. 每25个数字出现两个5，如 25, 50, 75
+    3. 每125个数字出现3个，如 125，250
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def trailingZeroes(self, n):
+        rst = 0
+        while n:
+            rst += n // 5
+            n = n // 5
+        return rst
+```
+
+参考: [Q172. Factorial Trailing Zeroes](https://leetcode-cn.com/problems/factorial-trailing-zeroes/solution/q172-factorial-trailing-zeroes-by-ronhou/)
+
+
+#### [173. 二叉搜索树迭代器](https://leetcode-cn.com/problems/binary-search-tree-iterator/)
+
+##### 解法
+
+```
+直接把中序遍历的结果存到数组里，再依次输出。
+```
+
+##### 代码
+
+```python
+class BSTIterator(object):
+
+    def __init__(self, root):
+        """
+        :type root: TreeNode
+        """
+        self.vals = []
+        self.stack = [root]
+        while self.stack:
+            root = self.stack.pop(-1)
+            if isinstance(root, int):
+                self.vals.append(root)
+            elif isinstance(root, TreeNode):
+                self.stack.extend([root.right, root.val, root.left])
+        self.i = 0
+
+    def next(self):
+        """
+        :rtype: int
+        """
+        rst = self.vals[self.i]
+        self.i += 1
+        return rst
+
+
+    def hasNext(self):
+        """
+        :rtype: bool
+        """
+        return self.i != len(self.vals)
+```
