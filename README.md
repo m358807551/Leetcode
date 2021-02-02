@@ -1339,3 +1339,54 @@ class BSTIterator(object):
         """
         return self.i != len(self.vals)
 ```
+
+#### [174. 地下城游戏](https://leetcode-cn.com/problems/dungeon-game/submissions/)
+
+##### 解法
+
+```
+这是我蒙出来的，不好写解法。。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def calculateMinimumHP(self, dungeon):
+        m, n = len(dungeon), len(dungeon[0])
+        dp = [[1] * n for _ in range(m)]
+        for i in range(m-1, -1, -1):
+            for j in range(n-1, -1, -1):
+                maybe = []
+                if i != m-1:
+                    maybe.append(dp[i+1][j]-dungeon[i+1][j])
+                if j != n-1:
+                    maybe.append(dp[i][j+1]-dungeon[i][j+1])
+                dp[i][j] = max(min(maybe) if maybe else 0, 1)
+        return max(dp[0][0] - dungeon[0][0], 1)
+```
+
+#### (179. 最大数)[https://leetcode-cn.com/problems/largest-number/]
+
+##### 解法
+
+```
+本质是排序题，将数组按照一定规则排序，再把所有数连在一起即可。
+```
+
+##### 代码
+
+```python
+from functools import cmp_to_key
+
+
+class Solution(object):
+    def largestNumber(self, nums):
+        nums = [str(x) for x in nums]
+        nums.sort(
+            key=cmp_to_key(lambda x, y: 1 if x+y > y+x else -1), 
+            reverse=True,
+        )
+        rst = "".join(nums)
+        return '0' if rst[0] == '0' else rst
+```
