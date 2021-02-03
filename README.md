@@ -1390,3 +1390,25 @@ class Solution(object):
         rst = "".join(nums)
         return '0' if rst[0] == '0' else rst
 ```
+
+#### (187. 重复的DNA序列)[https://leetcode-cn.com/problems/repeated-dna-sequences/]
+
+##### 解法
+
+```
+用字典记录下所有长度为10的子串出现的次数。
+```
+
+##### 代码
+
+```python
+from collections import defaultdict
+
+
+class Solution(object):
+    def findRepeatedDnaSequences(self, s):
+        d = defaultdict(int)
+        for i in range(len(s)-9):
+            d[s[i:i+10]] += 1
+        return list([k for k, v in d.items() if v > 1])
+```
