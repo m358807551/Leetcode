@@ -1467,3 +1467,35 @@ class Solution(object):
                 return self.res(i+1, False, k)
                 
 ```
+
+#### [旋转数组](https://leetcode-cn.com/problems/rotate-array/)
+
+##### 解法
+
+```
+先将数组分成两部分，右边有k个元素，左边有n-k的元素。
+然后分别将两个数组逆序，再把两个数组拼起来整体逆序，得到的就是答案。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        k = k % n
+        self.reverse(nums, n-k, n-1)
+        self.reverse(nums, 0, n-1-k)
+        self.reverse(nums, 0, n-1)
+    
+    def reverse(self, nums, i, j):
+        while i < j:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+            j -= 1
+```
