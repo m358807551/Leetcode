@@ -1366,7 +1366,7 @@ class Solution(object):
         return max(dp[0][0] - dungeon[0][0], 1)
 ```
 
-#### (179. 最大数)[https://leetcode-cn.com/problems/largest-number/]
+#### [179. 最大数](https://leetcode-cn.com/problems/largest-number/)
 
 ##### 解法
 
@@ -1391,7 +1391,7 @@ class Solution(object):
         return '0' if rst[0] == '0' else rst
 ```
 
-#### (187. 重复的DNA序列)[https://leetcode-cn.com/problems/repeated-dna-sequences/]
+#### [187. 重复的DNA序列](https://leetcode-cn.com/problems/repeated-dna-sequences/)
 
 ##### 解法
 
@@ -1411,4 +1411,59 @@ class Solution(object):
         for i in range(len(s)-9):
             d[s[i:i+10]] += 1
         return list([k for k, v in d.items() if v > 1])
+```
+
+#### [188. 买卖股票的最佳时机 IV](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/)
+
+##### 解法
+
+```
+你突然醒来，看看日历今天是第几天？看看自己手上有没有股票？看看自己还有几次买股票的机会？就可以做出抉择了。
+
+如果今天是最后一天：
+    且手上有股票，那就把手上的股票卖出去。
+不是最后一天：
+    手上有股票：卖股票和啥都不干选一个收益最大的。
+    手上无股票：买股票（如果还可以购买）和啥都不干选一个收益最大的。
+    
+然后直接用递归硬撸就完事儿了！
+```
+
+##### 代码
+
+```python
+from functools import lru_cache
+
+
+class Solution(object):
+    def maxProfit(self, k, prices):
+        """
+        :type k: int
+        :type prices: List[int]
+        :rtype: int
+        """
+        self.prices = prices
+        return self.res(0, False, k)
+    
+    @lru_cache(None)
+    def res(self, i, stock, k):
+        if i >= len(self.prices)-1:  # 是最后一天
+            if stock:
+                return self.prices[i]
+            else:
+                return 0
+        elif stock:  # 可以卖
+            return max(
+                self.res(i+1, True, k),
+                self.res(i+1, False, k) + self.prices[i],
+            )
+        else:  # 手上没股票
+            if k > 0:
+                return max(
+                    self.res(i+1, False, k),
+                    self.res(i+1, True, k-1) - self.prices[i],
+                )
+            else:
+                return self.res(i+1, False, k)
+                
 ```
