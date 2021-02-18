@@ -1499,3 +1499,88 @@ class Solution(object):
             i += 1
             j -= 1
 ```
+
+#### [190. 颠倒二进制位](https://leetcode-cn.com/problems/reverse-bits/)
+
+##### 解法
+
+```
+每次取个位数字，连取32次。
+```
+
+##### 代码
+
+```python
+class Solution:
+    # @param n, an integer
+    # @return an integer
+    def reverseBits(self, n):
+        rst = 0
+        for _ in range(32):
+            rst = (rst << 1) + (n & 1)
+#             print(rst)
+            n = n >> 1
+        return rst
+```
+
+#### [191. 位1的个数](https://leetcode-cn.com/problems/number-of-1-bits/)
+
+##### 解法
+
+```
+判断个位数是不是1，重复很多次。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def hammingWeight(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        rst = 0
+        while n:
+            rst += n & 1
+            n >>= 1
+        return rst
+```
+
+#### [198. 打家劫舍](https://leetcode-cn.com/problems/house-robber/)
+
+##### 解法
+
+```
+房间的下标i，有没有偷钱f，(i, f)可以代表一个状态。res(i, f)表示在(i, f)状态下，可以最大偷多少钱。
+```
+
+##### 代码
+
+```python
+from functools import lru_cache
+
+
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        self.nums = nums
+        return max(self.res(0, 0), self.res(0, 1) + self.nums[0])
+    
+    @lru_cache(None)
+    def res(self, i, f):
+        if i >= len(self.nums)-1:
+            return 0
+        if f:
+            return self.res(i+1, 0)
+        else:
+            return max(
+                self.res(i+1, 0),
+                self.res(i+1, 1) + self.nums[i+1],
+            )
+```
