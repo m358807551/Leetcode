@@ -1586,7 +1586,7 @@ class Solution(object):
             )
 ```
 
-# 数组版
+数组版
 ```python
 class Solution(object):
     def rob(self, nums):
@@ -1602,4 +1602,76 @@ class Solution(object):
             dp[i][1] = dp[i+1][0]
             dp[i][0] = max(dp[i+1][0], dp[i+1][1] + nums[i+1])
         return max(dp[0][0], dp[0][1] + nums[0])
+```
+
+#### [199. 二叉树的右视图](https://leetcode-cn.com/problems/binary-tree-right-side-view/)
+
+##### 解法
+
+```
+借助队列分层遍历二叉树，每次加入最后一个节点的值。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def rightSideView(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        rst = []
+        queue = [(root,)]
+        while queue:
+            rst.extend([
+                node.val
+                for nodes in queue
+                for node in nodes
+                if node
+            ][-1:])
+            queue = [
+                (node.left, node.right)
+                for nodes in queue
+                for node in nodes
+                if node
+            ]
+
+        return rst
+```
+
+#### [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
+
+##### 解法
+
+```
+广度搜索。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def numIslands(self, grid):
+        """
+        :type grid: List[List[str]]
+        :rtype: int
+        """
+        m, n = len(grid), len(grid[0])
+        num = 0
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == "1":
+                    self.bfs(grid, i, j, num)
+                    num += 1
+        return num
+
+    def bfs(self, grid, i, j, num):
+        if grid[i][j] != '1':
+            return 
+        grid[i][j] = num
+        m, n = len(grid), len(grid[0])
+        for (ii, jj) in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]:
+            if (0 <= ii < m) and (0 <= jj < n):
+                self.bfs(grid, ii, jj, num)
 ```
