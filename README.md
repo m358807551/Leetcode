@@ -1658,20 +1658,20 @@ class Solution(object):
         :rtype: int
         """
         m, n = len(grid), len(grid[0])
-        num = 0
+        k = 0
+        
         for i in range(m):
             for j in range(n):
-                if grid[i][j] == "1":
-                    self.bfs(grid, i, j, num)
-                    num += 1
-        return num
-
-    def bfs(self, grid, i, j, num):
-        if grid[i][j] != '1':
-            return 
-        grid[i][j] = num
-        m, n = len(grid), len(grid[0])
-        for (ii, jj) in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]:
-            if (0 <= ii < m) and (0 <= jj < n):
-                self.bfs(grid, ii, jj, num)
+                if self.bfs(grid, i, j):
+                    k += 1
+        
+        return k
+    
+    def bfs(self, grid, i, j):
+        if grid[i][j] == "1":
+            grid[i][j] = '9'
+            for (r, c) in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]:
+                if 0 <= r < len(grid) and (0 <= c < len(grid[0])):
+                    self.bfs(grid, r, c)
+            return True
 ```
