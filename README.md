@@ -118,6 +118,37 @@ class Solution(object):
 
 ##### 参考：[综合百家题解，总结最清晰易懂的二分解法！](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/zong-he-bai-jia-ti-jie-zong-jie-zui-qing-xi-yi-don/)
 
+#### [5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
+
+##### 解法
+
+```
+这套题挂羊头卖狗肉，官方分类在动态规划里，实际上用动态规划写出来时间上要么超时，要么倒数。
+用更简单的方法反而效率不错：遍历每个字符，不断两边扩散成最长的回文串，记录最长的回文串就是答案。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def longestPalindrome(self, s):
+        left, right = 0, 0
+        for i in range(len(s)):
+            a, b = self.expand(s, i, i)
+            if b - a > right - left:
+                left, right = a, b
+            a, b = self.expand(s, i, i+1)
+            if b - a > right - left:
+                left, right = a, b
+        return s[left: right+1]
+    
+    def expand(self, s, i, j):
+        while i>=0 and j<len(s) and s[i] == s[j]:
+            i -= 1
+            j += 1
+        return i+1, j-1
+```
+
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
 ##### 解法

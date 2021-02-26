@@ -1,7 +1,7 @@
 """
 https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii
 """
-from leetcode.utils import make_tree
+from code.leetcode import make_tree
 
 
 # Definition for a Node.

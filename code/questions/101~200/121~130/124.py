@@ -1,7 +1,7 @@
 """
 https://leetcode-cn.com/problems/binary-tree-maximum-path-sum
 """
-from leetcode.utils import make_tree
+from code.leetcode import make_tree
 
 # Definition for a binary tree node.
 # class TreeNode(object):
