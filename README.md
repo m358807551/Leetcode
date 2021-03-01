@@ -184,6 +184,31 @@ class Solution(object):
 
 参考: [「手画图解」剖析两种解法：利用栈、动态规划](https://leetcode-cn.com/problems/longest-valid-parentheses/solution/shou-hua-tu-jie-zhan-de-xiang-xi-si-lu-by-hyj8/)
 
+#### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
+
+##### 解法
+
+```
+基础的动态规划题目。
+```
+
+```代码
+class Solution(object):
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        dp = [ [1] * n for _ in range(m)]
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        return dp[-1][-1]
+```
+
+
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
 ##### 解法
