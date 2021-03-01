@@ -149,6 +149,41 @@ class Solution(object):
         return i+1, j-1
 ```
 
+#### [32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/)
+
+##### 解法
+
+```
+这道题虽说分类在困难的动态规划，但还是有大神能用栈以接近简单难度的方法破解出来。
+
+关键是加一个标志位，以及每次计算长度方式：右括号的索引 - 弹出一个元素后此时栈顶的值
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def longestValidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        stack = [-1]
+        rst = 0
+        for i in range(len(s)):
+            if s[i] == "(":
+                stack.append(i)
+            elif s[i] == ")":
+                stack.pop(-1)
+                if stack:
+                    rst = max(rst, i - stack[-1])
+                else:
+                    stack.append(i)
+        return rst
+```
+
+参考: [「手画图解」剖析两种解法：利用栈、动态规划](https://leetcode-cn.com/problems/longest-valid-parentheses/solution/shou-hua-tu-jie-zhan-de-xiang-xi-si-lu-by-hyj8/)
+
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
 ##### 解法
