@@ -1,5 +1,4 @@
 # Leetcode
-简明力扣题解：用最简单的思路或最简洁的代码。
 
 #### [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
 
@@ -307,6 +306,51 @@ class Solution(object):
         return dp[-1]
 ```
 
+#### [72. 编辑距离](https://leetcode-cn.com/problems/edit-distance/)
+
+##### 解法
+
+```
+状态转移方程好写，就是怎么初始化困难些。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def minDistance(self, word1, word2):
+        """
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        if not(word1 and word2):
+            return len(word1) or len(word2)
+        
+        m, n = len(word1), len(word2)
+        dp = [[0] * n for _ in range(m)]
+        
+        f = False
+        for i in range(m):
+            if word1[i] == word2[0]:
+                f = True
+            dp[i][0] = i if f else i + 1
+        
+        f = False
+        for j in range(n):
+            if word2[j] == word1[0]:
+                f = True
+            dp[0][j] = j if f else j + 1
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if word1[i] == word2[j]:
+                    dp[i][j] = dp[i-1][j-1]
+                else:
+                    dp[i][j] = min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]) + 1
+                    
+        return dp[-1][-1]
+```
 
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
