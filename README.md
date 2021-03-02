@@ -279,6 +279,34 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
+
+##### 解法
+
+```
+Leetcode前两百道题目里有19道动态规划，19个动态规划里只有两个难度是简单，爬楼梯是其中一道。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 1:
+            return 1
+        elif n == 2:
+            return 2
+        dp = [0] * n
+        dp[0], dp[1] = 1, 2
+        for i in range(2, n):
+            dp[i] = dp[i-1] + dp[i-2]
+        return dp[-1]
+```
+
 
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
