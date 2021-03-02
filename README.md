@@ -192,7 +192,9 @@ class Solution(object):
 基础的动态规划题目。
 ```
 
-```代码
+##### 代码
+
+```python
 class Solution(object):
     def uniquePaths(self, m, n):
         """
@@ -208,6 +210,44 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [63. 不同路径 II](https://leetcode-cn.com/problems/unique-paths-ii/)
+
+##### 解法
+
+```
+跟题目62相似，只需做一点修改。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def uniquePathsWithObstacles(self, obstacleGrid):
+        """
+        :type obstacleGrid: List[List[int]]
+        :rtype: int
+        """
+        m, n = len(obstacleGrid), len(obstacleGrid[0])
+        dp = [ [0] * n for _ in range(m)]
+        for i in range(m):
+            if obstacleGrid[i][0] == 0:
+                dp[i][0] = 1
+            else:
+                break
+        
+        for j in range(n):
+            if obstacleGrid[0][j] == 0:
+                dp[0][j] = 1
+            else:
+                break
+        
+        for i in range(1, m):
+            for j in range(1, n):
+                if obstacleGrid[i][j] == 0:
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        
+        return dp[-1][-1]
+```
 
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
