@@ -352,6 +352,79 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [87. 扰乱字符串](https://leetcode-cn.com/problems/scramble-string/)
+
+##### 解法
+
+```
+dp解法要用到三维的 dp数组 dp[len][i][j]，表示s1从i开始的len个字符跟 s2从j开始的len个字符够不够成扰乱字符串。
+dp解法对我来说过于复杂，于是用了递归+lru_cache解法。
+```
+
+##### 代码
+
+```python
+from functools import lru_cache
+
+
+class Solution(object):
+    @lru_cache(None)
+    def isScramble(self, s1, s2):
+        """
+        :type s1: str
+        :type s2: str
+        :rtype: bool
+        """
+        n = len(s1)
+        if n == 1:
+            return True if s1 == s2 else False
+        for i in range(1, n):
+            if self.isScramble(s1[:i], s2[:i]) and self.isScramble(s1[i:], s2[i:]):
+                return True
+            if self.isScramble(s1[:i], s2[-i:]) and self.isScramble(s1[i:], s2[:-i]):
+                return True 
+        return False
+```
+
+#### [91. 解码方法](https://leetcode-cn.com/problems/decode-ways/)
+
+##### 解法
+
+```
+一维dp数组。
+dp[i] 表示以下标i结尾的字符串有几种解法。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def numDecodings(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        n = len(s)
+        dp = [0] * n
+        for i in range(n):
+            if i == 0:
+                dp[0] = 0 if s == "0" else 1
+            elif i == 1:
+                if "10" <= s[i-1:i+1] <= "26":
+                    dp[i] += 1
+                if s[i-1] != "0" and s[i] != "0":
+                    dp[i] += 1
+            else:
+                if "10" <= s[i-1:i+1] <= "26":
+                    dp[i] += dp[i-2]
+                if s[i] != "0":
+                    dp[i] += dp[i-1]
+            if not dp[i]:
+                return 0
+        return dp[-1]
+```
+
+
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
 ##### 解法
