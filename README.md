@@ -424,6 +424,44 @@ class Solution(object):
         return dp[-1]
 ```
 
+#### [97. 交错字符串](https://leetcode-cn.com/problems/interleaving-string/)
+
+##### 解法
+
+```
+还是偷懒用递归解了。。
+```
+
+##### 代码
+
+```python
+from functools import lru_cache
+
+
+class Solution(object):
+    def isInterleave(self, s1, s2, s3):
+        """
+        :type s1: str
+        :type s2: str
+        :type s3: str
+        :rtype: bool
+        """
+        if len(s1) + len(s2) != len(s3):
+            return False
+        return self.inner(s1, s2, s3) or self.inner(s2, s1, s3)
+    
+    @lru_cache(None)
+    def inner(self, s1, s2, s3):
+        if not s1:
+            return s2 == s3
+        i = 0
+        while i < len(s1) and s1[i] == s3[i]:
+            if self.inner(s2, s1[i+1:], s3[i+1:]):
+                return True
+            i += 1
+        return False
+```
+
 
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
