@@ -524,6 +524,74 @@ class Solution(object):
         return dp[1][1]
 ```
 
+#### [121. 买卖股票的最佳时机](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/)
+
+##### 解法
+
+```
+参考 123 和 188，买卖股票问题有通用的套路。
+dp[i][j][k] 表示第i天手上有j个股票(j∈{0, 1})且剩余k次交易机会时能获得的最大利润。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        if not prices:
+            return 0
+        n = len(prices)
+        dp = [[[0, 0], [0, 0]] for i in range(n+1)]
+        
+        dp[n][1][0] = prices[-1]
+        for i in range(n-1, 0, -1):
+            dp[i][0][0] = dp[i+1][0][0]
+            dp[i][0][1] = max(dp[i+1][0][1], dp[i+1][1][0] - prices[i-1])
+            dp[i][1][0] = max(dp[i+1][1][0], dp[i+1][0][0] + prices[i-1])
+        return dp[1][0][1]
+```
+
+#### [123. 买卖股票的最佳时机 III](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/)
+
+##### 解法
+
+```
+这道题是 [188, . , 买卖股票的最佳时机 IV] 中 k = 2 时的特例。
+dp[i][j][k] 表示第i天手上有j个股票(j∈{0, 1})且剩余k次交易机会时能获得的最大利润。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        return self.res(prices, 2)
+    
+    def res(self, prices, max_k):
+        n = len(prices)
+        dp = []
+        for i in range(n+1):
+            dp.append([[0] * (max_k+1), [0] * (max_k+1)])
+        
+        for k in range(max_k):
+            dp[n][1][k] = prices[-1]
+        
+        for i in range(n-1, 0, -1):
+            for k in range(max_k+1):
+                dp[i][0][k] = max(dp[i+1][0][k], (dp[i+1][1][k-1] - prices[i-1]) if k > 0 else 0)
+                dp[i][1][k] = max(dp[i+1][1][k], dp[i+1][0][k] + prices[i-1])
+#         pprint(dp)
+        return dp[1][0][k]
+```
+
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
 ##### 解法
@@ -1824,54 +1892,33 @@ class Solution(object):
 ##### 解法
 
 ```
-你突然醒来，看看日历今天是第几天？看看自己手上有没有股票？看看自己还有几次买股票的机会？就可以做出抉择了。
-
-如果今天是最后一天：
-    且手上有股票，那就把手上的股票卖出去。
-不是最后一天：
-    手上有股票：卖股票和啥都不干选一个收益最大的。
-    手上无股票：买股票（如果还可以购买）和啥都不干选一个收益最大的。
-    
-然后直接用递归硬撸就完事儿了！
+dp[i][j][k] 表示第i天手上有j个股票(j∈{0, 1})且剩余k次交易机会时能获得的最大利润。
 ```
 
 ##### 代码
 
 ```python
-from functools import lru_cache
-
-
 class Solution(object):
-    def maxProfit(self, k, prices):
+    def maxProfit(self, max_k, prices):
         """
-        :type k: int
         :type prices: List[int]
         :rtype: int
         """
-        self.prices = prices
-        return self.res(0, False, k)
-    
-    @lru_cache(None)
-    def res(self, i, stock, k):
-        if i >= len(self.prices)-1:  # 是最后一天
-            if stock:
-                return self.prices[i]
-            else:
-                return 0
-        elif stock:  # 可以卖
-            return max(
-                self.res(i+1, True, k),
-                self.res(i+1, False, k) + self.prices[i],
-            )
-        else:  # 手上没股票
-            if k > 0:
-                return max(
-                    self.res(i+1, False, k),
-                    self.res(i+1, True, k-1) - self.prices[i],
-                )
-            else:
-                return self.res(i+1, False, k)
-                
+        if not prices:
+            return 0
+        n = len(prices)
+        dp = []
+        for i in range(n+1):
+            dp.append([[0] * (max_k+1), [0] * (max_k+1)])
+        
+        for k in range(max_k):
+            dp[n][1][k] = prices[-1]
+        
+        for i in range(n-1, 0, -1):
+            for k in range(max_k+1):
+                dp[i][0][k] = max(dp[i+1][0][k], (dp[i+1][1][k-1] - prices[i-1]) if k > 0 else 0)
+                dp[i][1][k] = max(dp[i+1][1][k], dp[i+1][0][k] + prices[i-1])
+        return dp[1][0][k]
 ```
 
 #### [旋转数组](https://leetcode-cn.com/problems/rotate-array/)
