@@ -774,30 +774,28 @@ class Solution(object):
 ##### 解法
 
 ```
-因为Python3自带备忘录，所以写动态规划有无可比拟的巨大优势（优势指写完代码的用时，不是指代码的运行时间）
-直接写完递归，再加个备忘录(lru_cache)就可以了。
+dp[i] 表示 s[:i] 能否用 wordDict 拆分。
 ```
 
 ##### 代码
 
 ```python
-from functools import lru_cache
-
-
 class Solution(object):
     def wordBreak(self, s, wordDict):
-        self.words = wordDict
-        return self.res(s)
-
-    @lru_cache(None)
-    def res(self, s):
-        if not s:
-            return True
-        for word in self.words:
-            if s.startswith(word):
-                if self.res(s[len(word):]):
-                    return True
-        return False
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """
+        n = len(s)
+        dp = [False] * (n+1)
+        dp[0] = 1
+        for i in range(1, n+1):
+            for word in wordDict:
+                if s[i-len(word):i] == word and dp[i-len(word)]:
+                    dp[i] = True
+                    break
+        return dp[-1]
 ```
 
 #### [140. 单词拆分 II](https://leetcode-cn.com/problems/word-break-ii/)
