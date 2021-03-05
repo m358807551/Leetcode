@@ -1374,9 +1374,15 @@ class Solution(object):
 ##### 解法
 
 ```
-1. 如果数组里没有0:
-	1.1 如果负数的个数是偶数，那么所有数相乘最大
-	1.2 如果负数的个数是奇数，那么要么 前n-1个数相乘最大，要么后n-1个数相乘最大
+big[i] 以 nums[i-1] 结尾的【最大】子数组乘积。
+small[i] 以 nums[i-1] 结尾的【最小】子数组乘积。
+
+big[i] 取以下三者中的最大值:
+    1. nums[i-1]
+    2. nums[i-1] * big[i-1]
+    3. nums[i-1] * small[i-1]
+   
+small[i] 则取上述三者的最小值
 ```
 
 ##### 代码
@@ -1384,11 +1390,17 @@ class Solution(object):
 ```python
 class Solution(object):
     def maxProduct(self, nums):
-        nums2 = nums[::-1]  # nums 的逆序
-        for i in range(1, len(nums)):
-            nums[i] = (nums[i-1] or 1) * nums[i]
-            nums2[i] = (nums2[i-1] or 1) * nums2[i]
-        return max(nums + nums2)
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        big, small = [0] * (n+1), [0] * (n+1)
+        big[0], small[0] = 1, 1
+        for i in range(1, n+1):
+            big[i] = max(nums[i-1], nums[i-1] * big[i-1], nums[i-1] * small[i-1])
+            small[i] = min(nums[i-1], nums[i-1] * big[i-1], nums[i-1] * small[i-1])
+        return max(big[1:])
 ```
 
 ##### 参考 [ 多种思路求解](https://leetcode-cn.com/problems/maximum-product-subarray/solution/duo-chong-si-lu-qiu-jie-by-powcai-3/)
