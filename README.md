@@ -497,6 +497,33 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [120. 三角形最小路径和](https://leetcode-cn.com/problems/triangle/)
+
+##### 解法
+
+```
+dp[i][j] 表示以第i行，第j个顶点三角形的最小路径和。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def minimumTotal(self, triangle):
+        """
+        :type triangle: List[List[int]]
+        :rtype: int
+        """
+        n = len(triangle)
+        dp = [[0] * (n+1) for _ in range(n+1)]
+        for i in range(1, n+1):
+            dp[n][i] = triangle[-1][i-1]
+        for i in range(n-1, 0, -1):
+            for j in range(1, i+1):
+                dp[i][j] = triangle[i-1][j-1] + min(dp[i+1][j], dp[i+1][j+1])
+        return dp[1][1]
+```
+
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
 ##### 解法
