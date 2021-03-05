@@ -2015,56 +2015,23 @@ class Solution(object):
 ##### 解法
 
 ```
-房间的下标i，有没有偷钱f，(i, f)可以代表一个状态。res(i, f)表示在(i, f)状态下，可以最大偷多少钱。
+dp[i] 表示打劫 nums[:i+1] 最多能得多少钱。
 ```
 
 ##### 代码
 
 ```python
-# 递归版
-from functools import lru_cache
-
-
 class Solution(object):
     def rob(self, nums):
         """
         :type nums: List[int]
         :rtype: int
         """
-        if not nums:
-            return 0
-        self.nums = nums
-        return max(self.res(0, 0), self.res(0, 1) + self.nums[0])
-    
-    @lru_cache(None)
-    def res(self, i, f):
-        if i >= len(self.nums)-1:
-            return 0
-        if f:
-            return self.res(i+1, 0)
-        else:
-            return max(
-                self.res(i+1, 0),
-                self.res(i+1, 1) + self.nums[i+1],
-            )
-```
-
-数组版
-```python
-class Solution(object):
-    def rob(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if not nums:
-            return 0
         n = len(nums)
-        dp = [[0, 0] for _ in range(n)]
-        for i in range(n-2, -1, -1):
-            dp[i][1] = dp[i+1][0]
-            dp[i][0] = max(dp[i+1][0], dp[i+1][1] + nums[i+1])
-        return max(dp[0][0], dp[0][1] + nums[0])
+        dp = [0] * (n+2)
+        for i in range(n):
+            dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+        return dp[n-1]
 ```
 
 #### [199. 二叉树的右视图](https://leetcode-cn.com/problems/binary-tree-right-side-view/)
