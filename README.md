@@ -477,6 +477,61 @@ class Solution(object):
         return True
 ```
 
+#### [52. N皇后 II](https://leetcode-cn.com/problems/n-queens-ii/)
+
+##### 解法
+
+```
+上一题改两行代码.
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def totalNQueens(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+        trace = [ ['.'] * n for _ in range(n)]
+        self.rst = 0
+        self.backtrace(trace, 0)
+        return self.rst
+    
+    def backtrace(self, trace, i):
+        if i == len(trace):
+            self.rst += 1
+            return
+        for j in range(len(trace)):
+            if self.is_valid(trace, i, j):
+                trace[i][j] = 'Q'
+                self.backtrace(trace, i+1)
+                trace[i][j] = '.'
+            
+    def is_valid(self, trace, i, j):
+        # 纵向
+        for k in range(i):
+            if trace[k][j] == 'Q':
+                return False
+
+        # 左上
+        k = 0
+        while (0<=i-k) and (0<=j-k):
+            if trace[i-k][j-k] == 'Q':
+                return False
+            k += 1
+
+        # 右上
+        k = 0
+        while (0<=i-k) and (j+k < len(trace)):
+            if trace[i-k][j+k] == 'Q':
+                return False
+            k += 1
+        
+        return True
+```
+
 #### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
 
 ##### 解法
