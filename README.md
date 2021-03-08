@@ -303,6 +303,48 @@ class Solution(object):
                 break
 ```
 
+#### [40. 组合总和 II](https://leetcode-cn.com/problems/combination-sum-ii/)
+
+##### 解法
+
+```
+跟上一题几乎相同~~
+```
+
+##### 代码
+```python
+from collections import Counter
+
+
+class Solution(object):
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        self.rst = []
+        count = Counter(candidates)
+        self.backtrace([], count, target)
+        return self.rst
+    
+    def backtrace(self, trace, count, target):
+        if target == 0:
+            self.rst.append(trace[:])
+        
+        for num in count:
+            if trace and trace[-1] > num:
+                continue
+            if count[num] and num <= target:
+                trace.append(num)
+                count[num] -= 1
+                self.backtrace(trace, count, target-num)
+                trace.pop(-1)
+                count[num] += 1
+        
+```
+
+
 #### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
 
 ##### 解法
