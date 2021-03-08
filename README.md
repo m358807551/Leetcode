@@ -148,6 +148,48 @@ class Solution(object):
         return i+1, j-1
 ```
 
+#### [10. 正则表达式匹配](https://leetcode-cn.com/problems/regular-expression-matching/)
+
+##### 解法
+
+```
+这道题的标签虽然有回溯算法，但是就是一个典型的动态规划问题，也是力扣第一道动态规划困难题。
+
+dp[i][j] 表示 s[:i] 和 p[:j] 是否正则匹配。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def isMatch(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: bool
+        """
+        m, n = len(s), len(p)
+        dp = [ [False] * (n+1) for _ in range(m+1)]
+        dp[0][0] = True
+        for j in range(1, n+1):
+            if p[j-1] == "*":
+                dp[0][j] = dp[0][j-2]
+        
+        for i in range(1, m+1):
+            for j in range(1, n+1):
+                if p[j-1] == '.':
+                    dp[i][j] = dp[i-1][j-1]
+                elif p[j-1] == '*':
+                    if s[i-1] == p[j-2] or "." == p[j-2]:
+                        dp[i][j] = dp[i][j-2] or dp[i-1][j]
+                    else:
+                        dp[i][j] = dp[i][j-2]
+                else:
+                    if s[i-1] == p[j-1]:
+                        dp[i][j] = dp[i-1][j-1]
+        return dp[-1][-1]
+```
+
 #### [32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/)
 
 ##### 解法
