@@ -190,6 +190,45 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [22. 括号生成](https://leetcode-cn.com/problems/generate-parentheses/)
+
+##### 解法
+
+```
+回溯函数中:
+    left: 还可以用多少个左括号
+    right: 还可以用多少个右括号
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        self.rst = []
+        self.backtrace([], n, n)
+        return self.rst
+
+    def backtrace(self, trace, left, right):
+        if left == right == 0:
+            self.rst.append(''.join(trace))
+            return
+        
+        if left:
+            trace.append("(")
+            self.backtrace(trace, left-1, right)
+            trace.pop(-1)
+        
+        if left < right:
+            trace.append(")")
+            self.backtrace(trace, left, right-1)
+            trace.pop(-1)
+```
+
 #### [32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/)
 
 ##### 解法
