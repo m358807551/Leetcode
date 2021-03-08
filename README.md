@@ -381,6 +381,44 @@ class Solution(object):
                 counts[num] += 1
 ```
 
+#### [47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
+
+##### 解法
+
+```
+跟上一题的代码完全一样。
+```
+
+##### 代码
+
+```python
+from collections import Counter
+
+
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        self.rst, self.n, counts = [], len(nums), Counter(nums)
+        self.backtrace([], counts)
+        return self.rst
+    
+    def backtrace(self, trace, counts):
+        if len(trace) == self.n:
+            self.rst.append(trace[:])
+            return
+        
+        for num in counts:
+            if counts[num]:
+                trace.append(num)
+                counts[num] -= 1
+                self.backtrace(trace, counts)
+                trace.pop(-1)
+                counts[num] += 1
+```
+
 #### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
 
 ##### 解法
