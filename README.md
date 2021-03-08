@@ -344,6 +344,42 @@ class Solution(object):
         
 ```
 
+#### [46. 全排列](https://leetcode-cn.com/problems/permutations/)
+
+##### 解法
+
+```
+回溯经典问题。
+```
+
+##### 代码
+
+```python
+from collections import Counter
+
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        counts, self.n = Counter(nums), len(nums)
+        self.rst = []
+        self.backtrace([], counts)
+        return self.rst
+    
+    def backtrace(self, trace, counts):
+        if len(trace) == self.n:
+            self.rst.append(trace[:])
+            return
+        for num in counts:
+            if counts[num]:
+                trace.append(num)
+                counts[num] -= 1
+                self.backtrace(trace, counts)
+                trace.pop(-1)
+                counts[num] += 1
+```
 
 #### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
 
