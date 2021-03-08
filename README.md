@@ -419,6 +419,64 @@ class Solution(object):
                 counts[num] += 1
 ```
 
+#### [51. N 皇后](https://leetcode-cn.com/problems/n-queens/)
+
+##### 解法
+
+```
+回溯问题的解法都是相似的。。纯回溯问题中也就N皇后问题是个困难题，但是套模型仍然很简单。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def solveNQueens(self, n):
+        """
+        :type n: int
+        :rtype: List[List[str]]
+        """
+        trace = [ ['.'] * n for _ in range(n)]
+        self.rst = []
+        self.backtrace(trace, 0)
+        return self.rst
+    
+    def backtrace(self, trace, i):
+        if i == len(trace):
+            self.rst.append([
+                "".join(line)
+                for line in trace
+            ])
+            return
+        for j in range(len(trace)):
+            if self.is_valid(trace, i, j):
+                trace[i][j] = 'Q'
+                self.backtrace(trace, i+1)
+                trace[i][j] = '.'
+            
+    def is_valid(self, trace, i, j):
+        # 纵向
+        for k in range(i):
+            if trace[k][j] == 'Q':
+                return False
+
+        # 左上
+        k = 0
+        while (0<=i-k) and (0<=j-k):
+            if trace[i-k][j-k] == 'Q':
+                return False
+            k += 1
+
+        # 右上
+        k = 0
+        while (0<=i-k) and (j+k < len(trace)):
+            if trace[i-k][j+k] == 'Q':
+                return False
+            k += 1
+        
+        return True
+```
+
 #### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
 
 ##### 解法
