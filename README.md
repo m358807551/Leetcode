@@ -264,6 +264,45 @@ class Solution(object):
 
 参考: [「手画图解」剖析两种解法：利用栈、动态规划](https://leetcode-cn.com/problems/longest-valid-parentheses/solution/shou-hua-tu-jie-zhan-de-xiang-xi-si-lu-by-hyj8/)
 
+#### [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
+
+##### 解法
+
+```
+典型的回溯问题，就是注意一下为了防止重复解，每个解限制一下后面的数必须大于等于前面的数即可。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        self.nums = sorted(candidates)
+        self.rst = []
+        self.backtrace([], target)
+        return self.rst
+    
+    def backtrace(self, trace, target):
+        if target == 0:
+            self.rst.append(trace[:])
+            return
+        
+        for num in self.nums:
+            if trace and (trace[-1] > num):
+                continue
+            if num <= target:
+                trace.append(num)
+                self.backtrace(trace, target-num)
+                trace.pop(-1)
+            else:
+                break
+```
+
 #### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
 
 ##### 解法
