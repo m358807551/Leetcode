@@ -818,6 +818,26 @@ class Solution(object):
         return False
 ```
 
+#### [89. 格雷编码](https://leetcode-cn.com/problems/gray-code/)
+
+##### 解法
+
+```
+名为回溯题，实为公式题，一行代码即可解决~
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def grayCode(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        return [i ^ (i >> 1) for i in range(pow(2, n))]
+```
+
 #### [91. 解码方法](https://leetcode-cn.com/problems/decode-ways/)
 
 ##### 解法
