@@ -838,6 +838,46 @@ class Solution(object):
         return [i ^ (i >> 1) for i in range(pow(2, n))]
 ```
 
+#### [90. 子集 II](https://leetcode-cn.com/problems/subsets-ii/)
+
+##### 解法
+
+```
+回溯算法。
+```
+
+##### 代码
+
+```python
+from collections import Counter
+
+
+class Solution(object):
+    def subsetsWithDup(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        self.rst = []
+        self.backtrace([], Counter(nums))
+        return self.rst
+    
+    def backtrace(self, trace, counts):
+        self.rst.append(trace[:])
+        for num in counts:
+            if trace and (trace[-1] > num):
+                continue
+            if num in trace:
+                continue
+            for i in range(1, counts[num] + 1):
+                trace.extend([num] * i)
+                counts[num] -= i
+                self.backtrace(trace, counts)
+                for _ in range(i):
+                    trace.pop(-1)
+                counts[num] += i
+```
+
 #### [91. 解码方法](https://leetcode-cn.com/problems/decode-ways/)
 
 ##### 解法
