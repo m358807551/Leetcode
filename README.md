@@ -701,6 +701,89 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [77. 组合](https://leetcode-cn.com/problems/combinations/)
+
+##### 解法
+
+```
+回溯题解法好像都一样的~
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def combine(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: List[List[int]]
+        """
+        self.n, self.k = n, k
+        self.rst = []
+        self.backtrace([])
+        return self.rst
+    
+    def backtrace(self, trace):
+        if len(trace) == self.k:
+            self.rst.append(trace[:])
+            return
+        start = (trace[-1] + 1) if trace else 1
+        for num in range(start, self.n+1):
+            trace.append(num)
+            self.backtrace(trace)
+            trace.pop(-1)
+```
+
+#### [79. 单词搜索](https://leetcode-cn.com/problems/word-search/)
+
+##### 解法
+
+```
+这道题目的测试用例更改过，同样的代码之前300ms现在需要3000+ms，所以看到代码执行速度只超越5%的人不要方，这是正常的。
+
+本题还有两个跟其它回溯题目不一样的地方:
+1. 以前的回溯题需要一个个收集可能的结果保存下来，而这道题只要有了确定的答案，就直接返回，不再进行其它情况的寻找。表现在代码上，就是backtrace函数有了返回值(其它题目都返回None.)
+2. 之前的题目都是在 调用backtrace 前确定参数的有效性，而本题目需要在backtrace函数的开头，确定传入的参数是否是合法的。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def exist(self, board, word):
+        """
+        :type board: List[List[str]]
+        :type word: str
+        :rtype: bool
+        """
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if self.backtrace(board, word, i, j, 0):
+                    return True
+        return False
+    
+    def backtrace(self, board, word, i, j, k):
+        if k == len(word):
+            return True
+        m, n = len(board), len(board[0])
+        if not((0 <= i < m) and (0 <= j < n)):
+            return False
+        if board[i][j] != word[k]:
+            return False
+        
+        board[i][j] = '0'
+        if (
+            self.backtrace(board, word, i+1, j, k+1) 
+            or self.backtrace(board, word, i-1, j, k+1)
+            or self.backtrace(board, word, i, j+1, k+1)
+            or self.backtrace(board, word, i, j-1, k+1)
+        ):
+            return True
+        board[i][j] = word[k]
+        return False
+```
+
 #### [87. 扰乱字符串](https://leetcode-cn.com/problems/scramble-string/)
 
 ##### 解法
