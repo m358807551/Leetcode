@@ -916,6 +916,50 @@ class Solution(object):
         return dp[-1]
 ```
 
+#### [93. 复原 IP 地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
+
+##### 解法
+
+```
+每次试取前1个，前两个，前3个字符组成ip地址中的一小段。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def restoreIpAddresses(self, s):
+        """
+        :type s: str
+        :rtype: List[str]
+        """
+        if not(4 <= len(s) <= 12):
+            return []
+        self.rst = []
+        self.backtrace([], s)
+        return self.rst
+    
+    def backtrace(self, trace, s):
+        if not s:
+            if len(trace) == 4:
+                self.rst.append('.'.join(trace))
+            return
+        
+        trace.append(s[:1])
+        self.backtrace(trace, s[1:])
+        trace.pop(-1)
+        
+        if int(s[:2]) >= 10:
+            trace.append(s[:2])
+            self.backtrace(trace, s[2:])
+            trace.pop(-1)
+        
+        if 100 <= int(s[:3]) <= 255:
+            trace.append(s[:3])
+            self.backtrace(trace, s[3:])
+            trace.pop(-1)
+```
+
 #### [97. 交错字符串](https://leetcode-cn.com/problems/interleaving-string/)
 
 ##### 解法
