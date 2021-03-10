@@ -2,7 +2,7 @@
 
 #### [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
 
-##### 解法
+##### 题解
 
 ```
 将所有的数两两比较，找到符合条件的两个数就返回下标。
@@ -21,7 +21,7 @@ class Solution(object):
 
 #### [2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
 
-##### 解法
+##### 题解
 
 ```
 递归求解
@@ -49,7 +49,7 @@ class Solution(object):
 
 #### [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 
-##### 解法
+##### 题解
 
 ```
 遍历每个字符：
@@ -75,7 +75,7 @@ class Solution(object):
 
 #### [4. 寻找两个正序数组的中位数](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/)
 
-##### 解法
+##### 题解
 
 ###### 找有序数组的中位数
 
@@ -115,11 +115,11 @@ class Solution(object):
             return self.find_k(nums1, i, nums2, j+k//2, k-k//2)
 ```
 
-##### 参考：[综合百家题解，总结最清晰易懂的二分解法！](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/zong-he-bai-jia-ti-jie-zong-jie-zui-qing-xi-yi-don/)
+##### 参考：[综合百家题解，总结最清晰易懂的二分题解！](https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/zong-he-bai-jia-ti-jie-zong-jie-zui-qing-xi-yi-don/)
 
 #### [5. 最长回文子串](https://leetcode-cn.com/problems/longest-palindromic-substring/)
 
-##### 解法
+##### 题解
 
 ```
 这套题挂羊头卖狗肉，官方分类在动态规划里，实际上用动态规划写出来时间上要么超时，要么倒数。
@@ -150,7 +150,7 @@ class Solution(object):
 
 #### [10. 正则表达式匹配](https://leetcode-cn.com/problems/regular-expression-matching/)
 
-##### 解法
+##### 题解
 
 ```
 这道题的标签虽然有回溯算法，但是就是一个典型的动态规划问题，也是力扣第一道动态规划困难题。
@@ -192,7 +192,7 @@ class Solution(object):
 
 #### [22. 括号生成](https://leetcode-cn.com/problems/generate-parentheses/)
 
-##### 解法
+##### 题解
 
 ```
 回溯函数中:
@@ -231,7 +231,7 @@ class Solution(object):
 
 #### [32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/)
 
-##### 解法
+##### 题解
 
 ```
 这道题虽说分类在困难的动态规划，但还是有大神能用栈以接近简单难度的方法破解出来。
@@ -262,11 +262,49 @@ class Solution(object):
         return rst
 ```
 
-参考: [「手画图解」剖析两种解法：利用栈、动态规划](https://leetcode-cn.com/problems/longest-valid-parentheses/solution/shou-hua-tu-jie-zhan-de-xiang-xi-si-lu-by-hyj8/)
+参考: [「手画图解」剖析两种题解：利用栈、动态规划](https://leetcode-cn.com/problems/longest-valid-parentheses/solution/shou-hua-tu-jie-zhan-de-xiang-xi-si-lu-by-hyj8/)
+
+#### [33. 搜索旋转排序数组](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
+
+##### 题解
+
+```
+1. 将数组分成左右两部分。
+
+2. 左部分有序？
+    2.1 目标值在左部分里：选择左部分
+    2.2 否则选择右部分
+
+3. 否则：
+    3.1 目标值在有部分里：选择右部分
+    3.2 否则选择左部分
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def search(self, nums, target):
+        i, j = 0, len(nums)-1
+        while i < j:
+            mid = i + (j-i)//2
+            if nums[i] <= nums[mid]:  #左有序
+                if nums[i] <= target <= nums[mid]:
+                    j = mid
+                else:
+                    i = mid + 1
+            else: 
+                if nums[mid+1] <= target <=nums[j]:
+                    i = mid + 1
+                else:
+                    j = mid
+                        
+        return i if nums[i] == target else -1
+```
 
 #### [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
 
-##### 解法
+##### 题解
 
 ```
 典型的回溯问题，就是注意一下为了防止重复解，每个解限制一下后面的数必须大于等于前面的数即可。
@@ -305,7 +343,7 @@ class Solution(object):
 
 #### [40. 组合总和 II](https://leetcode-cn.com/problems/combination-sum-ii/)
 
-##### 解法
+##### 题解
 
 ```
 跟上一题几乎相同~~
@@ -346,7 +384,7 @@ class Solution(object):
 
 #### [46. 全排列](https://leetcode-cn.com/problems/permutations/)
 
-##### 解法
+##### 题解
 
 ```
 回溯经典问题。
@@ -383,7 +421,7 @@ class Solution(object):
 
 #### [47. 全排列 II](https://leetcode-cn.com/problems/permutations-ii/)
 
-##### 解法
+##### 题解
 
 ```
 跟上一题的代码完全一样。
@@ -421,10 +459,10 @@ class Solution(object):
 
 #### [51. N 皇后](https://leetcode-cn.com/problems/n-queens/)
 
-##### 解法
+##### 题解
 
 ```
-回溯问题的解法都是相似的。。纯回溯问题中也就N皇后问题是个困难题，但是套模型仍然很简单。
+回溯问题的题解都是相似的。。纯回溯问题中也就N皇后问题是个困难题，但是套模型仍然很简单。
 ```
 
 ##### 代码
@@ -479,7 +517,7 @@ class Solution(object):
 
 #### [52. N皇后 II](https://leetcode-cn.com/problems/n-queens-ii/)
 
-##### 解法
+##### 题解
 
 ```
 上一题改两行代码.
@@ -534,7 +572,7 @@ class Solution(object):
 
 #### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
 
-##### 解法
+##### 题解
 
 ```
 基础的动态规划题目。
@@ -560,7 +598,7 @@ class Solution(object):
 
 #### [63. 不同路径 II](https://leetcode-cn.com/problems/unique-paths-ii/)
 
-##### 解法
+##### 题解
 
 ```
 跟题目62相似，只需做一点修改。
@@ -599,7 +637,7 @@ class Solution(object):
 
 #### [64. 最小路径和](https://leetcode-cn.com/problems/minimum-path-sum/)
 
-##### 解法
+##### 题解
 
 ```
 连做了 62,63,64，我怀疑我精通动态规划了。😺
@@ -629,7 +667,7 @@ class Solution(object):
 
 #### [70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
 
-##### 解法
+##### 题解
 
 ```
 Leetcode前两百道题目里有19道动态规划，19个动态规划里只有两个难度是简单，爬楼梯是其中一道。
@@ -657,7 +695,7 @@ class Solution(object):
 
 #### [72. 编辑距离](https://leetcode-cn.com/problems/edit-distance/)
 
-##### 解法
+##### 题解
 
 ```
 状态转移方程好写，就是怎么初始化困难些。
@@ -703,10 +741,10 @@ class Solution(object):
 
 #### [77. 组合](https://leetcode-cn.com/problems/combinations/)
 
-##### 解法
+##### 题解
 
 ```
-回溯题解法好像都一样的~
+回溯题题解好像都一样的~
 ```
 
 ##### 代码
@@ -737,7 +775,7 @@ class Solution(object):
 
 #### [79. 单词搜索](https://leetcode-cn.com/problems/word-search/)
 
-##### 解法
+##### 题解
 
 ```
 这道题目的测试用例更改过，同样的代码之前300ms现在需要3000+ms，所以看到代码执行速度只超越5%的人不要方，这是正常的。
@@ -786,11 +824,11 @@ class Solution(object):
 
 #### [87. 扰乱字符串](https://leetcode-cn.com/problems/scramble-string/)
 
-##### 解法
+##### 题解
 
 ```
-dp解法要用到三维的 dp数组 dp[len][i][j]，表示s1从i开始的len个字符跟 s2从j开始的len个字符够不够成扰乱字符串。
-dp解法对我来说过于复杂，于是用了递归+lru_cache解法。
+dp题解要用到三维的 dp数组 dp[len][i][j]，表示s1从i开始的len个字符跟 s2从j开始的len个字符够不够成扰乱字符串。
+dp题解对我来说过于复杂，于是用了递归+lru_cache题解。
 ```
 
 ##### 代码
@@ -820,7 +858,7 @@ class Solution(object):
 
 #### [89. 格雷编码](https://leetcode-cn.com/problems/gray-code/)
 
-##### 解法
+##### 题解
 
 ```
 名为回溯题，实为公式题，一行代码即可解决~
@@ -840,7 +878,7 @@ class Solution(object):
 
 #### [90. 子集 II](https://leetcode-cn.com/problems/subsets-ii/)
 
-##### 解法
+##### 题解
 
 ```
 回溯算法。
@@ -880,11 +918,11 @@ class Solution(object):
 
 #### [91. 解码方法](https://leetcode-cn.com/problems/decode-ways/)
 
-##### 解法
+##### 题解
 
 ```
 一维dp数组。
-dp[i] 表示以下标i结尾的字符串有几种解法。
+dp[i] 表示以下标i结尾的字符串有几种题解。
 ```
 
 ##### 代码
@@ -918,7 +956,7 @@ class Solution(object):
 
 #### [93. 复原 IP 地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
 
-##### 解法
+##### 题解
 
 ```
 每次试取前1个，前两个，前3个字符组成ip地址中的一小段。
@@ -962,7 +1000,7 @@ class Solution(object):
 
 #### [97. 交错字符串](https://leetcode-cn.com/problems/interleaving-string/)
 
-##### 解法
+##### 题解
 
 ```
 还是偷懒用递归解了。。
@@ -1000,7 +1038,7 @@ class Solution(object):
 
 #### [115. 不同的子序列](https://leetcode-cn.com/problems/distinct-subsequences/)
 
-##### 解法
+##### 题解
 
 ```
 dp[i][j] 表示 s[:i] 中 包含 t[:j] 的序列个数.
@@ -1035,7 +1073,7 @@ class Solution(object):
 
 #### [120. 三角形最小路径和](https://leetcode-cn.com/problems/triangle/)
 
-##### 解法
+##### 题解
 
 ```
 dp[i][j] 表示以第i行，第j个顶点三角形的最小路径和。
@@ -1062,7 +1100,7 @@ class Solution(object):
 
 #### [121. 买卖股票的最佳时机](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/)
 
-##### 解法
+##### 题解
 
 ```
 参考 123 和 188，买卖股票问题有通用的套路。
@@ -1093,7 +1131,7 @@ class Solution(object):
 
 #### [123. 买卖股票的最佳时机 III](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/)
 
-##### 解法
+##### 题解
 
 ```
 这道题是 [188, . , 买卖股票的最佳时机 IV] 中 k = 2 时的特例。
@@ -1166,7 +1204,7 @@ class Solution(object):
 
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
-##### 解法
+##### 题解
 
 ```
 有一个环形路上有n个站点； 每个站点都有一个好人或一个坏人；
@@ -1212,7 +1250,7 @@ class Solution(object):
 
 #### [135. 分发糖果](https://leetcode-cn.com/problems/candy/)
 
-##### 解法
+##### 题解
 
 ```
 1. 先给每个同学发一块糖。
@@ -1244,7 +1282,7 @@ class Solution(object):
 
 #### [136. 只出现一次的数字](https://leetcode-cn.com/problems/single-number/)
 
-##### 解法
+##### 题解
 
 ```
 数组中所有数字做异或操作，最终得到一个数就是答案
@@ -1263,7 +1301,7 @@ class Solution(object):
 
 #### [137. 只出现一次的数字 II](https://leetcode-cn.com/problems/single-number-ii/)
 
-##### 解法
+##### 题解
 
 ```
 把每个数字看成一个01串，比如把 [1, 1, 1, 2] 看成 [0001, 0001, 0001, 0010]，
@@ -1314,7 +1352,7 @@ class Solution(object):
 
 #### [138. 复制带随机指针的链表](https://leetcode-cn.com/problems/copy-list-with-random-pointer/)
 
-##### 解法
+##### 题解
 
 ```
 从链表头遍历到链表尾，用一个字典记录旧节点和生成的新节点的对应关系，设置好新节点的value。
@@ -1343,7 +1381,7 @@ class Solution(object):
 
 #### [139. 单词拆分](https://leetcode-cn.com/problems/word-break/)
 
-##### 解法
+##### 题解
 
 ```
 dp[i] 表示 s[:i] 能否用 wordDict 拆分。
@@ -1372,7 +1410,7 @@ class Solution(object):
 
 #### [140. 单词拆分 II](https://leetcode-cn.com/problems/word-break-ii/)
 
-##### 解法
+##### 题解
 
 ```
 是测试用例改过了么？为啥我直接暴力就执行用书超过 89%了(20ms).
@@ -1405,7 +1443,7 @@ class Solution(object):
 
 ##### [141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
 
-##### 解法
+##### 题解
 
 ```
 用两个指针指向链表开头
@@ -1431,7 +1469,7 @@ class Solution(object):
 
 #### [142. 环形链表 II](https://leetcode-cn.com/problems/linked-list-cycle-ii/)
 
-##### 解法
+##### 题解
 
 ```
 快慢指针相遇后，新建一个指针指向链表头。
@@ -1459,7 +1497,7 @@ class Solution(object):
 
 #### [143. 重排链表](https://leetcode-cn.com/problems/reorder-list/)
 
-##### 解法
+##### 题解
 
 ```
 1. 把链表一分为二，第一段从开头到中间，第二段从中间到结尾，要保证第一段的长度>=第二段的长度。
@@ -1515,7 +1553,7 @@ class Solution(object):
 
 #### [144. 二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
 
-##### 解法
+##### 题解
 
 ```
 用栈做辅助。
@@ -1554,7 +1592,7 @@ class Solution(object):
 
 #### [145. 二叉树的后序遍历](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/)
 
-##### 解法
+##### 题解
 
 ```
 套模板
@@ -1592,7 +1630,7 @@ class Solution(object):
 
 #### [146. LRU 缓存机制](https://leetcode-cn.com/problems/lru-cache/)
 
-##### 解法
+##### 题解
 
 ```
 需要一个双链表和一个字典。
@@ -1673,7 +1711,7 @@ class LRUCache(object):
 
 #### [147. 对链表进行插入排序](https://leetcode-cn.com/problems/insertion-sort-list/)
 
-##### 解法
+##### 题解
 
 ###### 1. 在 节点p1 后面插入 节点 p2
 
@@ -1741,7 +1779,7 @@ class Solution(object):
 
 #### [148. 排序链表](https://leetcode-cn.com/problems/sort-list/)
 
-##### 解法
+##### 题解
 
 就是实现归并排序。
 
@@ -1846,7 +1884,7 @@ class Solution:
 
 #### [150. 逆波兰表达式求值](https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/)
 
-##### 解法
+##### 题解
 
 ```
 遍历每一个元素：
@@ -1888,7 +1926,7 @@ python: int(b / float(a))
 
 #### [151. 翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
 
-##### 解法
+##### 题解
 
 ```
 1. 去除多余空格
@@ -1934,7 +1972,7 @@ class Solution(object):
 
 #### [152. 乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/)
 
-##### 解法
+##### 题解
 
 ```
 big[i] 以 nums[i-1] 结尾的【最大】子数组乘积。
@@ -1970,7 +2008,7 @@ class Solution(object):
 
 #### [153. 寻找旋转排序数组中的最小值](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/)
 
-##### 解法
+##### 题解
 
 ```
 给一个数组，一刀将它等分成左右两段。
@@ -1995,7 +2033,7 @@ class Solution(object):
 
 #### [154. 寻找旋转排序数组中的最小值 II](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/)
 
-##### 解法
+##### 题解
 
 ```
 还是把数组1分为2：
@@ -2025,7 +2063,7 @@ class Solution(object):
 
 #### [155. 最小栈](https://leetcode-cn.com/problems/min-stack/)
 
-##### 解法
+##### 题解
 
 ```
 需要一个正常栈和一个辅助栈。
@@ -2063,7 +2101,7 @@ class MinStack(object):
 
 #### [160. 相交链表](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
 
-##### 解法
+##### 题解
 
 ```
 两个指针分别指向两个链表头,
@@ -2085,7 +2123,7 @@ class Solution(object):
 
 #### [162. 寻找峰值](https://leetcode-cn.com/problems/find-peak-element/)
 
-##### 解法
+##### 题解
 
 ```
 由于题目假设nums[-1]=nums[n]=-∞。
@@ -2117,7 +2155,7 @@ class Solution(object):
 
 #### [164. 最大间距](https://leetcode-cn.com/problems/maximum-gap/)
 
-##### 解法
+##### 题解
 
 ```
 这道题很简单鸭，是我想错了么。。。
@@ -2152,7 +2190,7 @@ class Solution:
 
 #### [165. 比较版本号](https://leetcode-cn.com/problems/compare-version-numbers/)
 
-##### 解法
+##### 题解
 
 ```
 把传入的字符串按 '.' 分割，得到的每个部分转成整数，然后再挨个比较就可以了。
@@ -2183,7 +2221,7 @@ class Solution(object):
 
 #### [166. 分数到小数](https://leetcode-cn.com/problems/fraction-to-recurring-decimal/)
 
-##### 解法
+##### 题解
 
 ```
 在不断进行除法的过程中，被除数是一直在变化的，除数是固定的。
@@ -2217,7 +2255,7 @@ cclass Solution(object):
 
 #### [167. 两数之和 II - 输入有序数组](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/)
 
-##### 解法
+##### 题解
 
 ```
 开始时，左指针指向最左边那个数，右指针指向最右边那个数。
@@ -2245,7 +2283,7 @@ class Solution(object):
 
 #### [168. Excel表列名称](https://leetcode-cn.com/problems/excel-sheet-column-title/)
 
-##### 解法
+##### 题解
 
 ```
 把 1->A，2->B 换成0->A，1->B来算，就好想多了。
@@ -2266,7 +2304,7 @@ class Solution(object):
 
 #### [169. 多数元素](https://leetcode-cn.com/problems/majority-element/)
 
-##### 解法
+##### 题解
 
 ```
 开始结果为空
@@ -2298,7 +2336,7 @@ class Solution(object):
 
 #### [171. Excel表列序号](https://leetcode-cn.com/problems/excel-sheet-column-number/)
 
-##### 解法
+##### 题解
 
 ```
 相当于26进制。
@@ -2318,7 +2356,7 @@ class Solution(object):
 
 #### [172. 阶乘后的零](https://leetcode-cn.com/problems/factorial-trailing-zeroes/)
 
-##### 解法
+##### 题解
 
 ```
 要知道n!结尾有几个0，相当于要知道 n! 能分解成几个 2x5。
@@ -2346,7 +2384,7 @@ class Solution(object):
 
 #### [173. 二叉搜索树迭代器](https://leetcode-cn.com/problems/binary-search-tree-iterator/)
 
-##### 解法
+##### 题解
 
 ```
 直接把中序遍历的结果存到数组里，再依次输出。
@@ -2389,10 +2427,10 @@ class BSTIterator(object):
 
 #### [174. 地下城游戏](https://leetcode-cn.com/problems/dungeon-game/submissions/)
 
-##### 解法
+##### 题解
 
 ```
-这是我蒙出来的，不好写解法。。
+这是我蒙出来的，不好写题解。。
 ```
 
 ##### 代码
@@ -2415,7 +2453,7 @@ class Solution(object):
 
 #### [179. 最大数](https://leetcode-cn.com/problems/largest-number/)
 
-##### 解法
+##### 题解
 
 ```
 本质是排序题，将数组按照一定规则排序，再把所有数连在一起即可。
@@ -2440,7 +2478,7 @@ class Solution(object):
 
 #### [187. 重复的DNA序列](https://leetcode-cn.com/problems/repeated-dna-sequences/)
 
-##### 解法
+##### 题解
 
 ```
 用字典记录下所有长度为10的子串出现的次数。
@@ -2462,7 +2500,7 @@ class Solution(object):
 
 #### [188. 买卖股票的最佳时机 IV](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iv/)
 
-##### 解法
+##### 题解
 
 ```
 dp[i][j][k] 表示第i天手上有j个股票(j∈{0, 1})且剩余k次交易机会时能获得的最大利润。
@@ -2496,7 +2534,7 @@ class Solution(object):
 
 #### [旋转数组](https://leetcode-cn.com/problems/rotate-array/)
 
-##### 解法
+##### 题解
 
 ```
 先将数组分成两部分，右边有k个元素，左边有n-k的元素。
@@ -2528,7 +2566,7 @@ class Solution(object):
 
 #### [190. 颠倒二进制位](https://leetcode-cn.com/problems/reverse-bits/)
 
-##### 解法
+##### 题解
 
 ```
 每次取个位数字，连取32次。
@@ -2551,7 +2589,7 @@ class Solution:
 
 #### [191. 位1的个数](https://leetcode-cn.com/problems/number-of-1-bits/)
 
-##### 解法
+##### 题解
 
 ```
 判断个位数是不是1，重复很多次。
@@ -2575,7 +2613,7 @@ class Solution(object):
 
 #### [198. 打家劫舍](https://leetcode-cn.com/problems/house-robber/)
 
-##### 解法
+##### 题解
 
 ```
 dp[i] 表示打劫 nums[:i+1] 最多能得多少钱。
@@ -2599,7 +2637,7 @@ class Solution(object):
 
 #### [199. 二叉树的右视图](https://leetcode-cn.com/problems/binary-tree-right-side-view/)
 
-##### 解法
+##### 题解
 
 ```
 借助队列分层遍历二叉树，每次加入最后一个节点的值。
@@ -2635,7 +2673,7 @@ class Solution(object):
 
 #### [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
 
-##### 解法
+##### 题解
 
 ```
 广度搜索。
