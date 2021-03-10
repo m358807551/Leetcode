@@ -302,6 +302,52 @@ class Solution(object):
         return i if nums[i] == target else -1
 ```
 
+#### [34. 在排序数组中查找元素的第一个和最后一个位置](https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+
+##### 题解
+
+```
+找等于元素的第一个位置 a，和大于元素的第一个位置b。
+
+最后返回 [a, b-1]
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def searchRange(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        if not nums:
+            return -1, -1
+        i, j = 0, len(nums)-1
+        while i < j:
+            mid = i + (j-i)//2
+            if target <= nums[mid]:
+                j = mid
+            else:
+                i = mid+1
+        left = i if nums[i] == target else -1
+        if left == -1:
+            return (-1, -1)
+        
+        i, j = 0, len(nums) -1 
+        while i < j:
+            mid = i + (j-i)//2
+            if target < nums[mid]:
+                j = mid
+            else:
+                i = mid + 1
+        
+        right = i if nums[i] == target else i - 1
+        
+        return left, right
+```
+
 #### [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
 
 ##### 题解
