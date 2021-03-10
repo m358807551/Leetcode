@@ -1128,6 +1128,42 @@ class Solution(object):
         return dp[1][0][k]
 ```
 
+#### [131. 分割回文串](https://leetcode-cn.com/problems/palindrome-partitioning/)
+
+##### 题解
+
+```
+看到分类既包含动态规划，又包含回溯，我还以为有多难。。
+
+最基本的回溯算法就能解出来，效率还不低~
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def partition(self, s):
+        """
+        :type s: str
+        :rtype: List[List[str]]
+        """
+        if not s:
+            return []
+        self.rst = []
+        self.backtrace([], s)
+        return self.rst
+
+    def backtrace(self, trace, s):
+        if not s:
+            self.rst.append(trace[:])
+        for i in range(1, len(s)+1):
+            word = s[:i]
+            if word == word[::-1]:
+                trace.append(word)
+                self.backtrace(trace, s[i:])
+                trace.pop(-1)
+```
+
 #### [134. 加油站](https://leetcode-cn.com/problems/gas-station/)
 
 ##### 解法
