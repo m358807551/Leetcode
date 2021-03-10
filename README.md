@@ -1375,41 +1375,32 @@ class Solution(object):
 ##### 解法
 
 ```
-用普通的回溯法，再结合题目139的单词拆分先判断true和false就行了。
+是测试用例改过了么？为啥我直接暴力就执行用书超过 89%了(20ms).
 ```
 
 ##### 代码
 
 ```python
-from functools import lru_cache
-
-
 class Solution(object):
     def wordBreak(self, s, wordDict):
-        self.words = wordDict
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: List[str]
+        """
         self.rst = []
-        self.backtrace(s, [])
+        self.backtrace([], s, wordDict)
         return self.rst
-
-    def backtrace(self, s, trace):
+    
+    def backtrace(self, trace, s, wordDict):
         if not s:
             self.rst.append(" ".join(trace))
             return
-        for word in self.words:
-            if s.startswith(word) and self.is_valid(s[len(word):]):
+        for word in wordDict:
+            if s[:len(word)] == word:
                 trace.append(word)
-                self.backtrace(s[len(word):], trace)
+                self.backtrace(trace, s[len(word):], wordDict)
                 trace.pop(-1)
-
-    @lru_cache(None)
-    def is_valid(self, s):
-        if not s:
-            return True
-        for word in self.words:
-            if s.startswith(word):
-                if self.is_valid(s[len(word):]):
-                    return True
-        return False
 ```
 
 ##### [141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle/)
