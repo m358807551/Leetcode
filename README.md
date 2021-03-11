@@ -878,6 +878,40 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [74. 搜索二维矩阵](https://leetcode-cn.com/problems/search-a-2d-matrix/)
+
+##### 题解
+
+```
+从矩阵的右上角开始移动：
+
+1. 目标值 == 目标值就返回
+2. 目标值 < 当前值 就向左移动
+3. 目标值 > 当前值 就向下移动
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        m, n = len(matrix), len(matrix[0])
+        i, j = 0, n-1
+        while i < m and j >= 0:
+            if matrix[i][j] == target:
+                return True
+            elif target < matrix[i][j]:
+                j -= 1
+            else:
+                i += 1
+        return False
+```
+
 #### [77. 组合](https://leetcode-cn.com/problems/combinations/)
 
 ##### 题解
