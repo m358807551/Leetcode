@@ -777,6 +777,33 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/)
+
+##### 题解
+
+```
+本质是二分查找，查找满足 i * i >= x 的第一个位置。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        i, j = 0, x
+        while i < j:
+            mid = i + (j-i)//2
+            if mid * mid < x:
+                i = mid + 1
+            else:
+                j = mid
+        return i if i * i == x else i-1
+```
+
 #### [70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
 
 ##### 题解
