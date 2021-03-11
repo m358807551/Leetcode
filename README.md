@@ -2484,27 +2484,27 @@ cclass Solution(object):
 ##### 题解
 
 ```
-开始时，左指针指向最左边那个数，右指针指向最右边那个数。
-要是两个指针对应的数加起来比目标值小，左指针右移一个单位；
-要是两个指针对应的数加起来比目标值大，右指针左移一个单位；
-要是两个指针对应的数加起来等于目标值，就返回结果。
+1. 左右两个指针分别指向数组的两端。
+2. 两个指针代表的数相加，小于目标值则左指针向右；大于目标值则右指针向左，等于目标值则返回。
 ```
 
 ##### 代码
 
-```python
+```python            
 class Solution(object):
     def twoSum(self, numbers, target):
-        left, right = 0, len(numbers) - 1
-        while True:
-            if numbers[left] + numbers[right] < target:
-                left += 1
-            elif numbers[left] + numbers[right] > target:
-                right -= 1
+        """
+        :type numbers: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        i, j = 0, len(numbers)-1
+        while numbers[i] + numbers[j] != target:
+            if numbers[i] + numbers[j] < target:
+                i += 1
             else:
-                break
-        return left+1, right+1
-            
+                j -= 1
+        return[i+1, j+1]
 ```
 
 #### [168. Excel表列名称](https://leetcode-cn.com/problems/excel-sheet-column-title/)
