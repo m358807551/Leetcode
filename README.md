@@ -2258,10 +2258,11 @@ class Solution(object):
 ##### 题解
 
 ```
-还是把数组1分为2：
-  1. 右边严格有序就抛弃右边
-  2. 右边无序就抛弃左边
-  3. 否则就 right = right - 1
+这道题很好理解，用非常简单的思路就能python 4ms超过100%。
+
+1. 把数组等分成左右两段
+2. 如果一段有序另一段无序，那最小值一定在无序的那段里
+3. 如果两段都有序，就比较数组两头的值，去掉值较大的那一头
 ```
 
 ##### 代码
@@ -2269,16 +2270,23 @@ class Solution(object):
 ```python
 class Solution(object):
     def findMin(self, nums):
-        left, right = 0, len(nums)-1
-        while left < right:
-            mid = left + (right-left) // 2
-            if nums[mid] < nums[right]:
-                right = mid
-            elif nums[mid] > nums[right]:
-                left = mid + 1
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        i, j = 0, len(nums)-1
+        while i < j:
+            mid = i + (j-i)//2
+            if nums[i] > nums[mid]:
+                j = mid
+            elif nums[mid] > nums[j]:
+                i = mid + 1
             else:
-                right -= 1
-        return nums[left]
+                if nums[i] < nums[j]:
+                    j -= 1
+                else:
+                    i += 1
+        return nums[i]
 ```
 
 ##### 参考: [寻找旋转排序数组中的最小值 II（二分法，极简，图解](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/solution/154-find-minimum-in-rotated-sorted-array-ii-by-jyd/)
