@@ -2225,9 +2225,11 @@ class Solution(object):
 ##### 题解
 
 ```
-给一个数组，一刀将它等分成左右两段。
-如果右段有序，就抛弃右段，否则就抛弃左段。
-当数组中只有一个数的时候停止。
+这样不是最简的，但比较容易想：
+
+把数组等分成左右两段
+1. 如果一段有序，一段无序，那最小值一定在无序的那段里。
+2. 如果两段都有序，那第一个元素就是最小值。
 ```
 
 ##### 代码
@@ -2235,14 +2237,20 @@ class Solution(object):
 ```python
 class Solution(object):
     def findMin(self, nums):
-        left, right = 0, len(nums)-1
-        while left < right:
-            mid = left + (right - left) // 2
-            if nums[mid] < nums[right]:
-                right = mid
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        i, j = 0, len(nums)-1
+        while i < j:
+            mid = i + (j-i)//2
+            if nums[i] > nums[mid]:
+                j = mid
+            elif nums[mid] > nums[j]:
+                i = mid + 1
             else:
-                left = mid + 1
-        return nums[left]
+                j = i
+        return nums[i]
 ```
 
 #### [154. 寻找旋转排序数组中的最小值 II](https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array-ii/)
