@@ -2356,16 +2356,8 @@ class Solution(object):
 ##### 题解
 
 ```
-由于题目假设nums[-1]=nums[n]=-∞。
-所以，我们从0开始往后遍历元素，如果某个元素大于其后面的元素，则该元素就是峰值元素。（但是它时O(n)，不符合题意）
-
-O(logN)一般考虑二分搜索。有如下规律：
-
-规律一：如果nums[i] > nums[i+1]，则在i之前一定存在峰值元素
-
-规律二：如果nums[i] < nums[i+1]，则在i+1之后一定存在峰值元素
-
-(以上内容摘抄自[陈允怀_YahtoChen](https://leetcode-cn.com/u/archibald_/)的评论)
+1. 将数组等分成左右两段。
+2. 比较两段的接缝处，即比较第一段的最后一个元素的值和第二段第一个元素的值，保留大的值所在的段。
 ```
 
 ##### 代码
@@ -2373,14 +2365,18 @@ O(logN)一般考虑二分搜索。有如下规律：
 ```python
 class Solution(object):
     def findPeakElement(self, nums):
-        left, right = 0, len(nums)-1
-        while left < right:
-            mid = left + (right - left) // 2
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        i, j = 0, len(nums)-1
+        while i < j:
+            mid = i + (j-i)//2
             if nums[mid] < nums[mid+1]:
-                left = mid + 1
+                i = mid + 1
             else:
-                right = mid
-        return left
+                j = mid
+        return i
 ```
 
 #### [164. 最大间距](https://leetcode-cn.com/problems/maximum-gap/)
