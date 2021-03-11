@@ -348,6 +348,40 @@ class Solution(object):
         return left, right
 ```
 
+#### [35. 搜索插入位置](https://leetcode-cn.com/problems/search-insert-position/)
+
+##### 题解
+
+```
+注意两种特殊情况，需要特殊处理。
+  1. nums为空
+  2. target 比 nums中最大的元素还大
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def searchInsert(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        if target > nums[-1]:
+            return len(nums)
+        i, j = 0, len(nums)-1
+        while i < j:
+            mid = i + (j-i)//2
+            if nums[mid] < target:
+                i = mid + 1
+            else:
+                j = mid
+        return i
+```
+
 #### [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
 
 ##### 题解
@@ -501,6 +535,38 @@ class Solution(object):
                 self.backtrace(trace, counts)
                 trace.pop(-1)
                 counts[num] += 1
+```
+
+#### [50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)
+
+##### 题解
+
+```
+每次对半乘，存一下中间结果。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def myPow(self, x, n):
+        """
+        :type x: float
+        :type n: int
+        :rtype: float
+        """
+        if n < 0:
+            return 1. / self.myPow(x, -n)
+        elif n == 0:
+            return 1
+        elif n == 1:
+            return x
+        elif n % 2: # 是奇数
+            t = self.myPow(x, (n-1)//2)
+            return t * t * x
+        else:  # n 是偶数
+            t = self.myPow(x, n//2)
+            return t * t
 ```
 
 #### [51. N 皇后](https://leetcode-cn.com/problems/n-queens/)
