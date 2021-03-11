@@ -995,6 +995,47 @@ class Solution(object):
         return False
 ```
 
+#### [81. 搜索旋转排序数组 II](https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/)
+
+##### 题解
+
+```
+1. 将数组等分成左右两部分，已知如果一部分无序，那么另一部分一定有序。
+2. 只在有序的那部分寻找目标值，如果目标值在有序的那部分，那么舍弃无序那部分；反之舍弃有序的那部分。
+3. 如果两部分都无法判断出无序，那就去掉数组最后一个值，继续判断。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: bool
+        """
+        i, j = 0, len(nums)-1
+        while i < j:
+            mid = i + (j-i) // 2
+            if nums[mid+1] > nums[j]:  # 右边无序
+                if nums[i] <= target <= nums[mid]:
+                    j = mid
+                else:
+                    i = mid + 1
+            elif nums[i] > nums[mid]: # 左边无序
+                if nums[mid+1] <= target <= nums[j]:
+                    i = mid + 1
+                else:
+                    j = mid
+            else:
+                if nums[j] == target:
+                    i = j
+                else:
+                    j -= 1
+        return True if nums[i] == target else False
+```
+
 #### [87. 扰乱字符串](https://leetcode-cn.com/problems/scramble-string/)
 
 ##### 题解
