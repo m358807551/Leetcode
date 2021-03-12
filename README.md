@@ -1195,6 +1195,34 @@ class Solution(object):
             return head
 ```
 
+#### [83. 删除排序链表中的重复元素](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+
+##### 题解
+
+```
+用递归做，简简单单。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if (not head) or (not head.next):
+            return head
+        
+        p = self.deleteDuplicates(head.next)
+        if head.val == p.val:
+            return p
+        else:
+            head.next = p
+            return head
+```
+
 #### [87. 扰乱字符串](https://leetcode-cn.com/problems/scramble-string/)
 
 ##### 题解
