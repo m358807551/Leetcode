@@ -764,6 +764,49 @@ class Solution(object):
         return True
 ```
 
+#### [61. 旋转链表](https://leetcode-cn.com/problems/rotate-list/)
+
+##### 题解
+
+```
+1. 将链表收尾相连，形成一个环
+
+2. 找到第 链表的长度 - k - 1 个节点，从这里断开，返回新的链表头
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def rotateRight(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        if not head:
+            return head
+        n = self.get_len(head)
+        k = k % n
+        
+        tail = head
+        while tail.next:
+            tail = tail.next
+        tail.next = head
+        
+        p = head
+        for _ in range(n-k-1):
+            p = p.next
+        rst = p.next
+        p.next = None
+        return rst
+    
+    def get_len(self, head):
+        if not head:
+            return 0
+        return self.get_len(head.next) + 1
+```
+
 #### [62. 不同路径](https://leetcode-cn.com/problems/unique-paths/)
 
 ##### 题解
