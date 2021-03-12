@@ -262,6 +262,55 @@ class Solution(object):
             trace.pop(-1)
 ```
 
+#### [25. K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/)
+
+##### 题解
+
+```
+链表题中唯一一个困难题目。
+
+先实现: 反转链表前 k 个元素。
+
+递归在链表中很好用。
+```
+
+##### 代码
+
+```python
+
+class Solution(object):
+    def reverseKGroup(self, head, k):
+        """
+        :type head: ListNode
+        :type k: int
+        :rtype: ListNode
+        """
+        if not self.enough(head, k):
+            return head
+        rst = self.reverseK(head, k)
+        if self.q:
+            head.next = self.reverseKGroup(self.q, k)
+        return rst
+        
+    def reverseK(self, head, k):
+        if k == 1:
+            self.q = head.next
+            return head
+        else:
+            rst = self.reverseK(head.next, k-1)
+            head.next.next, head.next = head, None
+            return rst
+    
+    def enough(self, head, k):
+        if not k:
+            return True
+        if not head:
+            return False
+        return self.enough(head.next, k-1)
+```
+
+##### 
+
 #### [32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/)
 
 ##### 题解
