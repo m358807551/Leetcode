@@ -1161,6 +1161,40 @@ class Solution(object):
         return True if nums[i] == target else False
 ```
 
+#### [82. 删除排序链表中的重复元素 II](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/)
+
+##### 题解
+
+```
+1. 节点个数 < 2时返回 head即可。
+
+2. 前两个节点的值相等时，从第一个不等于该值的节点开始递归计算。
+
+3. 前两个节点不等时，第一个节点后面 接上 递归计算的结果。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if (not head) or (not head.next):
+            return head
+        
+        if head.val == head.next.val:
+            t = head.val
+            while head and (head.val == t):
+                head = head.next
+            return self.deleteDuplicates(head)
+        else:
+            head.next = self.deleteDuplicates(head.next)
+            return head
+```
+
 #### [87. 扰乱字符串](https://leetcode-cn.com/problems/scramble-string/)
 
 ##### 题解
