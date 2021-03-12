@@ -190,6 +190,39 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [19. 删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+
+##### 题解
+
+```
+关键在找到要删除节点的前一个节点。
+
+用两个指针，快指针先走n+1步，然后接下来每回合两个指针各向后走一步，直到快指针指向null为止，此时慢指针指向要删除节点的前一个节点。
+
+记得手动加一个辅助头节点。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def removeNthFromEnd(self, head, n):
+        """
+        :type head: ListNode
+        :type n: int
+        :rtype: ListNode
+        """
+        t = ListNode(next=head)
+        fast = slow = t
+        for _ in range(n+1):
+            fast = fast.next
+        while fast:
+            fast = fast.next
+            slow = slow.next
+        slow.next = slow.next.next
+        return t.next
+```
+
 #### [22. 括号生成](https://leetcode-cn.com/problems/generate-parentheses/)
 
 ##### 题解
