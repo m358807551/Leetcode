@@ -148,6 +148,34 @@ class Solution(object):
         return i+1, j-1
 ```
 
+#### [7. 整数反转](https://leetcode-cn.com/problems/reverse-integer/)
+
+##### 题解
+
+```
+每次取各位数字进行运算。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        positive = True if x >= 0 else False
+        x = abs(x)
+        rst = 0
+        while x:
+            rst = rst * 10 + x % 10
+            x = x // 10
+        rst = rst if positive else -rst
+        return rst if (-pow(2, 31)<= rst <= pow(2, 31)-1) else 0
+```
+
+
 #### [10. 正则表达式匹配](https://leetcode-cn.com/problems/regular-expression-matching/)
 
 ##### 题解
