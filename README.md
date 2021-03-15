@@ -1223,6 +1223,45 @@ class Solution(object):
             return head
 ```
 
+#### [86. 分隔链表](https://leetcode-cn.com/problems/partition-list/)
+
+##### 题解
+
+```
+待补充。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def partition(self, head, x):
+        """
+        :type head: ListNode
+        :type x: int
+        :rtype: ListNode
+        """
+        if (not head) or (not head.next):
+            return head
+        q = self.partition(head.next, x)
+        if head.val < x:
+            head.next = q
+            return head
+        else:
+            return self.insert(q, head, x)
+
+    def insert(self, head, p, x):
+        if not head:
+            p.next = None
+            return p
+        if head.val < x:
+            head.next = self.insert(head.next, p, x)
+            return head
+        else:
+            p.next = head
+            return p
+```
+
 #### [87. 扰乱字符串](https://leetcode-cn.com/problems/scramble-string/)
 
 ##### 题解
