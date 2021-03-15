@@ -1394,6 +1394,39 @@ class Solution(object):
         return dp[-1]
 ```
 
+#### [92. 反转链表 II](https://leetcode-cn.com/problems/reverse-linked-list-ii/)
+
+##### 题解
+
+```
+递归求解。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def reverseBetween(self, head, left, right):
+        """
+        :type head: ListNode
+        :type left: int
+        :type right: int
+        :rtype: ListNode
+        """
+        if left == 1:
+            return self.reverse_k(head, right)
+        else:
+            head.next = self.reverseBetween(head.next, left-1, right-1)
+            return head
+    
+    def reverse_k(self, head, k):
+        if k <= 1:
+            return head
+        rst = self.reverse_k(head.next, k-1)
+        head.next.next, head.next = head, head.next.next
+        return rst
+```
+
 #### [93. 复原 IP 地址](https://leetcode-cn.com/problems/restore-ip-addresses/)
 
 ##### 题解
@@ -1474,6 +1507,40 @@ class Solution(object):
                 return True
             i += 1
         return False
+```
+
+#### [109. 有序链表转换二叉搜索树](https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/)
+
+##### 题解
+
+```
+快慢指针不断找中点 slow，然后把链表分为 [left, slow) slow [slow.next, right) 三部分，递归构造树。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def sortedListToBST(self, head):
+        """
+        :type head: ListNode
+        :rtype: TreeNode
+        """
+        return self.res(head, None)
+
+    def res(self, left, right):
+        if left is right:
+            return None
+        
+        slow = fast = left
+        while (fast is not right) and (fast.next is not right):
+            fast = fast.next.next
+            slow = slow.next
+        
+        rst = TreeNode(slow.val)
+        rst.left = self.res(left, slow)
+        rst.right = self.res(slow.next, right)
+        return rst
 ```
 
 #### [115. 不同的子序列](https://leetcode-cn.com/problems/distinct-subsequences/)
