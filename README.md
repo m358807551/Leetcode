@@ -2007,7 +2007,7 @@ class Solution(object):
 ##### 题解
 
 ```
-1. 把链表一分为二，第一段从开头到中间，第二段从中间到结尾，要保证第一段的长度>=第二段的长度。
+1. 把链表一分为二，第一段从开头到中间，第二段从中间到结尾。
 2. 把第二段链表逆置。
 3. 把两段链表交替连接起来。
 ```
@@ -2022,40 +2022,48 @@ class Solution(object):
 ##### 代码
 
 ```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution(object):
     def reorderList(self, head):
-        if not head:
-            return
-        # 寻找第二段链表头
-        fast = slow = head
-        while fast.next and fast.next.next:
+        """
+        :type head: ListNode
+        :rtype: None Do not return anything, modify head in-place instead.
+        """
+        if not (head and head.next and head.next.next):  # 小于3个节点
+            return head
+        
+        slow = fast = head
+        fast = fast.next.next
+        while fast and fast.next:
             fast = fast.next.next
             slow = slow.next
-        head2 = slow.next
+        
+        h1, h2 = head, slow.next
         slow.next = None
-
-        # 第二段链表逆置
-        head2 = self.reverse(head2)
-
-        # 合并
-        self.combine(head, head2)
-
+        
+        h2 = self.reverse(h2)
+        return self.combine(h1, h2)
+    
+    def combine(self, h1, h2):
+        if (h1 and h2) is None:
+            return h1 or h2
+        
+        h1.next, h2.next = h2, self.combine(h1.next, h2.next)
+        return h1
+    
     def reverse(self, head):
-        if (not head) or (not head.next):
+        if not (head and head.next):
             return head
+        
         rst = self.reverse(head.next)
         head.next.next = head
         head.next = None
+        
         return rst
-
-    def combine(self, head1, head2):
-        if not head2:
-            return head1
-
-        t = self.combine(head1.next, head2.next)
-        head1.next = head2
-        head2.next = t
-        return head1
 ```
 
 #### [144. 二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
