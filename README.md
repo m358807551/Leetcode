@@ -287,6 +287,48 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [12. 整数转罗马数字](https://leetcode-cn.com/problems/integer-to-roman/)
+
+##### 题解
+
+```
+从大到小列出所有可能的符号，不段连接字符串。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def intToRoman(self, num):
+        """
+        :type num: int
+        :rtype: str
+        """
+        lis = [
+            (1000, "M"),
+            (900, "CM"),
+            (500, "D"),
+            (400, "CD"),
+            (100, "C"),
+            (90, "XC"),
+            (50, "L"),
+            (40, "XL"),
+            (10, "X"),
+            (9, "IX"),
+            (5, "V"),
+            (4, "IV"),
+            (1, "I"),
+        ]
+        rst = ""
+        while num:
+            for n, s in lis:
+                if num >= n:
+                    rst += s
+                    num -= n
+                    break
+        return rst
+```
+
 #### [19. 删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
 
 ##### 题解
