@@ -224,6 +224,26 @@ class Solution(object):
         return rst
 ```
 
+#### [9. 回文数](https://leetcode-cn.com/problems/palindrome-number/)
+
+##### 题解
+
+```
+先把数字转成字符串，再判断字符串是否回文。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def isPalindrome(self, x):
+        """
+        :type x: int
+        :rtype: bool
+        """
+        x = str(x)
+        return x == x[::-1]
+```
 
 #### [10. 正则表达式匹配](https://leetcode-cn.com/problems/regular-expression-matching/)
 
