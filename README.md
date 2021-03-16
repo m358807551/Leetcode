@@ -725,6 +725,41 @@ class Solution(object):
         
 ```
 
+#### [43. 字符串相乘](https://leetcode-cn.com/problems/multiply-strings/)
+
+##### 题解
+
+```
+列竖式，算乘法。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def multiply(self, num1, num2):
+        """
+        :type num1: str
+        :type num2: str
+        :rtype: str
+        """
+        num1, num2 = num1[::-1], num2[::-1]
+        m, n = len(num1), len(num2)
+        rst = [0] * (m + n)
+        for j in range(n):
+            for i in range(m):
+                t = int(num1[i]) * int(num2[j])
+                rst[i+j] += t % 10
+                rst[i+j+1] += t // 10
+        for i in range(len(rst)-1):
+            rst[i+1] += rst[i] // 10
+            rst[i] = rst[i] % 10
+        
+        rst = ''.join([str(x) for x in rst[::-1]])
+        rst = rst.lstrip('0')
+        return rst if rst else '0'
+```
+
 #### [46. 全排列](https://leetcode-cn.com/problems/permutations/)
 
 ##### 题解
