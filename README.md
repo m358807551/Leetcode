@@ -175,6 +175,55 @@ class Solution(object):
         return rst if (-pow(2, 31)<= rst <= pow(2, 31)-1) else 0
 ```
 
+#### [8. 字符串转换整数 (atoi)](https://leetcode-cn.com/problems/string-to-integer-atoi/)
+
+##### 题解
+
+```
+这是一道偏工程的题目，没有什么高深的算法，就是按部就班的来就行。
+
+1. 去掉前导空格
+2. 判断正负号
+3. 算出数字
+4. 数字太大或太小就限定在一定范围内。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def myAtoi(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        i = 0
+        while i < len(s) and s[i] == ' ':
+            i += 1
+        
+        rst, positive = 0, True
+        if i < len(s) and s[i] == '-':
+            positive = False
+            i += 1
+        elif i < len(s) and s[i] == '+':
+            i += 1
+        
+        while (i < len(s)) and ('0' <= s[i] <= '9'):
+            rst = rst * 10 + int(s[i])
+            i += 1
+        
+        if not positive:
+            rst = -rst
+        
+        if rst < -pow(2, 31):
+            rst = -pow(2, 31)
+        
+        if rst > (pow(2, 31) - 1):
+            rst = pow(2, 31)
+        
+        return rst
+```
+
 
 #### [10. 正则表达式匹配](https://leetcode-cn.com/problems/regular-expression-matching/)
 
