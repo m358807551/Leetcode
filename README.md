@@ -329,6 +329,48 @@ class Solution(object):
         return rst
 ```
 
+#### [13. 罗马数字转整数](https://leetcode-cn.com/problems/roman-to-integer/)
+
+##### 题解
+
+```
+跟12题一样的。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        lis = [
+            (1000, "M"),
+            (900, "CM"),
+            (500, "D"),
+            (400, "CD"),
+            (100, "C"),
+            (90, "XC"),
+            (50, "L"),
+            (40, "XL"),
+            (10, "X"),
+            (9, "IX"),
+            (5, "V"),
+            (4, "IV"),
+            (1, "I"),
+        ]
+        rst = 0
+        while s:
+            for num, letter in lis:
+                if s[:len(letter)] == letter:
+                    rst += num
+                    s = s[len(letter):]
+                    break
+        return rst
+```
+
 #### [19. 删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
 
 ##### 题解
