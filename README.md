@@ -980,6 +980,34 @@ class Solution(object):
         return True
 ```
 
+#### [60. 排列序列](https://leetcode-cn.com/problems/permutation-sequence/)
+
+##### 题解
+
+见 [python3 超详细多解法](https://leetcode-cn.com/problems/permutation-sequence/solution/python3-chao-xiang-xi-duo-jie-fa-by-ting-ting-28-3/)
+
+##### 代码
+
+```python
+import math
+
+
+class Solution(object):
+    def getPermutation(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: str
+        """
+        rst, k = '', k-1
+        s = [str(x) for x in range(1, n+1)]
+        while s:
+            n = math.factorial(len(s)-1)
+            rst += s.pop(k // n)
+            k = k % n
+        return rst
+```
+
 #### [61. 旋转链表](https://leetcode-cn.com/problems/rotate-list/)
 
 ##### 题解
