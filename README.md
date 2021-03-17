@@ -754,6 +754,32 @@ class Solution(object):
         
 ```
 
+#### [42. 接雨水](https://leetcode-cn.com/problems/trapping-rain-water/)
+
+##### 最简题解: [单调栈O(n)解决，动图预警🎶🎵](https://leetcode-cn.com/problems/trapping-rain-water/solution/dan-diao-zhan-jie-jue-jie-yu-shui-wen-ti-by-sweeti/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        rst, stack = 0, []
+        for i in range(len(height)):
+            while stack and height[stack[-1]] < height[i]:
+                if len(stack) >= 2:
+                    rst += min(
+                        height[i]-height[stack[-1]], 
+                        height[stack[-2]]-height[stack[-1]]
+                    ) * (i-stack[-2]-1)
+                stack.pop(-1)
+            stack.append(i)
+        return rst
+```
+
 #### [43. 字符串相乘](https://leetcode-cn.com/problems/multiply-strings/)
 
 ##### 题解
