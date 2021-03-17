@@ -1146,6 +1146,45 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [65. 有效数字](https://leetcode-cn.com/problems/valid-number/)
+
+##### 题解
+
+```
+没有高深的算法，还是考验细心的题目，在纸上画出正确的状态机就能轻松过。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def isNumber(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        d = {
+            0: {"+": 1, "-": 1, "9": 2, ".": 3},
+            1: {"9": 2, ".": 3},
+            2: {"9": 2, "e": 5, ".": 4},
+            3: {"9": 4},
+            4: {"9": 4, "e": 5},
+            5: {"9": 6, "+": 7, "-": 7},
+            6: {"9": 6},
+            7: {"9": 6}
+        }
+        final_states = {2, 4, 6}
+        state = 0
+        for letter in s:
+            letter = letter.lower()
+            if '0' <= letter <= '9':
+                letter = '9'
+            state = d[state].get(letter)
+            if state is None:
+                return False
+        return state in final_states
+```
+
 #### [69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/)
 
 ##### 题解
