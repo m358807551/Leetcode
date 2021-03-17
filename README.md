@@ -404,6 +404,35 @@ class Solution(object):
         return t.next
 ```
 
+#### [20. 有效的括号](https://leetcode-cn.com/problems/valid-parentheses/)
+
+##### 题解
+
+```
+判断括号的有效性是栈的常用功能。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def isValid(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        stack = []
+        d = {')': '(', "]": "[", "}": "{"}
+        for letter in s:
+            if letter in d.values():
+                stack.append(letter)
+            elif stack and (stack[-1] == d[letter]):
+                stack.pop(-1)
+            else:
+                return False
+        return len(stack) == 0
+```
+
 #### [22. 括号生成](https://leetcode-cn.com/problems/generate-parentheses/)
 
 ##### 题解
@@ -3127,6 +3156,7 @@ class Solution(object):
 ##### 题解
 
 ```
+本质是10进制转26进制
 把 1->A，2->B 换成0->A，1->B来算，就好想多了。
 ```
 
