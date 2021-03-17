@@ -1326,6 +1326,33 @@ class Solution(object):
         return dp[-1]
 ```
 
+#### [71. 简化路径](https://leetcode-cn.com/problems/simplify-path/)
+
+##### 最简题解：[Python 4 lines](https://leetcode-cn.com/problems/simplify-path/solution/python-4-line-by-qqqun902025048/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def simplifyPath(self, path):
+        """
+        :type path: str
+        :rtype: str
+        """
+        stack = []
+        for x in path.split("/"):
+            if not x:
+                continue
+            elif x == '.':
+                continue
+            elif x == '..':
+                if stack:
+                    stack.pop(-1)
+            else:
+                stack.append(x)
+        return '/' + '/'.join(stack)
+```
+
 #### [72. 编辑距离](https://leetcode-cn.com/problems/edit-distance/)
 
 ##### 题解
