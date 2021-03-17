@@ -1185,6 +1185,37 @@ class Solution(object):
         return state in final_states
 ```
 
+#### [67. 二进制求和](https://leetcode-cn.com/problems/add-binary/)
+
+##### 题解
+
+```
+用一个数组存计算结果，最后将数组转成字符串。
+```
+
+##### 代码
+
+```python
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        a, b = a[::-1], b[::-1]
+        rst = [0] * (max(len(a), len(b)) + 1)
+        for i in range(max(len(a), len(b))):
+            rst[i] += int(a[i]) if i < len(a) else 0
+            rst[i] += int(b[i]) if i < len(b) else 0
+        for i in range(len(rst)-1):
+            if rst[i] > 1:
+                rst[i] = rst[i] - 2
+                rst[i+1] += 1
+        rst = "".join([str(x) for x in rst])
+        return rst[::-1].lstrip("0") or "0"
+```
+
 #### [69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/)
 
 ##### 题解
