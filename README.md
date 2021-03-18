@@ -1991,6 +1991,43 @@ class Solution(object):
         return False
 ```
 
+#### [103. 二叉树的锯齿形层序遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/)
+
+##### 最简题解
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def zigzagLevelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        rst, queue = [], [(root,)]
+        while queue:
+            line = [
+                node.val
+                for nodes in queue
+                for node in nodes
+                if node
+            ]
+            if line:
+                rst.append(line)
+            queue = [
+                (node.left, node.right)
+                for nodes in queue
+                for node in nodes
+                if node
+            ]
+        for i in range(len(rst)):
+            if i % 2:
+                rst[i] = rst[i][::-1]
+        return rst
+```
+
+
+
 #### [109. 有序链表转换二叉搜索树](https://leetcode-cn.com/problems/convert-sorted-list-to-binary-search-tree/)
 
 ##### 题解
