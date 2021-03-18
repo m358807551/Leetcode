@@ -1642,6 +1642,46 @@ class Solution(object):
         return rst
 ```
 
+#### [85. 最大矩形](https://leetcode-cn.com/problems/maximal-rectangle/)
+
+##### 最简题解：[c++ python3 单调栈，一层一层的讨论。二维化一维， 调用84题的函数](https://leetcode-cn.com/problems/maximal-rectangle/solution/c-python3-dan-diao-zhan-yi-ceng-yi-ceng-haudm/)
+
+##### 最简代码: 
+
+```python
+class Solution(object):
+    def maximalRectangle(self, matrix):
+        """
+        :type matrix: List[List[str]]
+        :rtype: int
+        """
+        if not matrix:
+            return 0
+        rst = 0
+        m, n = len(matrix), len(matrix[0])
+        heights = [0] * n
+        for i in range(m):
+            line = matrix[i]
+            for j in range(n):
+                if line[j] == '1':
+                    heights[j] += 1
+                else:
+                    heights[j] = 0
+            rst = max(rst, self.help(heights))
+        return rst
+
+    def help(self, heights):
+        heights = [0] + heights + [0]
+        stack = []
+        rst = 0
+        for i, num in enumerate(heights):
+            while stack and heights[stack[-1]] > num:
+                rst = max(rst, (i-stack[-2]-1) * heights[stack[-1]])
+                stack.pop(-1)
+            stack.append(i)
+        return rst
+```
+
 #### [86. 分隔链表](https://leetcode-cn.com/problems/partition-list/)
 
 ##### 题解
