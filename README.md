@@ -1930,6 +1930,29 @@ class Solution(object):
             trace.pop(-1)
 ```
 
+#### [94. 二叉树的中序遍历](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/)
+
+##### 最简题解：[颜色标记法-一种通用且简明的树遍历方法](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/solution/yan-se-biao-ji-fa-yi-chong-tong-yong-qie-jian-ming/)
+
+##### 最简代码:
+
+```python
+class Solution(object):
+    def inorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        stack, rst = [root], []
+        while stack:
+            x = stack.pop(-1)
+            if isinstance(x, TreeNode):
+                stack.extend([x.right, x.val, x.left])
+            elif isinstance(x, int):
+                rst.append(x)
+        return rst
+```
+
 #### [97. 交错字符串](https://leetcode-cn.com/problems/interleaving-string/)
 
 ##### 题解
