@@ -1619,6 +1619,29 @@ class Solution(object):
             return head
 ```
 
+#### [84. 柱状图中最大的矩形](https://leetcode-cn.com/problems/largest-rectangle-in-histogram/)
+
+##### 最简题解：[找两边第一个小于它的值](https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/zhao-liang-bian-di-yi-ge-xiao-yu-ta-de-zhi-by-powc/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def largestRectangleArea(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        heights = [0] + heights + [0]
+        rst, stack = 0, []
+        for i in range(len(heights)):
+            while stack and (heights[stack[-1]] > heights[i]):
+                t = stack.pop(-1)
+                rst = max(rst, heights[t] * (i - stack[-1] -1))
+            stack.append(i)
+        return rst
+```
+
 #### [86. 分隔链表](https://leetcode-cn.com/problems/partition-list/)
 
 ##### 题解
