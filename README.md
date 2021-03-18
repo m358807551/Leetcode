@@ -519,7 +519,30 @@ class Solution(object):
         return self.enough(head.next, k-1)
 ```
 
-##### 
+#### [31. 下一个排列](https://leetcode-cn.com/problems/next-permutation/)
+
+##### 最简题解：[下一个排列算法详解：思路+推导+步骤，看不懂算我输！](https://leetcode-cn.com/problems/next-permutation/solution/xia-yi-ge-pai-lie-suan-fa-xiang-jie-si-lu-tui-dao-/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        for i in range(len(nums)-1, 0, -1):
+            if nums[i-1] < nums[i]:
+                for j in range(len(nums)-1, i-1, -1):
+                    if nums[j] > nums[i-1]:
+                        nums[i-1], nums[j] = nums[j], nums[i-1]
+                        nums[j:] = sorted(nums[j:])
+                        break
+                break
+        else:
+            nums[:] = nums[::-1]
+```
 
 #### [32. 最长有效括号](https://leetcode-cn.com/problems/longest-valid-parentheses/)
 
