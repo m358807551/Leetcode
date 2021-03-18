@@ -2895,7 +2895,7 @@ class Solution:
 
 #### [150. 逆波兰表达式求值](https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/)
 
-##### 题解
+##### 最简题解
 
 ```
 遍历每一个元素：
@@ -2904,27 +2904,28 @@ class Solution:
 做完上述操作，栈中只会剩下一个元素，就是答案
 ```
 
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
     def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
         stack = []
+        d = {
+            "+": lambda a, b: a+b,
+            "-": lambda a, b: a-b,
+            "*": lambda a, b: a*b,
+            "/": lambda a, b: int(a/b),
+        }
         for token in tokens:
-            if token not in '+-*/':
+            if token in ["+", "-", "*", "/"]:
+                b, a = stack.pop(-1), stack.pop(-1)
+                stack.append(d[token](a, b))
+            else:
                 stack.append(int(token))
-                continue
-
-            num2 = stack.pop(-1)
-            num1 = stack.pop(-1)
-            if token == '+':
-                stack.append(num1 + num2)
-            elif token == '-':
-                stack.append(num1 - num2)
-            elif token == '*':
-                stack.append(num1 * num2)
-            elif token == '/':
-                stack.append(int(num1 / num2))
         return stack[0]
 ```
 
