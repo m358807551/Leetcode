@@ -2607,13 +2607,9 @@ class Solution(object):
 
 #### [145. 二叉树的后序遍历](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/)
 
-##### 题解
+##### 最简题解：[颜色标记法-一种通用且简明的树遍历方法](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/solution/yan-se-biao-ji-fa-yi-chong-tong-yong-qie-jian-ming/)
 
-```
-套模板
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
