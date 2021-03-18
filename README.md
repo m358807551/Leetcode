@@ -2587,14 +2587,9 @@ class Solution(object):
 
 #### [144. 二叉树的前序遍历](https://leetcode-cn.com/problems/binary-tree-preorder-traversal/)
 
-##### 题解
+##### 最简题解：[颜色标记法-一种通用且简明的树遍历方法](https://leetcode-cn.com/problems/binary-tree-inorder-traversal/solution/yan-se-biao-ji-fa-yi-chong-tong-yong-qie-jian-ming/)
 
-```
-用栈做辅助。
-检查栈顶元素，是数字就`输出`，是节点就按一定顺序把该节点的左右孩子和节点值入栈。
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
@@ -2608,20 +2603,6 @@ class Solution(object):
             elif isinstance(cur, int):
                 rst.append(cur)
         return rst
-```
-
-##### 推广
-
-```
-改变代码 中 [cur.right, cur.left, cur.val] 的顺序，可以实现中序和后续遍历。
-
-本题前序是: [cur.right, cur.left, cur.val]  
-中序是:     [cur.right, cur.val, cur.left]
-后序是:     [cur.val, cur.right, cur.left]
-
-其实这个顺序就是 x序的[逆]序。
-如中序本来是 左根右 ->(逆序一下)-> 右根左 -> [cur.right, cur.val, cur.left]
-前序和后续同理。
 ```
 
 #### [145. 二叉树的后序遍历](https://leetcode-cn.com/problems/binary-tree-postorder-traversal/)
