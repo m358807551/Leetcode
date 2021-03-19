@@ -1130,6 +1130,54 @@ class Solution(object):
         return rst
 ```
 
+#### [59. 螺旋矩阵 II](https://leetcode-cn.com/problems/spiral-matrix-ii/)
+
+##### 最简题解 
+
+```
+设定上下左右4个边界，不断缩小边界。
+```
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def generateMatrix(self, n):
+        """
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        up, down, left, right = 0, n-1, 0, n-1
+        num = 1
+        rst = [[0] * n for _ in range(n)]
+        while True:
+            if not(up<=down and left<=right): break
+            for i in range(left, right+1):
+                rst[up][i] = num
+                num += 1
+            up += 1
+            
+            if not(up<=down and left<=right): break
+            for i in range(up, down+1):
+               rst[i][right] = num
+               num += 1
+            right -= 1
+            
+            if not(up<=down and left<=right): break
+            for i in range(right, left-1, -1):
+               rst[down][i] = num
+               num += 1
+            down -= 1
+            
+            if not(up<=down and left<=right): break
+            for i in range(down, up-1, -1):
+               rst[i][left] = num
+               num += 1
+            left += 1
+        
+        return rst
+```
+
 #### [60. 排列序列](https://leetcode-cn.com/problems/permutation-sequence/)
 
 ##### 题解
