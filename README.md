@@ -537,7 +537,7 @@ class Solution(object):
                 for j in range(len(nums)-1, i-1, -1):
                     if nums[j] > nums[i-1]:
                         nums[i-1], nums[j] = nums[j], nums[i-1]
-                        nums[j:] = sorted(nums[j:])
+                        nums[i:] = sorted(nums[i:])
                         break
                 break
         else:
@@ -775,6 +775,29 @@ class Solution(object):
                 trace.pop(-1)
                 count[num] += 1
         
+```
+
+#### [41. 缺失的第一个正数](https://leetcode-cn.com/problems/first-missing-positive/)
+
+##### 最简题解: [缺失的第一个正数](https://leetcode-cn.com/problems/first-missing-positive/solution/que-shi-de-di-yi-ge-zheng-shu-by-leetcode-solution/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def firstMissingPositive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        for i in range(n):
+            while 1 <= nums[i] <= n and nums[i] != nums[nums[i]-1]:
+                nums[nums[i]-1], nums[i] = nums[i], nums[nums[i]-1]
+        for i in range(n):
+            if nums[i] != i + 1:
+                return i + 1
+        return n + 1
 ```
 
 #### [42. 接雨水](https://leetcode-cn.com/problems/trapping-rain-water/)
