@@ -1567,6 +1567,35 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [73. 矩阵置零](https://leetcode-cn.com/problems/set-matrix-zeroes/)
+
+##### 最简题解 [C++ | 图解 | 找个数字“借尸还魂” | O(1)空间](https://leetcode-cn.com/problems/set-matrix-zeroes/solution/c-tu-jie-zhao-ge-shu-zi-jie-shi-huan-hun-c1gh/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def setZeroes(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        if not matrix:
+            return
+        m, n = len(matrix), len(matrix[0])
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == 0:
+                    for k in range(n):
+                        if matrix[i][k]!=0: matrix[i][k] = None
+                    for k in range(m):
+                        if matrix[k][j]!=0: matrix[k][j] = None
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] is None:
+                    matrix[i][j] = 0
+```
+
 #### [74. 搜索二维矩阵](https://leetcode-cn.com/problems/search-a-2d-matrix/)
 
 ##### 题解
