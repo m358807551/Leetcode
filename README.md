@@ -936,6 +936,34 @@ class Solution(object):
                 counts[num] += 1
 ```
 
+#### [48. 旋转图像](https://leetcode-cn.com/problems/rotate-image/)
+
+##### 最简题解 
+
+```
+方阵向右循环90°等价于：
+1. 先沿主对角线对折
+2. 每一行逆序
+```
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: None Do not return anything, modify matrix in-place instead.
+        """
+        n = len(matrix)
+        for i in range(n):
+            for j in range(i+1, n):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+        
+        for i in range(n):
+            matrix[i] = matrix[i][::-1]
+```
+
 #### [50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)
 
 ##### 题解
