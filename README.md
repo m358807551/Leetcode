@@ -3826,6 +3826,27 @@ class Solution(object):
             j -= 1
 ```
 
+#### [189. 旋转数组](https://leetcode-cn.com/problems/rotate-array/)
+
+##### 最简题解 [Python3, 三种思路，189](https://leetcode-cn.com/problems/rotate-array/solution/python3-san-chong-si-lu-189-by-lionking8-arbt/)
+
+##### 最简代码
+
+```python
+class Solution:
+    def rotate(self, nums, k):
+        k = k % len(nums)
+        self.reverse(nums, 0, len(nums) - 1)
+        self.reverse(nums, 0, k - 1)
+        self.reverse(nums, k, len(nums) - 1)
+    
+    def reverse(self, nums, start, end):
+        while start < end:
+            nums[start], nums[end] = nums[end], nums[start]
+            start += 1
+            end -= 1
+```
+
 #### [190. 颠倒二进制位](https://leetcode-cn.com/problems/reverse-bits/)
 
 ##### 题解
