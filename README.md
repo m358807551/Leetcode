@@ -1383,6 +1383,31 @@ class Solution(object):
         return state in final_states
 ```
 
+#### [66. 加一](https://leetcode-cn.com/problems/plus-one/)
+
+##### 最简题解 [Java 数学解题](https://leetcode-cn.com/problems/plus-one/solution/java-shu-xue-jie-ti-by-yhhzw/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def plusOne(self, digits):
+        """
+        :type digits: List[int]
+        :rtype: List[int]
+        """
+        digits[-1] += 1
+        i = len(digits)-1
+        while i > 0 and digits[i] == 10:
+            digits[i] = 0
+            digits[i-1] += 1
+            i -= 1
+        if digits[0] == 10:
+            digits[0] = 0
+            digits.insert(0, 1)
+        return digits
+```
+
 #### [67. 二进制求和](https://leetcode-cn.com/problems/add-binary/)
 
 ##### 题解
