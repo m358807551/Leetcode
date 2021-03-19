@@ -2294,6 +2294,28 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [118. 杨辉三角](https://leetcode-cn.com/problems/pascals-triangle/)
+
+##### 最简题解 [关于循环的一点反思](https://leetcode-cn.com/problems/pascals-triangle/solution/guan-yu-xun-huan-de-yi-dian-fan-si-by-fe-dlxw/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        rst = []
+        for n in range(1, numRows+1):
+            line = [1] * n
+            for j in range(1, n-1):
+                line[j] = rst[-1][j] + rst[-1][j-1]
+            rst.append(line)
+        return rst
+```
+
 #### [120. 三角形最小路径和](https://leetcode-cn.com/problems/triangle/)
 
 ##### 题解
