@@ -1109,6 +1109,48 @@ class Solution(object):
         return True
 ```
 
+#### [54. 螺旋矩阵](https://leetcode-cn.com/problems/spiral-matrix/)
+
+##### 最简题解 [C++ 详细题解](https://leetcode-cn.com/problems/spiral-matrix/solution/cxiang-xi-ti-jie-by-youlookdeliciousc-3/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def spiralOrder(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[int]
+        """
+        up, down, left, right = 0, len(matrix)-1, 0, len(matrix[0])-1
+        rst = []
+        while True:
+            if not (up <= down and left <= right):
+                break
+            for i in range(left, right+1):
+                rst.append(matrix[up][i])
+            up += 1
+            
+            if not (up <= down and left <= right):
+                break
+            for i in range(up, down+1):
+                rst.append(matrix[i][right])
+            right -= 1
+            
+            if not (up <= down and left <= right):
+                break
+            for i in range(right, left-1, -1):
+                rst.append(matrix[down][i])
+            down -= 1
+            
+            if not (up <= down and left <= right):
+                break
+            for i in range(down, up-1, -1):
+                rst.append(matrix[i][left])
+            left += 1
+        return rst
+```
+
 #### [60. 排列序列](https://leetcode-cn.com/problems/permutation-sequence/)
 
 ##### 题解
