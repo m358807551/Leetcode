@@ -2316,6 +2316,24 @@ class Solution(object):
         return rst
 ```
 
+##### 最简题解 [119. 杨辉三角 II Python两种方法解题方便理解](https://leetcode-cn.com/problems/pascals-triangle-ii/solution/119-yang-hui-san-jiao-ii-pythonliang-cho-2ds0/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def getRow(self, rowIndex):
+        """
+        :type rowIndex: int
+        :rtype: List[int]
+        """
+        rst = [1] * (rowIndex+1)
+        for n in range(1, rowIndex+2):
+            for j in range(n-2, 0, -1):
+                rst[j] = rst[j] + rst[j-1]
+        return rst
+```
+
 #### [120. 三角形最小路径和](https://leetcode-cn.com/problems/triangle/)
 
 ##### 题解
