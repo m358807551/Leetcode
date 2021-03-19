@@ -1111,7 +1111,7 @@ class Solution(object):
 
 #### [54. 螺旋矩阵](https://leetcode-cn.com/problems/spiral-matrix/)
 
-##### 最简题解 [C++ 详细题解](https://leetcode-cn.com/problems/spiral-matrix/solution/cxiang-xi-ti-jie-by-youlookdeliciousc-3/)
+##### 最简题解 [展开"蛋糕卷"](https://leetcode-cn.com/problems/spiral-matrix/solution/zhan-kai-dan-gao-juan-by-nanaglutamate-dc7u/)
 
 ##### 最简代码
 
@@ -1122,32 +1122,11 @@ class Solution(object):
         :type matrix: List[List[int]]
         :rtype: List[int]
         """
-        up, down, left, right = 0, len(matrix)-1, 0, len(matrix[0])-1
         rst = []
-        while True:
-            if not (up <= down and left <= right):
-                break
-            for i in range(left, right+1):
-                rst.append(matrix[up][i])
-            up += 1
-            
-            if not (up <= down and left <= right):
-                break
-            for i in range(up, down+1):
-                rst.append(matrix[i][right])
-            right -= 1
-            
-            if not (up <= down and left <= right):
-                break
-            for i in range(right, left-1, -1):
-                rst.append(matrix[down][i])
-            down -= 1
-            
-            if not (up <= down and left <= right):
-                break
-            for i in range(down, up-1, -1):
-                rst.append(matrix[i][left])
-            left += 1
+        while matrix:
+            rst.extend(matrix[0][:])
+            matrix = matrix[1:]
+            matrix = list(zip(*matrix))[::-1]
         return rst
 ```
 
