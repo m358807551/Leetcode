@@ -2345,6 +2345,27 @@ class Solution(object):
         return rst
 ```
 
+#### [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
+
+##### 最简题解 [路径总和](https://leetcode-cn.com/problems/path-sum/solution/lu-jing-zong-he-by-leetcode-solution/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def hasPathSum(self, root, targetSum):
+        """
+        :type root: TreeNode
+        :type targetSum: int
+        :rtype: bool
+        """
+        if not root:
+            return False
+        if root.left is root.right is None:
+            return targetSum == root.val
+        return self.hasPathSum(root.left, targetSum-root.val) or self.hasPathSum(root.right, targetSum-root.val)
+```
+
 #### [115. 不同的子序列](https://leetcode-cn.com/problems/distinct-subsequences/)
 
 ##### 题解
