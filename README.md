@@ -2366,6 +2366,36 @@ class Solution(object):
         return self.hasPathSum(root.left, targetSum-root.val) or self.hasPathSum(root.right, targetSum-root.val)
 ```
 
+#### [113. 路径总和 II](https://leetcode-cn.com/problems/path-sum-ii/)
+
+##### 最简题解 [回溯算法（Java）](https://leetcode-cn.com/problems/path-sum-ii/solution/hui-su-suan-fa-shen-du-you-xian-bian-li-zhuang-tai/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def pathSum(self, root, targetSum):
+        self.rst = []
+        self.backtrace([], root, targetSum)
+        return self.rst
+    
+    def backtrace(self, trace, root, targetSum):
+        if not root:
+            return 
+        if root.left is root.right is None:
+            if root.val == targetSum:
+                self.rst.append(trace + [root.val])
+            return
+        if root.left:
+            trace.append(root.val)
+            self.backtrace(trace, root.left, targetSum-root.val)
+            trace.pop(-1)
+        if root.right:
+            trace.append(root.val)
+            self.backtrace(trace, root.right, targetSum-root.val)
+            trace.pop(-1)
+```
+
 #### [115. 不同的子序列](https://leetcode-cn.com/problems/distinct-subsequences/)
 
 ##### 题解
