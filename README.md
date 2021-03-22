@@ -2188,6 +2188,27 @@ class Solution(object):
         return False
 ```
 
+#### [100. 相同的树](https://leetcode-cn.com/problems/same-tree/)
+
+##### 最简题解 [C++BFS小技巧只为更好看代码，DFS beats 100%代码](https://leetcode-cn.com/problems/same-tree/solution/cbfsxiao-ji-qiao-zhi-wei-geng-hao-kan-da-ziu8/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def isSameTree(self, p, q):
+        """
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: bool
+        """
+        if (p and q) is None:
+            return True if (p or q) is None else False
+        if p.val != q.val:
+            return False
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+```
+
 #### [103. 二叉树的锯齿形层序遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/)
 
 ##### 最简题解
