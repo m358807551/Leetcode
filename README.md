@@ -2396,6 +2396,29 @@ class Solution(object):
             trace.pop(-1)
 ```
 
+#### [114. 二叉树展开为链表](https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/)
+
+##### 最简题解 [二叉树展开为链表](https://leetcode-cn.com/problems/flatten-binary-tree-to-linked-list/solution/er-cha-shu-zhan-kai-wei-lian-biao-by-leetcode-solu/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def flatten(self, root):
+        """
+        :type root: TreeNode
+        :rtype: None Do not return anything, modify root in-place instead.
+        """
+        while root:
+            if root.left:
+                pre = root.left
+                while pre.right:
+                    pre = pre.right
+                pre.right = root.right
+                root.left, root.right = None, root.left
+            root = root.right
+```
+
 #### [115. 不同的子序列](https://leetcode-cn.com/problems/distinct-subsequences/)
 
 ##### 题解
