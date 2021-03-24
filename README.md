@@ -373,6 +373,37 @@ class Solution(object):
         return rst
 ```
 
+#### [18. 四数之和](https://leetcode-cn.com/problems/4sum/)
+
+##### 最简题解 [双指针解法。参照三数之和，嗝。](https://leetcode-cn.com/problems/4sum/solution/shuang-zhi-zhen-jie-fa-can-zhao-san-shu-zhi-he-ge-/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        rst = set()
+        nums.sort()
+        for i in range(len(nums)-3):
+            for j in range(i+1, len(nums)-2):
+                left, right = j + 1, len(nums)-1
+                while left < right:
+                    sum_ = nums[left] + nums[right] + nums[i] + nums[j]
+                    if sum_ == target:
+                        rst.add((nums[left], nums[right], nums[i], nums[j]))
+                        right -= 1
+                    elif sum_ < target:
+                        left += 1
+                    else:
+                        right -= 1
+        return list(rst)
+```
+
 #### [19. 删除链表的倒数第 N 个结点](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
 
 ##### 题解
