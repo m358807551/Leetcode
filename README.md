@@ -2631,6 +2631,34 @@ class Solution(object):
         return dp[1][0][k]
 ```
 
+#### [129. 求根节点到叶节点数字之和](https://leetcode-cn.com/problems/sum-root-to-leaf-numbers/)
+
+##### 题解
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def sumNumbers(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.rst = 0
+        self.backtrace(0, root)
+        return self.rst
+    
+    def backtrace(self, num, root):
+        if not root:
+            return
+        if root.left is root.right is None:
+            self.rst += num * 10 + root.val
+        if root.left:
+            self.backtrace(num * 10 + root.val, root.left)
+        if root.right:
+            self.backtrace(num * 10 + root.val, root.right)
+```
+
 #### [131. 分割回文串](https://leetcode-cn.com/problems/palindrome-partitioning/)
 
 ##### 题解
