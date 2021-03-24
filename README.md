@@ -2454,6 +2454,48 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [117. 填充每个节点的下一个右侧节点指针 II](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/)
+
+##### 最简题解 [BFS解决（最好的击败了100%的用户）](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/solution/bfsjie-jue-zui-hao-de-ji-bai-liao-100de-yong-hu-by/)
+
+##### 最简代码
+
+```python
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val=0, left=None, right=None, next=None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+
+class Solution(object):
+    def connect(self, root):
+        """
+        :type root: Node
+        :rtype: Node
+        """
+        queue = [[root]]
+        while queue:
+            line = [
+                node
+                for nodes in queue
+                for node in nodes
+                if node
+            ]
+            for i in range(len(line)-1):
+                line[i].next = line[i+1]
+            queue = [
+                [node.left, node.right]
+                for nodes in queue
+                for node in nodes
+                if node
+            ]
+        return root
+```
+
 #### [118. 杨辉三角](https://leetcode-cn.com/problems/pascals-triangle/)
 
 ##### 最简题解 [关于循环的一点反思](https://leetcode-cn.com/problems/pascals-triangle/solution/guan-yu-xun-huan-de-yi-dian-fan-si-by-fe-dlxw/)
