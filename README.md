@@ -2,21 +2,23 @@
 
 #### [1. 两数之和](https://leetcode-cn.com/problems/two-sum/)
 
-##### 题解
+##### 最简题解 [1.两数之和 Python三种解法总结](https://leetcode-cn.com/problems/two-sum/solution/1liang-shu-zhi-he-pythonsan-chong-jie-fa-7xo0/)
 
-```
-将所有的数两两比较，找到符合条件的两个数就返回下标。
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
     def twoSum(self, nums, target):
-        for i in range(len(nums)):
-            for j in range(i+1, len(nums)):
-                if nums[i] + nums[j] == target:
-                    return [i, j]
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d = {}
+        for i, num in enumerate(nums):
+            if target - num in d:
+                return [i, d[target - num]]
+            d[num] = i
 ```
 
 #### [2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
