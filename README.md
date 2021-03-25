@@ -1112,6 +1112,29 @@ class Solution(object):
             matrix[i] = matrix[i][::-1]
 ```
 
+#### [49. 字母异位词分组](https://leetcode-cn.com/problems/group-anagrams/)
+
+##### 最简题解 [字母异位词分组](https://leetcode-cn.com/problems/group-anagrams/solution/zi-mu-yi-wei-ci-fen-zu-by-leetcode-solut-gyoc/)
+
+##### 最简代码
+
+```python
+from collections import defaultdict
+
+
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """
+        d = defaultdict(list)
+        for s in strs:
+            key = tuple(sorted(s))
+            d[key].append(s)
+        return list(d.values())
+```
+
 #### [50. Pow(x, n)](https://leetcode-cn.com/problems/powx-n/)
 
 ##### 题解
