@@ -804,6 +804,47 @@ class Solution(object):
         return True
 ```
 
+#### [37. 解数独](https://leetcode-cn.com/problems/sudoku-solver/)
+
+##### 最简题解 [37. 解数独：回溯法](https://leetcode-cn.com/problems/sudoku-solver/solution/37-jie-shu-du-hui-su-fa-by-jue-qiang-zha-bhqh/)
+
+##### 最简代码
+
+```python
+from copy import deepcopy
+
+
+class Solution(object):
+    def solveSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """
+        self.rst = None
+        self.backtrace(board, 0, 0)
+        board[:] = self.rst
+    
+    def backtrace(self, board, i, j):
+        if i >= 9:
+            self.rst = deepcopy(board)
+            return
+        if board[i][j] != ".":
+            self.backtrace(board, i+(j+1)//9, (j+1)%9)
+            return
+        for num in range(1, 10):
+            num = str(num)
+            if num in board[i]:
+                continue
+            if num in [board[i][j] for i in range(9)]:
+                continue
+            r, c = (i//3)*3, (j//3)*3
+            if num in [board[k][l] for k in range(r, r+3) for l in range(c, c+3)]:
+                continue
+            board[i][j] = num
+            self.backtrace(board, i+(j+1)//9, (j+1)%9)
+            board[i][j] = "."
+```
+
 #### [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
 
 ##### 题解
