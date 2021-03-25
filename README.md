@@ -552,6 +552,38 @@ class Solution(object):
         return self.enough(head.next, k-1)
 ```
 
+#### [30. 串联所有单词的子串](https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/)
+
+##### 最简题解 [串联所有单词的子串](https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/solution/chuan-lian-suo-you-dan-ci-de-zi-chuan-by-powcai/)
+
+##### 最简代码
+
+```python
+from collections import Counter
+
+
+class Solution(object):
+    def findSubstring(self, s, words):
+        """
+        :type s: str
+        :type words: List[str]
+        :rtype: List[int]
+        """
+        if not(s and words):
+            return []
+        k = len(words[0])
+        n = len(words) * k
+        words = Counter(words)
+        
+        rst = []
+        for i in range(len(s)):
+            t = s[i:i+n]
+            lis = [t[j:j+k] for j in range(0, n, k)]
+            if Counter(lis) == words:
+               rst.append(i)
+        return rst
+```
+
 #### [31. 下一个排列](https://leetcode-cn.com/problems/next-permutation/)
 
 ##### 最简题解：[下一个排列算法详解：思路+推导+步骤，看不懂算我输！](https://leetcode-cn.com/problems/next-permutation/solution/xia-yi-ge-pai-lie-suan-fa-xiang-jie-si-lu-tui-dao-/)
@@ -728,6 +760,48 @@ class Solution(object):
             else:
                 j = mid
         return i
+```
+
+#### [36. 有效的数独](https://leetcode-cn.com/problems/valid-sudoku/)
+
+##### 最简题解 [36. 简单想法，最优思路：就按照从左往右、从上往下的顺序遍历一次board，完成3个条件的检验](https://leetcode-cn.com/problems/valid-sudoku/solution/36-jiu-an-zhao-cong-zuo-wang-you-cong-shang-wang-x/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        n = 9
+        for i in range(n):
+            line = board[i]
+            if not self.is_valid(line):
+                return False
+        
+        for j in range(n):
+            line = [board[i][j] for i in range(n)]
+            if not self.is_valid(line):
+                return False
+
+        for i in [0, 3, 6]:
+            for j in [0, 3, 6]:
+                line = [board[k][l] for k in range(i, i+3) for l in range(j, j+3)]
+                if not self.is_valid(line):
+                    return False
+        return True
+        
+    def is_valid(self, line):
+        s = set()
+        for letter in line:
+            if letter == ".":
+                continue
+            if letter in s:
+                return False
+            s.add(letter)
+        return True
 ```
 
 #### [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
