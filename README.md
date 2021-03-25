@@ -3016,31 +3016,34 @@ class Solution(object):
 
 #### [138. 复制带随机指针的链表](https://leetcode-cn.com/problems/copy-list-with-random-pointer/)
 
-##### 题解
+##### 最简题解
 
 ```
-从链表头遍历到链表尾，用一个字典记录旧节点和生成的新节点的对应关系，设置好新节点的value。
-再遍历一遍旧链表，把每个新节点的next 和 random指针的位置设置好。
+建立旧节点到新节点的映射。
 ```
 
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
     def copyRandomList(self, head):
-        old2new = {None: None}
-        cur = head
-        while cur:
-            old2new[cur] = Node(cur.val)
-            cur = cur.next
-
-        old = head
-        while old:
-            old2new[old].next = old2new[old.next]
-            old2new[old].random = old2new[old.random]
-            old = old.next
-
-        return old2new[head]
+        """
+        :type head: Node
+        :rtype: Node
+        """
+        d = {None: None}
+        p = head
+        while p:
+            d[p] = Node(p.val)
+            p = p.next
+        
+        p = head
+        while p:
+            d[p].next = d[p.next]
+            d[p].random = d[p.random]
+            p = p.next
+        
+        return d[head]
 ```
 
 #### [139. 单词拆分](https://leetcode-cn.com/problems/word-break/)
