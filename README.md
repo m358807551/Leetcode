@@ -3503,7 +3503,9 @@ class Solution(object):
 
 #### [149. 直线上最多的点数](https://leetcode-cn.com/problems/max-points-on-a-line/)
 
-##### 代码
+##### 最简题解
+
+##### 最简代码
 
 ```Python
 from collections import defaultdict
