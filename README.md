@@ -289,6 +289,30 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [11. 盛最多水的容器](https://leetcode-cn.com/problems/container-with-most-water/)
+
+##### 最简题解 [盛最多水的容器（双指针法，易懂解析，图解）](https://leetcode-cn.com/problems/container-with-most-water/solution/container-with-most-water-shuang-zhi-zhen-fa-yi-do/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def maxArea(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        i, j = 0, len(height)-1
+        rst = 0
+        while i < j:
+            rst = max(rst, min(height[i], height[j]) * (j-i))
+            if height[i] < height[j]:
+                i += 1
+            else:
+                j -= 1
+        return rst
+```
+
 #### [12. 整数转罗马数字](https://leetcode-cn.com/problems/integer-to-roman/)
 
 ##### 题解
