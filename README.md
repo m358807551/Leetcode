@@ -605,6 +605,29 @@ class Solution(object):
         return self.enough(head.next, k-1)
 ```
 
+#### [26. 删除有序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+
+##### 最简题解 [删除排序数组中的重复项](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/solution/shan-chu-pai-xu-shu-zu-zhong-de-zhong-fu-xiang-by-/)
+
+##### 最简代码：
+
+```python
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        j = 1
+        for i in range(1, len(nums)):
+            if nums[i] != nums[j-1]:
+                nums[j] = nums[i]
+                j += 1
+        return j
+```
+
 #### [30. 串联所有单词的子串](https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/)
 
 ##### 最简题解 [串联所有单词的子串](https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/solution/chuan-lian-suo-you-dan-ci-de-zi-chuan-by-powcai/)
