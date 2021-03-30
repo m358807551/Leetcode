@@ -397,6 +397,35 @@ class Solution(object):
         return rst
 ```
 
+#### [16. 最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest/)
+
+##### 最简题解 [画解算法：16. 最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest/solution/hua-jie-suan-fa-16-zui-jie-jin-de-san-shu-zhi-he-b/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def threeSumClosest(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        nums.sort()
+        rst = nums[0] + nums[1] + nums[2]
+        for i in range(len(nums)-2):
+            j, k = i+1, len(nums)-1
+            while j < k:
+                sum_ = nums[i] + nums[j] + nums[k]
+                if abs(sum_ - target) < abs(rst - target):
+                    rst = sum_
+                if sum_ > target:
+                    k -= 1
+                else:
+                    j += 1
+        return rst
+```
+
 #### [18. 四数之和](https://leetcode-cn.com/problems/4sum/)
 
 ##### 最简题解 [双指针解法。参照三数之和，嗝。](https://leetcode-cn.com/problems/4sum/solution/shuang-zhi-zhen-jie-fa-can-zhao-san-shu-zhi-he-ge-/)
