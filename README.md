@@ -23,11 +23,7 @@ class Solution(object):
 
 #### [2. 两数相加](https://leetcode-cn.com/problems/add-two-numbers/)
 
-##### 题解
-
-```
-递归求解
-```
+##### 最简题解 [2. 两数相加，易懂解法，精炼解析](https://leetcode-cn.com/problems/add-two-numbers/solution/2-liang-shu-xiang-jia-yi-dong-jie-fa-jin-9obh/)
 
 ##### 代码
 
