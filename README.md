@@ -648,6 +648,18 @@ class Solution(object):
         return i
 ```
 
+#### [28. 实现 strStr()](https://leetcode-cn.com/problems/implement-strstr/)
+
+##### 最简题解 [一行python](https://leetcode-cn.com/problems/implement-strstr/solution/yi-xing-python-by-distracted-hodgkinlap-dbsw/)
+
+##### 最简代码
+
+```python
+class Solution:
+    def strStr(self, haystack, needle):
+        return 0 if needle == "" else haystack.find(needle)
+```
+
 #### [30. 串联所有单词的子串](https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/)
 
 ##### 最简题解 [串联所有单词的子串](https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/solution/chuan-lian-suo-you-dan-ci-de-zi-chuan-by-powcai/)
