@@ -1992,6 +1992,27 @@ class Solution(object):
         return False
 ```
 
+#### [80. 删除有序数组中的重复项 II](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/)
+
+##### 最简题解 [C++4行优美代码！](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/solution/c4xing-you-mei-dai-ma-by-xiaohu9527-ifr5/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        i = 0
+        for num in nums:
+            if (i < 2) or (not(nums[i-1]==nums[i-2]==num)):
+                nums[i] = num
+                i += 1
+        return i
+```
+
 #### [81. 搜索旋转排序数组 II](https://leetcode-cn.com/problems/search-in-rotated-sorted-array-ii/)
 
 ##### 题解
