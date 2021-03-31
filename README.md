@@ -2957,6 +2957,28 @@ class Solution(object):
         return dp[1][0][k]
 ```
 
+#### [125. 验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
+
+##### 最简题解 [C++6行优美代码！！](https://leetcode-cn.com/problems/valid-palindrome/solution/c6xing-you-mei-dai-ma-by-xiaohu9527-507o/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        s = [x.lower() for x in s if '0'<=x<='9' or 'a'<=x.lower()<='z']
+        i, j = 0, len(s)-1
+        while i < j:
+            if s[i] != s[j]:
+                return False
+            i, j = i+1, j-1
+        return True
+```
+
 #### [129. 求根节点到叶节点数字之和](https://leetcode-cn.com/problems/sum-root-to-leaf-numbers/)
 
 ##### 题解
