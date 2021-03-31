@@ -618,14 +618,34 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if not nums:
-            return 0
-        j = 1
-        for i in range(1, len(nums)):
-            if nums[i] != nums[j-1]:
-                nums[j] = nums[i]
-                j += 1
-        return j
+        i = 0
+        for num in nums:
+            if (not i) or (num != nums[i-1]):
+                nums[i] = num
+                i += 1
+        return i
+```
+
+#### [27. 移除元素](https://leetcode-cn.com/problems/remove-element/)
+
+##### 最简题解 [双指针Python](https://leetcode-cn.com/problems/remove-element/solution/shuang-zhi-zhen-python-by-distracted-hod-7nyc/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def removeElement(self, nums, val):
+        """
+        :type nums: List[int]
+        :type val: int
+        :rtype: int
+        """
+        i = 0
+        for num in nums:
+            if num != val:
+                nums[i] = num
+                i += 1
+        return i
 ```
 
 #### [30. 串联所有单词的子串](https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/)
