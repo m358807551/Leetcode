@@ -619,6 +619,27 @@ class Solution(object):
             trace.pop(-1)
 ```
 
+#### [24. 两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/)
+
+##### 最简题解 [两两交换链表中的节点](https://leetcode-cn.com/problems/swap-nodes-in-pairs/solution/liang-liang-jiao-huan-lian-biao-zhong-de-jie-di-91/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if head and head.next:
+            rst = head.next
+            head.next.next, head.next = head, self.swapPairs(head.next.next)
+            return rst
+        else:
+            return head
+```
+
 #### [25. K 个一组翻转链表](https://leetcode-cn.com/problems/reverse-nodes-in-k-group/)
 
 ##### 题解
