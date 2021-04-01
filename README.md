@@ -3111,6 +3111,36 @@ class Solution(object):
         return dp[1][0][k]
 ```
 
+#### [124. 二叉树中的最大路径和](https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/)
+
+##### 最简题解 [124.递归的精髓，记录一下](https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/solution/124di-gui-de-jing-sui-ji-lu-yi-xia-by-821218213/)
+
+##### 最简代码 
+
+```python
+class Solution(object):
+    def maxPathSum(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        self.rst = float("-inf")
+        self.bfs(root)
+        return self.rst
+    
+    def bfs(self, root):
+        if not root:
+            return 0
+        left = self.bfs(root.left)
+        right = self.bfs(root.right)
+        self.rst = max(self.rst, root.val + max(left, 0) + max(right, 0))
+        return max(
+            root.val,
+            root.val+left,
+            root.val+right,
+        )
+```
+
 #### [125. 验证回文串](https://leetcode-cn.com/problems/valid-palindrome/)
 
 ##### 最简题解 [C++6行优美代码！！](https://leetcode-cn.com/problems/valid-palindrome/solution/c6xing-you-mei-dai-ma-by-xiaohu9527-507o/)
