@@ -2800,6 +2800,31 @@ class Solution(object):
         return rst
 ```
 
+#### [110. 平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/)
+
+##### 最简题解 [平衡二叉树](https://leetcode-cn.com/problems/balanced-binary-tree/solution/ping-heng-er-cha-shu-by-leetcode-solution/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def isBalanced(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if not root:
+            return True
+        if abs(self.get_height(root.left) - self.get_height(root.right)) > 1:
+            return False
+        return self.isBalanced(root.left) and self.isBalanced(root.right)
+    
+    def get_height(self, root):
+        if not root:
+            return 0
+        return 1 + max(self.get_height(root.left), self.get_height(root.right))
+```
+
 #### [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
 
 ##### 最简题解 [路径总和](https://leetcode-cn.com/problems/path-sum/solution/lu-jing-zong-he-by-leetcode-solution/)
