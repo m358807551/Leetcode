@@ -422,6 +422,42 @@ class Solution(object):
         return rst
 ```
 
+#### [17. 电话号码的字母组合](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)
+
+##### 最简题解 [回溯+队列 图解](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/solution/hui-su-dui-lie-tu-jie-by-ml-zimingmeng/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def letterCombinations(self, digits):
+        """
+        :type digits: str
+        :rtype: List[str]
+        """
+        self.rst = []
+        self.backtrace("", digits)
+        return self.rst
+    
+    def backtrace(self, trace, digits):
+        if not digits:
+            if trace:
+                self.rst.append(trace)
+            return
+        d = {
+            "2": "abc",
+            "3": "def",
+            "4": "ghi",
+            "5": "jkl",
+            "6": "mno",
+            "7": "pqrs",
+            "8": "tuv",
+            "9": "wxyz",
+        }
+        for letter in d[digits[0]]:
+            self.backtrace(trace+letter, digits[1:])
+```
+
 #### [18. 四数之和](https://leetcode-cn.com/problems/4sum/)
 
 ##### 最简题解 [双指针解法。参照三数之和，嗝。](https://leetcode-cn.com/problems/4sum/solution/shuang-zhi-zhen-jie-fa-can-zhao-san-shu-zhi-he-ge-/)
