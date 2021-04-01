@@ -1491,6 +1491,31 @@ class Solution(object):
         return rst
 ```
 
+#### [56. 合并区间](https://leetcode-cn.com/problems/merge-intervals/)
+
+##### 最简题解 [合并区间]([56. 合并区间](https://leetcode-cn.com/problems/merge-intervals/))
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[List[int]]
+        :rtype: List[List[int]]
+        """
+        intervals.sort()
+        rst = []
+        for x in intervals:
+            if not rst:
+                rst.append(x)
+            elif rst[-1][1] < x[0]:
+                rst.append(x)
+            else:
+                rst[-1][1] = max(rst[-1][1], x[1])
+        return rst
+```
+
 #### [59. 螺旋矩阵 II](https://leetcode-cn.com/problems/spiral-matrix-ii/)
 
 ##### 最简题解 
