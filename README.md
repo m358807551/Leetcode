@@ -2596,6 +2596,35 @@ class Solution(object):
         return False
 ```
 
+#### [98. 验证二叉搜索树](https://leetcode-cn.com/problems/validate-binary-search-tree/)
+
+##### 最简题解 [[前，中，后序三种遍历方式](https://leetcode-cn.com/problems/validate-binary-search-tree/solution/qian-zhong-hou-xu-san-chong-bian-li-fang-1kvx/)]
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def isValidBST(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        self.last_val = float("-inf")
+        return self.is_valid(root)
+    
+    def is_valid(self, root):
+        if not root: 
+            return True
+        if not self.is_valid(root.left): 
+            return False
+        if root.val <= self.last_val: 
+            return False
+        self.last_val = root.val
+        if not self.is_valid(root.right):
+            return False
+        return True
+```
+
 #### [100. 相同的树](https://leetcode-cn.com/problems/same-tree/)
 
 ##### 最简题解 [C++BFS小技巧只为更好看代码，DFS beats 100%代码](https://leetcode-cn.com/problems/same-tree/solution/cbfsxiao-ji-qiao-zhi-wei-geng-hao-kan-da-ziu8/)
