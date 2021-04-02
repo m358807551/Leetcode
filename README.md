@@ -1516,6 +1516,35 @@ class Solution(object):
         return rst
 ```
 
+#### [57. 插入区间](https://leetcode-cn.com/problems/insert-interval/)
+
+##### 最简题解 [直接调用上一题的就好啦](https://leetcode-cn.com/problems/insert-interval/solution/zhi-jie-diao-yong-shang-yi-ti-de-jiu-hao-nso9/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def insert(self, intervals, newInterval):
+        """
+        :type intervals: List[List[int]]
+        :type newInterval: List[int]
+        :rtype: List[List[int]]
+        """
+        stack = []
+        intervals.append(newInterval)
+        intervals.sort()
+        for interval in intervals:
+            if not stack:
+                stack.append(interval)
+                continue
+
+            if stack[-1][1] < interval[0]:
+                stack.append(interval)
+            else:
+                stack[-1][1] = max(stack[-1][1], interval[1])
+        return stack
+```
+
 #### [59. 螺旋矩阵 II](https://leetcode-cn.com/problems/spiral-matrix-ii/)
 
 ##### 最简题解 
