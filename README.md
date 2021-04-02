@@ -2045,6 +2045,34 @@ class Solution(object):
         return False
 ```
 
+#### [75. 颜色分类](https://leetcode-cn.com/problems/sort-colors/)
+
+##### 最简题解 [C++8行优美代码！](https://leetcode-cn.com/problems/sort-colors/solution/c8xing-you-mei-dai-ma-by-xiaohu9527-fifj/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
+        """
+        i, j = 0, len(nums)-1
+        while True:
+            for k in range(i, j+1):
+                if nums[k] == 0:
+                    nums[k], nums[i] = nums[i], nums[k]
+                    i += 1
+                    break
+                elif nums[k] == 2:
+                    nums[k], nums[j] = nums[j], nums[k]
+                    j -= 1
+                    break
+            else:
+                break
+```
+
 #### [77. 组合](https://leetcode-cn.com/problems/combinations/)
 
 ##### 题解
