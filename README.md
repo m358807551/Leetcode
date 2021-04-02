@@ -3806,70 +3806,25 @@ class LRUCache(object):
 
 #### [147. 对链表进行插入排序](https://leetcode-cn.com/problems/insertion-sort-list/)
 
-##### 题解
+##### 最简题解 [147. 对链表进行插入排序【原地修改，清晰讲解】](https://leetcode-cn.com/problems/insertion-sort-list/solution/147-dui-lian-biao-jin-xing-cha-ru-pai-xu-248j/)
 
-###### 1. 在 节点p1 后面插入 节点 p2
-
-```python
-p2.next = p1.next
-p1.next = p2
-```
-
-###### 2. 在有序链表中插入p2，找到p2要插入在哪个节点后面
+##### 最简代码
 
 ```python
-p1 = th  # th 是指向已排序链表头的虚拟节点
-while p1.next and p1.next.val < p2.val:
-    p1 = p1.next
-```
-
-###### 3. 在有序链表中插入p2
-
-```python
-p1 = th  # th 是指向已排序链表头的虚拟节点
-while p1.next and p1.next.val < p2.val:
-    p1 = p1.next
-
-p2.next = p1.next
-p1.next = p2
-```
-
-###### 4. 在有序链表中依次插入另一个链表(head2)的每个节点
-
-```python
-p2 = head2
-while p2:
-    p2_next = p2.next
-    
-    p1 = th  # th 是指向已排序链表头的虚拟节点
-    while p1.next and p1.next.val < p2.val:
-        p1 = p1.next
-    p2.next = p1.next
-		p1.next = p2
-
-    p2 = p2_next
-```
-
-###### 5. 最终
-
-```Python
 class Solution(object):
     def insertionSortList(self, head):
-        th = ListNode(0)
-
-        p2 = head
-        while p2:
-            p2_next = p2.next
-
-            p1 = th
-            while p1.next and p1.next.val < p2.val:
-                p1 = p1.next
-            p2.next = p1.next
-            p1.next = p2
-
-            p2 = p2_next
-
-        return th.next
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        rst = ListNode()
+        cur = head
+        while cur:
+            p = rst
+            while p.next and p.next.val <= cur.val:
+                p = p.next
+            p.next, cur.next, cur = cur, p.next, cur.next
+        return rst.next
 ```
 
 #### [148. 排序链表](https://leetcode-cn.com/problems/sort-list/)
