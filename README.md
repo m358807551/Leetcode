@@ -4150,36 +4150,35 @@ class Solution(object):
 
 #### [164. 最大间距](https://leetcode-cn.com/problems/maximum-gap/)
 
-##### 题解
-
-```
-这道题很简单鸭，是我想错了么。。。
-
-1. 把每个数看成二进制的字符串
-2. 看每个数的[个位]是不是1，是1就把这个数放在右边，否则就放左边
-3. 看每个数的[十位]...
-4. 看每个数的[百位]..
-5. 一直看32次，看完后这个数组就是有序的了。。。
-6. 时间复杂度是 32N 也就是N，空间复杂度也是N
-```
+##### 最简题解 [[Python3] 桶排序](https://leetcode-cn.com/problems/maximum-gap/solution/python3-tong-pai-xu-by-yanghk/)
 
 ##### 代码
 
 ```python
-class Solution:
+class Solution(object):
     def maximumGap(self, nums):
-        if len(nums)<2:return 0
-        for i in range(32):
-            left, right = [], []
-            for num in nums:
-                if (1 << i) & num:
-                    right.append(num)
-                else:
-                    left.append(num)
-            nums = left + right
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) < 2:
+            return 0
+        max_, min_ = max(nums), min(nums)
+        b_len = max(1, (max_ - min_) // len(nums))
+        b_size = max_ // b_len + 1
+        buckets = [[] for _ in range(b_size)]
+        for num in nums:
+            buckets[(num-min_)//b_len].append(num)
         rst = 0
-        for i in range(1, len(nums)):
-            rst = max(rst, nums[i]-nums[i-1])
+        left = None
+        for bucket in buckets:
+            if not bucket:
+                continue
+            if left is None:
+                left = max(bucket)
+            else:
+                rst = max(rst, min(bucket)-left)
+                left = max(bucket)
         return rst
 ```
 
