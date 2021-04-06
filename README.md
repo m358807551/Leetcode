@@ -3829,109 +3829,39 @@ class Solution(object):
 
 #### [148. 排序链表](https://leetcode-cn.com/problems/sort-list/)
 
-##### 题解
+##### 最简题解 [Sort List （归并排序链表）](https://leetcode-cn.com/problems/sort-list/solution/sort-list-gui-bing-pai-xu-lian-biao-by-jyd/)
 
 就是实现归并排序。
 
-###### 1. 尾插法合并两个有序链表
-
-```python
-th = tail = ListNode(0)
-while h1 and h2:
-    if h1.val < h2.val:
-        tail.next = h1
-        h1 = h1.next
-        tail = tail.next
-    else:
-        tail.next = h2
-        h2 = h2.next
-        tail = tail.next
-tail.next = h1 or h2
-
-return th.next
-```
-
-###### 2. 找到链表中点，将链表1分为2
-
-```python
-h1 = fast = slow = head
-while fast.next and fast.next.next:
-    fast = fast.next.next
-    slow = slow.next
-h2 = slow.next
-slow.next = None
-```
-
-###### 3. 最终
+##### 最简题解
 
 ```python
 class Solution(object):
     def sortList(self, head):
-        # 只有0个或1个节点就不用排序
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
         if (head is None) or (head.next is None):
             return head
-        
-        # 将链表1分为2
-        h1 = fast = slow = head
-        while fast.next and fast.next.next:
+        fast = slow = head
+        while fast and fast.next and fast.next.next:
             fast = fast.next.next
             slow = slow.next
-        h2 = slow.next
-        slow.next = None
-				
-        # 将前后两段链表分别排序
+        h1, h2, slow.next = head, slow.next, None
         h1 = self.sortList(h1)
         h2 = self.sortList(h2)
-				
-        # 合并两个有序链表
-        th = tail = ListNode(0)
-        while h1 and h2:
-            if h1.val < h2.val:
-                tail.next = h1
-                h1 = h1.next
-                tail = tail.next
-            else:
-                tail.next = h2
-                h2 = h2.next
-                tail = tail.next
-        tail.next = h1 or h2
-
-        return th.next
-```
-
-#### [149. 直线上最多的点数](https://leetcode-cn.com/problems/max-points-on-a-line/)
-
-##### 最简题解
-
-##### 最简代码
-
-```Python
-from collections import defaultdict
-from fractions import Fraction
-
-
-class Solution:
-    def maxPoints(self, points):
-        if not points:
-            return 0
-        rst = 0
-        for i in range(len(points)):
-            same = 0
-            rake2num = defaultdict(int)
-            for j in range(i+1, len(points)):
-                if points[i] == points[j]:
-                    same += 1
-                elif points[i][0] == points[j][0]:
-                    rake2num[None] += 1
-                else:
-                    # 想不到吧？？Python有自带的分数库
-                    rake = Fraction(points[i][1] - points[j][1]) / Fraction(points[i][0] - points[j][0])
-                    rake2num[rake] += 1
-            max_ = same + 1
-            if rake2num:
-                max_ += max(rake2num.values())
-            rst = max(rst, max_)
-        return rst
+        return self.merge(h1, h2)
+    
+    def merge(self, h1, h2):
+        if (h1 and h2) is None:
+            return h1 or h2
+        if h1.val < h2.val:
+            h1.next = self.merge(h1.next, h2)
+            return h1
+        else:
+            h2.next = self.merge(h1, h2.next)
+            return h2
 ```
 
 #### [150. 逆波兰表达式求值](https://leetcode-cn.com/problems/evaluate-reverse-polish-notation/)
