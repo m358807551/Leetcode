@@ -2884,6 +2884,39 @@ class Solution(object):
         return root
 ```
 
+#### [107. 二叉树的层序遍历 II](https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/)
+
+##### 最简题解 
+
+###### 最简代码
+
+```python
+class Solution(object):
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        rst = []
+        queue = [(root,)]
+        while queue:
+            line = [ 
+                node.val
+                for nodes in queue
+                for node in nodes
+                if node
+            ]
+            if line:
+                rst.append(line)
+            queue = [
+                (node.left, node.right)
+                for nodes in queue
+                for node in nodes
+                if node
+            ]
+        return rst
+```
+
 #### [108. 将有序数组转换为二叉搜索树](https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/)
 
 ##### 最简题解 [将有序数组转换为二叉搜索树](https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/solution/jiang-you-xu-shu-zu-zhuan-huan-wei-er-cha-sou-s-33/)
