@@ -4448,13 +4448,9 @@ class Solution(object):
 
 #### [179. 最大数](https://leetcode-cn.com/problems/largest-number/)
 
-##### 题解
+##### 最简题解 [最大数](https://leetcode-cn.com/problems/largest-number/solution/zui-da-shu-by-leetcode/)
 
-```
-本质是排序题，将数组按照一定规则排序，再把所有数连在一起即可。
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 from functools import cmp_to_key
@@ -4462,13 +4458,14 @@ from functools import cmp_to_key
 
 class Solution(object):
     def largestNumber(self, nums):
-        nums = [str(x) for x in nums]
-        nums.sort(
-            key=cmp_to_key(lambda x, y: 1 if x+y > y+x else -1), 
-            reverse=True,
-        )
-        rst = "".join(nums)
-        return '0' if rst[0] == '0' else rst
+        """
+        :type nums: List[int]
+        :rtype: str
+        """
+        nums = [str(num) for num in nums]
+        nums.sort(key=cmp_to_key(lambda x, y: -1 if x+y > y+x else 1))
+        
+        return "".join(nums).lstrip("0") or "0"
 ```
 
 #### [187. 重复的DNA序列](https://leetcode-cn.com/problems/repeated-dna-sequences/)
