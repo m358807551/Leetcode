@@ -2728,6 +2728,31 @@ class Solution(object):
         return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
 ```
 
+#### [101. 对称二叉树](https://leetcode-cn.com/problems/symmetric-tree/)
+
+##### 最简题解 [对称二叉树](https://leetcode-cn.com/problems/symmetric-tree/solution/dui-cheng-er-cha-shu-by-leetcode-solution/)
+
+##### 最简代码
+
+```
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if not root:
+            return True
+        return self.is_mirror(root.left, root.right)
+    
+    def is_mirror(self, r1, r2):
+        if (r1 and r2) is None:
+            return r1 is r2
+        if r1.val != r2.val:
+            return False
+        return self.is_mirror(r1.left, r2.right) and self.is_mirror(r1.right, r2.left)
+```
+
 #### [103. 二叉树的锯齿形层序遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/)
 
 ##### 最简题解
