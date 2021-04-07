@@ -2753,6 +2753,39 @@ class Solution(object):
         return self.is_mirror(r1.left, r2.right) and self.is_mirror(r1.right, r2.left)
 ```
 
+##### [102. 二叉树的层序遍历](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/)
+
+##### 最简题解 [迭代+递归 多图演示 102.二叉树的层次遍历](https://leetcode-cn.com/problems/binary-tree-level-order-traversal/solution/die-dai-di-gui-duo-tu-yan-shi-102er-cha-shu-de-cen/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        rst = []
+        queue = [(root,)]
+        while queue:
+            line = [ 
+                node.val
+                for nodes in queue
+                for node in nodes
+                if node
+            ]
+            if line:
+                rst.append(line)
+            queue = [
+                (node.left, node.right)
+                for nodes in queue
+                for node in nodes
+                if node
+            ]
+        return rst
+```
+
 #### [103. 二叉树的锯齿形层序遍历](https://leetcode-cn.com/problems/binary-tree-zigzag-level-order-traversal/)
 
 ##### 最简题解
