@@ -2998,6 +2998,29 @@ class Solution(object):
         return 1 + max(self.get_height(root.left), self.get_height(root.right))
 ```
 
+#### [111. 二叉树的最小深度](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/)
+
+##### 最简题解 [二叉树的最小深度-理解递归结束条件](https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/solution/li-jie-zhe-dao-ti-de-jie-shu-tiao-jian-by-user7208/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def minDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        if not root.left:
+            return 1 + self.minDepth(root.right)
+        elif not root.right:
+            return 1 + self.minDepth(root.left)
+        else:
+            return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
+```
+
 #### [112. 路径总和](https://leetcode-cn.com/problems/path-sum/)
 
 ##### 最简题解 [路径总和](https://leetcode-cn.com/problems/path-sum/solution/lu-jing-zong-he-by-leetcode-solution/)
