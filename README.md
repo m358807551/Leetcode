@@ -3130,6 +3130,29 @@ class Solution(object):
         return dp[-1][-1]
 ```
 
+#### [116. 填充每个节点的下一个右侧节点指针](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/)
+
+##### 最简题解 [116. 【递归】与【迭代】详解](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/solution/116-di-gui-yu-die-dai-xiang-jie-by-carls-k8od/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def connect(self, root):
+        """
+        :type root: Node
+        :rtype: Node
+        """
+        if not root or (not root.left):
+            return root
+        root.left.next = root.right
+        if root.next:
+            root.right.next = root.next.left
+        self.connect(root.left)
+        self.connect(root.right)
+        return root
+```
+
 #### [117. 填充每个节点的下一个右侧节点指针 II](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/)
 
 ##### 最简题解 [BFS解决（最好的击败了100%的用户）](https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/solution/bfsjie-jue-zui-hao-de-ji-bai-liao-100de-yong-hu-by/)
