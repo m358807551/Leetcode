@@ -3382,6 +3382,56 @@ class Solution(object):
         return True
 ```
 
+#### [127. 单词接龙](https://leetcode-cn.com/problems/word-ladder/)
+
+##### 最简题解 [127. 单词接龙【为什么要用广搜】详解！](https://leetcode-cn.com/problems/word-ladder/solution/127-dan-ci-jie-long-wei-shi-yao-yao-yong-yan-sou-x/)
+
+##### 最简代码
+
+```python
+from collections import defaultdict
+
+
+class Solution(object):
+    def ladderLength(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: int
+        """
+        wordList = set(wordList)
+        wordList.add(beginWord)
+        
+        paterns = defaultdict(list)
+        for word in wordList:
+            for i in range(len(word)):
+                paterns[word[:i] + "*" + word[i+1:]].append(word)
+        
+        adj = defaultdict(list)
+        for words in paterns.values():
+            for i in range(len(words)):
+                adj[words[i]].extend(words[:i] + words[i+1:])
+
+        wordList = set(wordList)
+        visited = set()
+        queue = {beginWord}
+        rst = 1
+        while queue:
+#             print(queue)
+            if endWord in queue:
+                return rst
+            visited |= queue
+            queue = {
+                new_word
+                for word in queue
+                for new_word in adj[word]
+                if new_word not in visited
+            }
+            rst += 1
+        return 0
+```
+
 #### [129. 求根节点到叶节点数字之和](https://leetcode-cn.com/problems/sum-root-to-leaf-numbers/)
 
 ##### 题解
