@@ -412,6 +412,28 @@ class Solution(object):
         return rst
 ```
 
+#### [14. 最长公共前缀](https://leetcode-cn.com/problems/longest-common-prefix/)
+
+##### 最简题解 [14. 最长公共前缀 这种题在python面前就是弟弟！](https://leetcode-cn.com/problems/longest-common-prefix/solution/14-zui-chang-gong-gong-qian-zhui-zhe-cho-uwrm/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        rst = ""
+        for line in zip(*strs):
+            x = set(line)
+            if len(x) > 1:
+                break
+            rst += x.pop()
+        return rst
+```
+
 #### [16. 最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest/)
 
 ##### 最简题解 [画解算法：16. 最接近的三数之和](https://leetcode-cn.com/problems/3sum-closest/solution/hua-jie-suan-fa-16-zui-jie-jin-de-san-shu-zhi-he-b/)
