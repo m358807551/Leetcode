@@ -146,6 +146,25 @@ class Solution(object):
         return i+1, j-1
 ```
 
+#### [6. Z 字形变换](https://leetcode-cn.com/problems/zigzag-conversion/)
+
+#### 最简题解 [Z 字形变换（清晰图解）](https://leetcode-cn.com/problems/zigzag-conversion/solution/zzi-xing-bian-huan-by-jyd/)
+
+#### 最简代码 
+
+```python
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows < 2: return s
+        res = ["" for _ in range(numRows)]
+        i, flag = 0, -1
+        for c in s:
+            res[i] += c
+            if i == 0 or i == numRows - 1: flag = -flag
+            i += flag
+        return "".join(res)
+```
+
 #### [7. 整数反转](https://leetcode-cn.com/problems/reverse-integer/)
 
 ##### 题解
