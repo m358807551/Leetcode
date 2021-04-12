@@ -3382,6 +3382,62 @@ class Solution(object):
         return True
 ```
 
+#### [126. 单词接龙 II](https://leetcode-cn.com/problems/word-ladder-ii/)
+
+##### 最简题解 [广度优先遍历建图 + 深度优先遍历找到所有解](https://leetcode-cn.com/problems/word-ladder-ii/solution/yan-du-you-xian-bian-li-shuang-xiang-yan-du-you--2/)
+
+##### 最简代码
+
+```python
+from collections import defaultdict
+
+
+class Solution(object):
+    def findLadders(self, beginWord, endWord, wordList):
+        """
+        :type beginWord: str
+        :type endWord: str
+        :type wordList: List[str]
+        :rtype: List[List[str]]
+        """
+        wordList = set(wordList)
+        wordList.add(beginWord)
+        
+        paterns = defaultdict(list)
+        for word in wordList:
+            for i in range(len(word)):
+                paterns[word[:i] + "*" + word[i+1:]].append(word)
+        
+        adj = defaultdict(list)
+        for words in paterns.values():
+            for i in range(len(words)):
+                adj[words[i]].extend(words[:i] + words[i+1:])
+
+        visited = set()
+        queue = {beginWord}
+        word2parents = defaultdict(list)
+        while queue and (endWord not in queue):
+            visited |= queue
+            queue = {
+                word2parents[new_word].append(word) or new_word
+                for word in queue
+                for new_word in adj[word]
+                if new_word not in visited
+            }
+        self.rst = []
+        self.backtrace([endWord], word2parents, beginWord)
+        return self.rst
+    
+    def backtrace(self, trace, word2parents, beginWord):
+        if trace[-1] == beginWord:
+            self.rst.append(trace[::-1])
+            return
+        for parent in word2parents[trace[-1]]:
+            trace.append(parent)
+            self.backtrace(trace, word2parents, beginWord)
+            trace.pop(-1)
+```
+
 #### [127. 单词接龙](https://leetcode-cn.com/problems/word-ladder/)
 
 ##### 最简题解 [127. 单词接龙【为什么要用广搜】详解！](https://leetcode-cn.com/problems/word-ladder/solution/127-dan-ci-jie-long-wei-shi-yao-yao-yong-yan-sou-x/)
