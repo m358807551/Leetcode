@@ -1076,6 +1076,37 @@ class Solution(object):
             board[i][j] = "."
 ```
 
+#### [38. 外观数列](https://leetcode-cn.com/problems/count-and-say/)
+
+##### 最简题解 [循环和递归两种解法，递归效率高](https://leetcode-cn.com/problems/count-and-say/solution/xun-huan-he-di-gui-liang-chong-jie-fa-di-oof8/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        if n == 1:
+            return "1"
+        t = self.countAndSay(n-1)
+        rst = ""
+        char, count = "", 0
+        for letter in t:
+            if letter == char:
+                count += 1
+            else:
+                if count:
+                    rst += str(count) + char
+                char = letter
+                count = 1
+        if count:
+            rst += str(count) + char
+        return rst
+```
+
 #### [39. 组合总和](https://leetcode-cn.com/problems/combination-sum/)
 
 ##### 题解
