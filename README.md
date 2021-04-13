@@ -1617,6 +1617,22 @@ class Solution(object):
         return stack
 ```
 
+#### [58. 最后一个单词的长度](https://leetcode-cn.com/problems/length-of-last-word/)
+
+##### 最简题解 [Python字符串](https://leetcode-cn.com/problems/length-of-last-word/solution/pythonzi-fu-chuan-by-distracted-hodgkinl-mrb9/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def lengthOfLastWord(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        return len(s.split()[-1]) if s.strip() else 0
+```
+
 #### [59. 螺旋矩阵 II](https://leetcode-cn.com/problems/spiral-matrix-ii/)
 
 ##### 最简题解 
