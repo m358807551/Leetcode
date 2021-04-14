@@ -1942,6 +1942,57 @@ class Solution(object):
         return rst[::-1].lstrip("0") or "0"
 ```
 
+#### [68. 文本左右对齐](https://leetcode-cn.com/problems/text-justification/)
+
+##### 最简题解 
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def fullJustify(self, words, maxwidth):
+        """
+        :type words: List[str]
+        :type maxWidth: int
+        :rtype: List[str]
+        """
+        rst = []
+        line = []
+        for word in words:
+            if not self.is_valid(line + [word], maxwidth):
+                left_space = maxwidth - len(''.join(line))
+                spaces = self._split(left_space, len(line) - 1)
+                rst.append(
+                    self.justify(line, spaces)
+                )
+                line = [word]
+            else:
+                line.append(word)
+        last_line = ' '.join(line)
+        last_line += ' ' * (maxwidth - len(last_line))
+        rst.append(last_line)
+        return rst
+
+    def is_valid(self, line, maxwidth):
+        return len(''.join(line)) + len(line) - 1 <= maxwidth
+
+    def _split(self, num, n):
+        if n <= 1:
+            return [num]
+        else:
+            x = num // n
+            return self._split(num-x, n-1) + [x]
+
+    def justify(self, line, spaces):
+        spaces = [' '*num for num in spaces] + ['']
+        rst = ''
+        for word, space in zip(line, spaces):
+            rst += word + space
+
+        return rst
+```
+
+
 #### [69. x 的平方根](https://leetcode-cn.com/problems/sqrtx/)
 
 ##### 题解
