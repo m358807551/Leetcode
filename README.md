@@ -4536,13 +4536,9 @@ class Solution(object):
 
 #### [165. 比较版本号](https://leetcode-cn.com/problems/compare-version-numbers/)
 
-##### 题解
+##### 最简题解 [比较版本号](https://leetcode-cn.com/problems/compare-version-numbers/solution/bi-jiao-ban-ben-hao-by-leetcode/)
 
-```
-把传入的字符串按 '.' 分割，得到的每个部分转成整数，然后再挨个比较就可以了。
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
