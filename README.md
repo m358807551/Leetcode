@@ -4291,48 +4291,18 @@ python: int(b / float(a))
 
 #### [151. 翻转字符串里的单词](https://leetcode-cn.com/problems/reverse-words-in-a-string/)
 
-##### 题解
+##### 最简题解
 
-```
-1. 去除多余空格
-2. 将整个字符串逆序
-3. 将每个单词逆序
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
     def reverseWords(self, s):
-        # 去掉多余的空格
-        lis = []
-        for letter in s:
-            if letter == ' ':
-                if lis and lis[-1] != ' ':
-                    lis.append(letter)
-            else:
-                lis.append(letter)
-        if lis and lis[-1] == ' ':
-            lis.pop(-1)
-
-        # 先全体逆置一下
-        self.reverse(lis, 0, len(lis)-1)
-
-        # 再逐个单词逆置
-        start = end = 0
-        while end < len(lis):
-            while end < len(lis) and lis[end] != ' ':
-                end += 1
-            self.reverse(lis, start, end-1)
-            start = end = end + 1
-
-        return ''.join(lis)
-
-    def reverse(self, lis, left, right):
-        while left < right:
-            lis[left], lis[right] = lis[right], lis[left]
-            left += 1
-            right -= 1
+        """
+        :type s: str
+        :rtype: str
+        """
+        return " ".join(s.split()[::-1])
 ```
 
 #### [152. 乘积最大子数组](https://leetcode-cn.com/problems/maximum-product-subarray/)
