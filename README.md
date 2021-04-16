@@ -1621,6 +1621,27 @@ class Solution(object):
         return rst
 ```
 
+#### [55. 跳跃游戏](https://leetcode-cn.com/problems/jump-game/)
+
+##### 最简题解 [Python击败97%，看不懂你锤我](https://leetcode-cn.com/problems/jump-game/solution/pythonji-bai-97kan-bu-dong-ni-chui-wo-by-mo-lan-4/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        most_right = 0
+        for i in range(len(nums)-1):
+            if most_right < i:
+                break
+            most_right = max(most_right, i + nums[i])
+        return len(nums)-1 <= most_right
+```
+
 #### [56. 合并区间](https://leetcode-cn.com/problems/merge-intervals/)
 
 ##### 最简题解 [合并区间]([56. 合并区间](https://leetcode-cn.com/problems/merge-intervals/))
