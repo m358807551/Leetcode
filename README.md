@@ -3511,6 +3511,30 @@ class Solution(object):
         return dp[1][0][1]
 ```
 
+#### [122. 买卖股票的最佳时机 II](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/)
+
+##### 最简题解
+
+```
+只要今天价格比昨天高，就赚差价。
+```
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def maxProfit(self, prices):
+        """
+        :type prices: List[int]
+        :rtype: int
+        """
+        rst = 0
+        for i in range(1, len(prices)):
+            if prices[i] > prices[i-1]:
+                rst += prices[i] - prices[i-1]
+        return rst
+```
+
 #### [123. 买卖股票的最佳时机 III](https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-iii/)
 
 ##### 题解
