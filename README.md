@@ -1307,6 +1307,28 @@ class Solution(object):
         return dp[m][n]
 ```
 
+#### [45. 跳跃游戏 II](https://leetcode-cn.com/problems/jump-game-ii/)
+
+##### 最简题解 [详细通俗的思路分析，多解法](https://leetcode-cn.com/problems/jump-game-ii/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by-10/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def jump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        rst, end, most_right = 0, 0, 0
+        for i in range(len(nums)-1):
+            most_right = max(most_right, i + nums[i])
+            if i == end:
+                end = most_right
+                rst += 1
+        return rst
+```
+
 #### [46. 全排列](https://leetcode-cn.com/problems/permutations/)
 
 ##### 题解
