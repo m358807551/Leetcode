@@ -3861,13 +3861,9 @@ class Solution(object):
 
 #### [136. 只出现一次的数字](https://leetcode-cn.com/problems/single-number/)
 
-##### 题解
+##### 最简题解 [只出现一次的数字](https://leetcode-cn.com/problems/single-number/solution/zhi-chu-xian-yi-ci-de-shu-zi-by-leetcode-solution/)
 
-```
-数组中所有数字做异或操作，最终得到一个数就是答案
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
