@@ -2325,6 +2325,25 @@ class Solution(object):
             trace.pop(-1)
 ```
 
+#### [78. 子集](https://leetcode-cn.com/problems/subsets/)
+
+##### 最简题解 [回溯算法](https://leetcode-cn.com/problems/subsets/solution/hui-su-suan-fa-by-powcai-5/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        rst = [[]]
+        for num in nums:
+            rst.extend([x+[num] for x in rst])
+        return rst
+```
+
 #### [79. 单词搜索](https://leetcode-cn.com/problems/word-search/)
 
 ##### 题解
