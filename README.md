@@ -3749,6 +3749,31 @@ class Solution(object):
         return 0
 ```
 
+#### [128. 最长连续序列](https://leetcode-cn.com/problems/longest-consecutive-sequence/)
+
+##### 最简题解 [最长连续序列](https://leetcode-cn.com/problems/longest-consecutive-sequence/solution/zui-chang-lian-xu-xu-lie-by-leetcode-solution/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        rst = 0
+        nums = set(nums)
+        for num in nums:
+            if num-1 in nums:
+                continue
+            cur = num
+            while cur in nums:
+                cur += 1
+            rst = max(rst, cur-num)
+        return rst
+```
+
 #### [129. 求根节点到叶节点数字之和](https://leetcode-cn.com/problems/sum-root-to-leaf-numbers/)
 
 ##### 题解
@@ -3775,6 +3800,44 @@ class Solution(object):
             self.backtrace(num * 10 + root.val, root.left)
         if root.right:
             self.backtrace(num * 10 + root.val, root.right)
+```
+
+#### [130. 被围绕的区域](https://leetcode-cn.com/problems/surrounded-regions/)
+
+##### 最简题解 [bfs+递归dfs+非递归dfs+并查集](https://leetcode-cn.com/problems/surrounded-regions/solution/bfsdi-gui-dfsfei-di-gui-dfsbing-cha-ji-by-ac_pipe/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def solve(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: None Do not return anything, modify board in-place instead.
+        """
+        m, n = len(board), len(board[0])
+        for i in range(m):
+            self.bfs(board, i, 0)
+            self.bfs(board, i, n-1)
+        
+        for j in range(n):
+            self.bfs(board, 0, j)
+            self.bfs(board, m-1, j)
+        
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == "O":
+                    board[i][j] = "X"
+                elif board[i][j] == "A":
+                    board[i][j] = "O"
+    
+    def bfs(self, board, i, j):
+        if (0 <= i < len(board)) and (0 <= j < len(board[0])) and (board[i][j] == "O"):
+            board[i][j] = "A"
+            self.bfs(board, i-1, j)
+            self.bfs(board, i+1, j)
+            self.bfs(board, i, j-1)
+            self.bfs(board, i, j+1)
 ```
 
 #### [131. 分割回文串](https://leetcode-cn.com/problems/palindrome-partitioning/)
@@ -4904,13 +4967,13 @@ class Solution(object):
 
 #### [187. 重复的DNA序列](https://leetcode-cn.com/problems/repeated-dna-sequences/)
 
-##### 题解
+##### 最简题解
 
 ```
 用字典记录下所有长度为10的子串出现的次数。
 ```
 
-##### 代码
+##### 最简代码
 
 ```python
 from collections import defaultdict
@@ -5013,13 +5076,13 @@ class Solution:
 
 #### [190. 颠倒二进制位](https://leetcode-cn.com/problems/reverse-bits/)
 
-##### 题解
+##### 最简题解
 
 ```
 每次取个位数字，连取32次。
 ```
 
-##### 代码
+##### 最简代码
 
 ```python
 class Solution:
@@ -5028,7 +5091,7 @@ class Solution:
     def reverseBits(self, n):
         rst = 0
         for _ in range(32):
-            rst = (rst << 1) + (n & 1)
+            rst = (rst << 1) | (n & 1)
 #             print(rst)
             n = n >> 1
         return rst
@@ -5036,13 +5099,13 @@ class Solution:
 
 #### [191. 位1的个数](https://leetcode-cn.com/problems/number-of-1-bits/)
 
-##### 题解
+##### 最简题解
 
 ```
 判断个位数是不是1，重复很多次。
 ```
 
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
