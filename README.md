@@ -1600,6 +1600,29 @@ class Solution(object):
         return True
 ```
 
+#### [53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
+
+##### 最简题解 [【Dp思路】子序列类问题的通解](https://leetcode-cn.com/problems/maximum-subarray/solution/dpsi-lu-zi-xu-lie-lei-wen-ti-de-tong-jie-de8x/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        rst = float("-inf")
+        t = 0
+        for num in nums:
+            t += num
+            rst = max(rst, t)
+            if t < 0:
+                t = 0
+        return rst
+```
+
 #### [54. 螺旋矩阵](https://leetcode-cn.com/problems/spiral-matrix/)
 
 ##### 最简题解 [展开"蛋糕卷"](https://leetcode-cn.com/problems/spiral-matrix/solution/zhan-kai-dan-gao-juan-by-nanaglutamate-dc7u/)
