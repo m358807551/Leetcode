@@ -5183,13 +5183,13 @@ class Solution(object):
 
 #### [200. 岛屿数量](https://leetcode-cn.com/problems/number-of-islands/)
 
-##### 题解
+##### [200. 岛屿数量（DFS / BFS）](https://leetcode-cn.com/problems/number-of-islands/solution/number-of-islands-shen-du-you-xian-bian-li-dfs-or-/)
 
 ```
 广度搜索。
 ```
 
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
@@ -5198,21 +5198,20 @@ class Solution(object):
         :type grid: List[List[str]]
         :rtype: int
         """
+        rst = 0
         m, n = len(grid), len(grid[0])
-        k = 0
-        
         for i in range(m):
             for j in range(n):
-                if self.bfs(grid, i, j):
-                    k += 1
-        
-        return k
+                if grid[i][j] == "1":
+                    rst += 1
+                    self.bfs(grid, i, j, rst)
+        return rst
     
-    def bfs(self, grid, i, j):
-        if grid[i][j] == "1":
-            grid[i][j] = '9'
-            for (r, c) in [(i+1, j), (i-1, j), (i, j+1), (i, j-1)]:
-                if 0 <= r < len(grid) and (0 <= c < len(grid[0])):
-                    self.bfs(grid, r, c)
-            return True
+    def bfs(self, grid, i, j, x):
+        if (0<=i<len(grid)) and (0<=j<len(grid[0])) and (grid[i][j] == "1"):
+            grid[i][j] = x
+            self.bfs(grid, i+1, j, x)
+            self.bfs(grid, i-1, j, x)
+            self.bfs(grid, i, j+1, x)
+            self.bfs(grid, i, j-1, x)
 ```
