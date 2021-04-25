@@ -4819,33 +4819,26 @@ class Solution(object):
 
 #### [169. 多数元素](https://leetcode-cn.com/problems/majority-element/)
 
-##### 题解
+##### 最简题解 [摩尔投票法](https://leetcode-cn.com/problems/majority-element/solution/mo-er-tou-piao-fa-by-wo-yao-chu-qu-luan-tn5kg/)
 
-```
-开始结果为空
-遍历每个数字：
-    结果为空：结果=此数字
-    此数字跟结果相同，加一条命；
-    此数字跟结果不同，减一条命；减到命为0了就把结果置空。
-最终结果就是答案。
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
     def majorityElement(self, nums):
-        rst, life = None, 0
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        rst, count = None, 0
         for num in nums:
-            if rst is None:
-                rst = num
-                life = 1
-            elif rst == num:
-                life += 1
+            if rst == num:
+                count += 1
             else:
-                life -= 1
-                if life == 0:
-                    rst = None
+                count -= 1
+                if count < 0:
+                    count = 1
+                    rst = num
         return rst
 ```
 
