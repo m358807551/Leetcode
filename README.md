@@ -4279,7 +4279,7 @@ class Solution(object):
 
 #### [146. LRU 缓存机制](https://leetcode-cn.com/problems/lru-cache/)
 
-##### 题解
+##### 最简题解
 
 ```
 需要一个双链表和一个字典。
@@ -4297,7 +4297,7 @@ class Solution(object):
 put和get操作结束前，只要key在字典中，就把该key对应的节点放在链表头
 ```
 
-##### 代码
+##### 最简代码
 
 ```python
 class Node(object):
