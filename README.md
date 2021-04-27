@@ -47,27 +47,30 @@ class Solution(object):
 
 #### [3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/)
 
-##### 题解
+##### 最简题解 [画解算法：3. 无重复字符的最长子串](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters/solution/hua-jie-suan-fa-3-wu-zhong-fu-zi-fu-de-zui-chang-z/)
 
-```
-遍历每个字符：
-	要是这个字符没在队列中，就在队列中加入这个字符。
-  要是这个字符在队列中，就在队列里把这个字符之前的部分都砍掉
-在这个过程中，队列的最大长度就是答案。
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 class Solution(object):
     def lengthOfLongestSubstring(self, s):
-        rst = 0
-        queue = []
-        for letter in s:
-            while letter in queue:
-                queue.pop(0)
-            queue.append(letter)
-            rst = max(rst, len(queue))
+        """
+        :type s: str
+        :rtype: int
+        """
+        rst, i, j = 0, 0, 0
+        set_ = set()
+        while True:
+            while j < len(s) and (s[j] not in set_):
+                set_.add(s[j])
+                j += 1
+            rst = max(rst, j - i)
+            if j == len(s):
+                break
+                
+            while s[j] in set_:
+                set_.remove(s[i])
+                i += 1
         return rst
 ```
 
