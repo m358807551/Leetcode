@@ -4885,13 +4885,13 @@ class Solution(object):
 
 #### [173. 二叉搜索树迭代器](https://leetcode-cn.com/problems/binary-search-tree-iterator/)
 
-##### 题解
+##### 最简题解
 
 ```
 直接把中序遍历的结果存到数组里，再依次输出。
 ```
 
-##### 代码
+##### 最简代码
 
 ```python
 class BSTIterator(object):
@@ -4901,29 +4901,31 @@ class BSTIterator(object):
         :type root: TreeNode
         """
         self.vals = []
-        self.stack = [root]
-        while self.stack:
-            root = self.stack.pop(-1)
-            if isinstance(root, int):
-                self.vals.append(root)
-            elif isinstance(root, TreeNode):
-                self.stack.extend([root.right, root.val, root.left])
         self.i = 0
+        
+        stack = [root]
+        while stack:
+            x = stack.pop(-1)
+            if x is None:
+                continue
+            if isinstance(x, int):
+                self.vals.append(x)
+            else:
+                stack.extend([x.right, x.val, x.left])
 
     def next(self):
         """
         :rtype: int
         """
-        rst = self.vals[self.i]
         self.i += 1
-        return rst
+        return self.vals[self.i-1]
 
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        return self.i != len(self.vals)
+        return self.i < len(self.vals)
 ```
 
 #### [174. 地下城游戏](https://leetcode-cn.com/problems/dungeon-game/submissions/)
