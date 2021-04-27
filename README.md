@@ -4586,16 +4586,9 @@ class Solution(object):
 
 #### [155. 最小栈](https://leetcode-cn.com/problems/min-stack/)
 
-##### 题解
+##### 最简题解 [最小栈 （辅助栈法，清晰图解）](https://leetcode-cn.com/problems/min-stack/solution/min-stack-fu-zhu-stackfa-by-jin407891080/)
 
-```
-需要一个正常栈和一个辅助栈。
-出栈时，两个栈都正常出栈操作。
-入栈时，正常栈正常入栈，辅助栈将要入栈的元素和辅助栈顶元素做比较，选小的入栈。
-根据以上规矩，辅助栈顶永远是最小的元素。
-```
-
-##### 代码
+##### 最简代码
 
 ```python
 class MinStack(object):
