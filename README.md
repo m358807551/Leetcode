@@ -2317,6 +2317,46 @@ class Solution(object):
                 break
 ```
 
+#### [76. 最小覆盖子串](https://leetcode-cn.com/problems/minimum-window-substring/)
+
+##### 最简题解 [c++ 滑动窗口-z](https://leetcode-cn.com/problems/minimum-window-substring/solution/c-hua-dong-chuang-kou-z-by-zrita-g9bg/)
+
+##### 最简代码
+
+```python
+from collections import Counter, defaultdict
+
+class Solution(object):
+    def minWindow(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: str
+        """
+        x, y = 0, 0
+        count_t = Counter(t)
+        d = defaultdict(int)
+        need = set(count_t.keys())
+        
+        i, j = 0, 0
+        while j < len(s):
+            while j < len(s) and need:
+                letter = s[j]
+                j += 1
+                d[letter] += 1
+                if d[letter] >= count_t[letter]:
+                    need -= {letter}
+            while (i < j) and (not need):
+                letter = s[i]
+                i += 1
+                d[letter] -= 1
+                if (letter in count_t) and (d[letter] < count_t[letter]):
+                    if (j-(i-1) < y -x) or (x == y == 0):
+                        x, y = i-1, j
+                    need.add(letter)
+        return s[x:y]
+```
+
 #### [77. 组合](https://leetcode-cn.com/problems/combinations/)
 
 ##### 题解
