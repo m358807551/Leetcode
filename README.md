@@ -2943,6 +2943,36 @@ class Solution(object):
         return rst
 ```
 
+#### [95. 不同的二叉搜索树 II](https://leetcode-cn.com/problems/unique-binary-search-trees-ii/)
+
+##### 最简题解 [简单思路，C++递归](https://leetcode-cn.com/problems/unique-binary-search-trees-ii/solution/jian-dan-si-lu-cdi-gui-by-doctor_arknigh-2mjv/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def generateTrees(self, n):
+        """
+        :type n: int
+        :rtype: List[TreeNode]
+        """
+        return self.res(1, n)
+    
+    def res(self, left, right):
+        if left > right:
+            return [None]
+        elif left == right:
+            return [TreeNode(left)]
+        rst = []
+        for i in range(left, right+1):
+            left_nodes = self.res(left, i-1)
+            right_nodes = self.res(i+1, right)
+            for a in left_nodes:
+                for b in right_nodes:
+                    rst.append(TreeNode(i, a, b))
+        return rst
+```
+
 #### [97. 交错字符串](https://leetcode-cn.com/problems/interleaving-string/)
 
 ##### 题解
