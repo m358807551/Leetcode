@@ -2973,6 +2973,26 @@ class Solution(object):
         return rst
 ```
 
+#### [96. 不同的二叉搜索树](https://leetcode-cn.com/problems/unique-binary-search-trees/)
+
+##### 最简题解 [96. 不同的二叉搜索树，动态规划](https://leetcode-cn.com/problems/unique-binary-search-trees/solution/96-bu-tong-de-er-cha-sou-suo-shu-dong-ta-hiz1/)
+
+##### 最简代码
+
+```python
+class Solution(object):
+    def numTrees(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        dp = [1] + [0] * n
+        for i in range(1, n+1):
+            for j in range(1, i+1):
+                dp[i] += dp[j-1] * dp[i-j]
+        return dp[-1]
+```
+
 #### [97. 交错字符串](https://leetcode-cn.com/problems/interleaving-string/)
 
 ##### 题解
